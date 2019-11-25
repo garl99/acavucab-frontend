@@ -1,1 +1,32 @@
-/* You can add global styles to this file, and also import other style files */
+.navbar{
+    background-color: rgb(42,41,40);
+    height: 60px;
+  }
+
+footer {
+    background-color: rgb(42, 41, 40);
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: white;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: orange;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
+    color: orange;
+    background-color: rgba(71, 71, 71, 0.829) ;
+    border-radius: 10px;
+}
+
+.table .tbody th,
+.table .tbody td
+ {
+    border: 1px solid #000000;
+}

@@ -1,0 +1,13 @@
+.list-group a{
+    color: black;
+}
+
+.list-group a:hover{
+    color: orange;
+    background-color: rgb(42,41,40);
+    text-decoration:none;
+}
+
+.card-title a{
+    text-decoration:none;
+}

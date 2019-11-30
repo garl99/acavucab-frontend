@@ -8,6 +8,14 @@ import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ProductsComponent } from './components/products/products.component';
+import { DOrdersComponent } from './components/d-orders/d-orders.component';
+import { ROrdersComponent } from './components/r-orders/r-orders.component';
+import { IOrdersComponent } from './components/i-orders/i-orders.component';
+import { BeersComponent } from './components/beers/beers.component';
+import { EmployeesComponent } from './components/employees/employees.component';
+import { JCustomersComponent } from './components/j-customers/j-customers.component';
+import { NCustomersComponent } from './components/n-customers/n-customers.component';
+import { SuppliersComponent } from './components/suppliers/suppliers.component';
 
 
 //GUARD
@@ -20,6 +28,14 @@ const appRoutes: Routes = [
     {path: 'dashboard', component: DashboardComponent},
     {path: 'cart', component: CartComponent},
     {path: 'all-products', component: ProductsComponent},
+    {path: 'd-orders', component: DOrdersComponent},
+    {path: 'r-orders', component: ROrdersComponent},
+    {path: 'i-orders', component: IOrdersComponent},
+    {path: 'beers', component: BeersComponent},
+    {path: 'employees', component: EmployeesComponent},
+    {path: 'j-customers', component: JCustomersComponent},
+    {path: 'n-customers', component: NCustomersComponent},
+    {path: 'suppliers', component: SuppliersComponent},
 
 
 ];

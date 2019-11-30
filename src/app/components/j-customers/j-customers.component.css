@@ -1,0 +1,9 @@
+.styles li a{
+    color: black;
+}
+
+.styles li a:hover{
+    text-decoration-line: underline;
+    text-decoration-color: black;
+    
+}

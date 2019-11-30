@@ -1,0 +1,411 @@
+<br><br><br>
+
+
+<div class="container">
+
+    <div>
+        <div class="row text-left mt-5">
+            <div class="col-5">
+                <h2 id="Encabezado">Clientes Juridicos</h2>
+                <a href="#" class="btn btn-primary ml-2" data-toggle="modal" data-target="#userModal">Agregar <i
+                        class="fas fa-plus-circle"></i></a>
+            </div>
+            <div class="col-7">
+                <div class="float-right">
+                    <ul class="nav justify-content-center styles">
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['/j-customers']">Clientes Juridicos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['/n-customers']">Clientes naturales</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" [routerLink]="['/suppliers']">Proveedores</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['/beers']">Cervezas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['/employees']">Empleados</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <hr id="HR">
+
+        <!-- Bookmark form -->
+        <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Nuevo Cliente Juridico</h4>
+                        <button type="button" class="close" data-dismiss="modal"><span
+                                aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                    </div>
+                    <div class="modal-body">
+
+                        <!--REVISAR AQUI LOS NG MODEL-->
+                        <form id="userForm">
+                            <p>Por favor, ingresa los datos solicitados.</p>
+                            <div class="form-group">
+                                <label for="url">Denominación comercial</label>
+                                <div class="input-group">
+                                    <input ng-model="user.PENDIENTE" id="url" class="form-control" type="url"
+                                        placeholder="Ingrese la denominación comercial">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="url">RIF</label>
+                                <div class="input-group">
+                                    <input ng-model="user.PENDIENTE" id="url" class="form-control" type="url"
+                                        placeholder="Ingrese el RIF">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="url">Telefonos</label>
+                                <div class="input-group">
+                                    <input ng-model="user.PENDIENTE" id="url" class="form-control" type="url"
+                                        placeholder="Ingrese los telefons">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="url">Personal de contacto</label>
+                                <div class="input-group">
+                                    <input ng-model="user.PENDIENTE" id="url" class="form-control" type="url"
+                                        placeholder="Ingrese el personal de contacto">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="url">Correo</label>
+                                <div class="input-group">
+                                    <input ng-model="user.PENDIENTE" id="url" class="form-control" type="url"
+                                        placeholder="Ingrese el correo">
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table #dataTable class="table table-bordered table-hover" style="background-color: #FDF4E3;">
+            <thead class="thead" style="background-color: rgb(42, 41, 40); color: #FFFF;">
+                <tr class="text-center">
+                    <th scope="col">Razon social</th>
+                    <th scope="col">Denominacion comercial</th>
+                    <th scope="col">RIF</th>
+                    <th scope="col">Telefonos</th>
+                    <th scope="col">Personal contacto</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody class="tbody">
+                <tr class="text-center">
+                    <th scope="row">Mcdonalds</th>
+                    <td>Arcos de venezuela</td>
+                    <td>12435</td>
+                    <td>012453</td>
+                    <td>Daniel</td>
+                    <td>danda@sadjnaslk</td>
+                    <td>
+                        <div class="row">
+                            <div align="center" class="col-sm-4">
+                                <form action="#" method="POST">
+                                    <button type="submit" class="btn btn-primary"><i
+                                            class="fas fa-pencil-alt"></i></button>
+
+                                </form>
+
+                            </div>
+
+                            <div align="center" class="col-sm-4">
+                                <form action="#" method="POST">
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </td>
+
+                </tr>
+                <tr class="text-center">
+                    <th scope="row">Mcdonalds</th>
+                    <td>Arcos de venezuela</td>
+                    <td>12435</td>
+                    <td>012453</td>
+                    <td>Daniel</td>
+                    <td>danda@sadjnaslk</td>
+                    <td>
+                        <div class="row">
+                            <div align="center" class="col-sm-4">
+                                <form action="#" method="POST">
+                                    <button type="submit" class="btn btn-primary"><i
+                                            class="fas fa-pencil-alt"></i></button>
+
+                                </form>
+
+                            </div>
+
+                            <div align="center" class="col-sm-4">
+                                <form action="#" method="POST">
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </td>
+
+                </tr>
+                <tr class="text-center">
+                    <th scope="row">Mcdonalds</th>
+                    <td>Arcos de venezuela</td>
+                    <td>12435</td>
+                    <td>012453</td>
+                    <td>Daniel</td>
+                    <td>danda@sadjnaslk</td>
+                    <td>
+                        <div class="row">
+                            <div align="center" class="col-sm-4">
+                                <form action="#" method="POST">
+                                    <button type="submit" class="btn btn-primary"><i
+                                            class="fas fa-pencil-alt"></i></button>
+
+                                </form>
+
+                            </div>
+
+                            <div align="center" class="col-sm-4">
+                                <form action="#" method="POST">
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </td>
+
+                </tr>
+                <tr class="text-center">
+                    <th scope="row">Mcdonalds</th>
+                    <td>Arcos de venezuela</td>
+                    <td>12435</td>
+                    <td>012453</td>
+                    <td>Daniel</td>
+                    <td>danda@sadjnaslk</td>
+                    <td>
+                        <div class="row">
+                            <div align="center" class="col-sm-4">
+                                <form action="#" method="POST">
+                                    <button type="submit" class="btn btn-primary"><i
+                                            class="fas fa-pencil-alt"></i></button>
+
+                                </form>
+
+                            </div>
+
+                            <div align="center" class="col-sm-4">
+                                <form action="#" method="POST">
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </td>
+
+                </tr>
+                <tr class="text-center">
+                    <th scope="row">Mcdonalds</th>
+                    <td>Arcos de venezuela</td>
+                    <td>12435</td>
+                    <td>012453</td>
+                    <td>Daniel</td>
+                    <td>danda@sadjnaslk</td>
+                    <td>
+                        <div class="row">
+                            <div align="center" class="col-sm-4">
+                                <form action="#" method="POST">
+                                    <button type="submit" class="btn btn-primary"><i
+                                            class="fas fa-pencil-alt"></i></button>
+
+                                </form>
+
+                            </div>
+
+                            <div align="center" class="col-sm-4">
+                                <form action="#" method="POST">
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </td>
+
+                </tr>
+                <tr class="text-center">
+                    <th scope="row">Mcdonalds</th>
+                    <td>Arcos de venezuela</td>
+                    <td>12435</td>
+                    <td>012453</td>
+                    <td>Daniel</td>
+                    <td>danda@sadjnaslk</td>
+                    <td>
+                        <div class="row">
+                            <div align="center" class="col-sm-4">
+                                <form action="#" method="POST">
+                                    <button type="submit" class="btn btn-primary"><i
+                                            class="fas fa-pencil-alt"></i></button>
+
+                                </form>
+
+                            </div>
+
+                            <div align="center" class="col-sm-4">
+                                <form action="#" method="POST">
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </td>
+
+                </tr>
+                <tr class="text-center">
+                    <th scope="row">Mcdonalds</th>
+                    <td>Arcos de venezuela</td>
+                    <td>12435</td>
+                    <td>012453</td>
+                    <td>Daniel</td>
+                    <td>danda@sadjnaslk</td>
+                    <td>
+                        <div class="row">
+                            <div align="center" class="col-sm-4">
+                                <form action="#" method="POST">
+                                    <button type="submit" class="btn btn-primary"><i
+                                            class="fas fa-pencil-alt"></i></button>
+
+                                </form>
+
+                            </div>
+
+                            <div align="center" class="col-sm-4">
+                                <form action="#" method="POST">
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </td>
+
+                </tr>
+                <tr class="text-center">
+                    <th scope="row">Mcdonalds</th>
+                    <td>Arcos de venezuela</td>
+                    <td>12435</td>
+                    <td>012453</td>
+                    <td>Daniel</td>
+                    <td>danda@sadjnaslk</td>
+                    <td>
+                        <div class="row">
+                            <div align="center" class="col-sm-4">
+                                <form action="#" method="POST">
+                                    <button type="submit" class="btn btn-primary"><i
+                                            class="fas fa-pencil-alt"></i></button>
+
+                                </form>
+
+                            </div>
+
+                            <div align="center" class="col-sm-4">
+                                <form action="#" method="POST">
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </td>
+
+                </tr>
+                <tr class="text-center">
+                    <th scope="row">Mcdonalds</th>
+                    <td>Arcos de venezuela</td>
+                    <td>12435</td>
+                    <td>012453</td>
+                    <td>Daniel</td>
+                    <td>danda@sadjnaslk</td>
+                    <td>
+                        <div class="row">
+                            <div align="center" class="col-sm-4">
+                                <form action="#" method="POST">
+                                    <button type="submit" class="btn btn-primary"><i
+                                            class="fas fa-pencil-alt"></i></button>
+
+                                </form>
+
+                            </div>
+
+                            <div align="center" class="col-sm-4">
+                                <form action="#" method="POST">
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </td>
+
+                </tr>
+                <tr class="text-center">
+                    <th scope="row">Mcdonalds</th>
+                    <td>Arcos de venezuela</td>
+                    <td>12435</td>
+                    <td>012453</td>
+                    <td>Daniel</td>
+                    <td>danda@sadjnaslk</td>
+                    <td>
+                        <div class="row">
+                            <div align="center" class="col-sm-4">
+                                <form action="#" method="POST">
+                                    <button type="submit" class="btn btn-primary"><i
+                                            class="fas fa-pencil-alt"></i></button>
+
+                                </form>
+
+                            </div>
+
+                            <div align="center" class="col-sm-4">
+                                <form action="#" method="POST">
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </div>

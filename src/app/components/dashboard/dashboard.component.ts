@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as $ from "jquery";
-
-declare var toggled: any;
+declare var $;
 
 @Component({
   selector: 'app-dashboard',
@@ -18,8 +16,6 @@ export class DashboardComponent implements OnInit {
   action(){
     $("body").toggleClass("sidebar-toggled");
     $(".sidebar").toggleClass("toggled");
-    console.log('hola');
-
   }
 
 }

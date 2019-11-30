@@ -1,21 +1,15 @@
 body {
-    background-image: url(./assets/img/fondo.jpg);
+    background: rgb(237, 234, 230);
+    background: linear-gradient(0deg, rgba(237, 234, 230, 1) 14%, rgba(253, 205, 45, 1) 100%);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-  }
+}
 
 .navbar{
     background-color: rgb(42,41,40);
     height: 60px;
   }
-
-footer {
-    background-color: rgb(42, 41, 40);
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
-}
 
 .navbar-nav .nav-item .nav-link {
     color: white;
@@ -37,3 +31,5 @@ footer {
  {
     border: 1px solid #000000;
 }
+
+

@@ -1,43 +1,136 @@
 <body>
-  
 
-<div class="container-fluid">
-  <nav class="navbar navbar-expand-lg fixed-top">
-    <a href="#" class="navbar-brand">
-      <img src="../assets/img/ARTESANALES_opt.png" width="50" height="50" class="d-inline-block align-top" alt="">
-      <a class="navbar-brand text-white" href="#">
-        <h5 class="ml-3 mt-2">ACAVUCAB</h5>
+
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <a href="#" class="navbar-brand">
+        <img src="../assets/img/ARTESANALES_opt.png" width="50" height="50" class="d-inline-block align-top" alt="">
+        <a class="navbar-brand text-white" href="#">
+          <h5 class="ml-3 mt-2">ACAVUCAB</h5>
+        </a>
       </a>
-    </a>
 
-    <!-- Navbar -->
-    <div class="collapse navbar-collapse">
+      <!-- Navbar -->
+      <div class="collapse navbar-collapse">
 
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item ">
-          <a href="#" class="nav-link">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">Misión</a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">¿Quiénes somos?</a>
-        </li>
-        <li class="nav-item">
-          <a [routerLink]="['/login']" class="nav-link">Iniciar sesión</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</div>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item ">
+            <a href="#" class="nav-link">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">Misión</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">¿Quiénes somos?</a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['/login']" class="nav-link">Iniciar sesión</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
 
   <!--CONTENIDO-->
   <router-outlet></router-outlet>
 
 
-<footer class="text-center text-white py-2 mt-3">
-  <p> Copyright &copy; ACAVUCAB 2019-2020 <i class="fab fa-instagram ml-3"></i> <i class="fab fa-twitter ml-3"></i> <i
-      class="fab fa-google ml-3"></i></p>
-</footer>
+    <!-- Footer -->
+  <footer class="page-footer font-small unique-color-dark mt-5" style=" color: white;">
+
+    <!-- Footer Links -->
+    <div class="container-fluid text-center text-md-left  py-3 color">
+
+      <!-- Grid row -->
+      <div class="row mt-3">
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+
+          <!-- Content -->
+          <h3>ACAVUCAB</h3>
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+
+          <!-- Links -->
+          <h6 class="text-uppercase font-weight-bold " style="color: orange;">Contenido</h6>
+
+          <p>
+            <a>Productos</a>
+          </p>
+          <p>
+            <a>Proveedores</a>
+          </p>
+          <p>
+            <a>Eventos</a>
+          </p>
+          <p>
+            <a>Ofertas</a>
+          </p>
+
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+          <!-- Links -->
+          <h6 class="text-uppercase font-weight-bold" style="color: orange;">Equipo</h6>
+
+          <p>
+            <a>Alexandra Fernandez</a>
+          </p>
+          <p>
+            <a>Gabriel Romero</a>
+          </p>
+          <p>
+            <a>Daniel Diaz</a>
+          </p>
+          <p>
+            <a><i class="fab fa-laravel ml-3"></i> <i class="fab fa-angular ml-3"></i></a>
+          </p>
+
+
+        </div>
+        <!-- Grid column -->
+
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+
+          <!-- Links -->
+          <h6 class="text-uppercase font-weight-bold" style="color: orange;">Contacto</h6>
+
+          <p>
+            <i class="fas fa-home"></i> New York, NY 10012, US
+          </p>
+          <p>
+            <i class="fas fa-envelope"></i> info@example.com
+          </p>
+          <p>
+            <i class="fas fa-phone"></i> + 01 234 567 88
+          </p>
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
+    </div>
+    <!-- Footer Links -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3" style="background-color: #E1DED9; color: black;">© 2020 Copyright
+      ACAVUCAB,inc
+      <button type="button" class="btn btn-primary btn-circle ml-1"><i class="fab fa-instagram"></i> </button>
+      <button type="button" class="btn btn-info btn-circle ml-1 "><i class="fab fa-twitter"></i> </button>
+      <button type="button" class="btn btn-danger btn-circle ml-1"><i class="fab fa-google"></i> </button></div>
+    <!-- Copyright -->
+
+  </footer>
+  <!-- Footer -->
 
 </body>

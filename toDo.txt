@@ -1,0 +1,14 @@
+Cambios por hacer:
+
+style="margin-bottom: 30px;  ----> En las etiqueta table en los componetes que tienen tablas.
+
+configurar los .ts que tienen tablas siguiendo el mismo patron de programacion del componente beers 
+(Tanto .html como .ts)
+
+
+
+
+
+Observaciones:
+
+Algunas librerias fueron instaladas, pero no se hizo uso de ellas de momento.

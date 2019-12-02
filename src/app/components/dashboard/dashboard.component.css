@@ -14,7 +14,7 @@
 .sidebar {
     width: 90px !important;
     background-color: #212529;
-    min-height: 100vh;
+    min-height: 90vh;
 }
 
 .sidebar .nav-item:last-child {

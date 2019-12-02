@@ -24,7 +24,8 @@ var idiom= {
     "buttons": {
         "copy": "Copiar",
         "colvis": "Visibilidad"
-    }
+    },
+    "searchPlaceholder": "nombre"
 }
 
 

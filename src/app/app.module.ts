@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { routing, appRoutingProviders} from './app.routing';
+import { DataTablesModule } from 'angular-datatables';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -48,7 +49,8 @@ import { BeersComponent } from './components/beers/beers.component';
   ],
   imports: [
     BrowserModule,
-    routing
+    routing,
+    DataTablesModule
   ],
   providers: [
     appRoutingProviders

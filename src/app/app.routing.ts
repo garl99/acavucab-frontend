@@ -18,14 +18,17 @@ import { NCustomersComponent } from './components/n-customers/n-customers.compon
 import { SuppliersComponent } from './components/suppliers/suppliers.component';
 
 
+
 //GUARD
+import { IdentityGuard } from './services/identity.guard';
+
 
 //DEFINIR RUTAS
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
     {path: 'home', component: HomeComponent},
     {path: 'login', component: LoginComponent},
-    {path: 'dashboard', component: DashboardComponent},
+    {path: 'dashboard', component: DashboardComponent, canActivate:[IdentityGuard]},
     {path: 'cart', component: CartComponent},
     {path: 'all-products', component: ProductsComponent},
     {path: 'd-orders', component: DOrdersComponent},

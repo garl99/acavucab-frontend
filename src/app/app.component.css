@@ -43,3 +43,7 @@ footer {
 footer .color{
   background-color: rgb(42, 41, 40);    
 }
+
+.dropdown-menu a:hover{
+  background-color: orange;
+}

@@ -9,16 +9,21 @@
                 <div class="card card-signin my-5 animated fadeInUp">
                     <div class="card-body">
                         <h5 class="card-title text-center">Inicio de Sesión</h5>
-                        <form class="form-signin">
+
+                        <form class="form-signin" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
                             <div class="form-label-group">
                                 <h6>Correo electronico</h6>
-                                <div class="input-group flex-nowrap">
+                                <div class=" form-group input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="addon-wrapping"><i
                                                 class="fas fa-user"></i></span>
                                     </div>
-                                    <input type="email" id="inputEmail" class="form-control" required autofocus
-                                        style="border-radius: 0.3rem;">
+                                    <input type="email" id="email" name="email" class="form-control" required autofocus
+                                        #email="ngModel" [(ngModel)]="auth.correo"
+                                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" >
+                                    <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">
+                                        correo electronico
+                                        no es valido</small>
                                     <label for="inputEmail"></label>
                                 </div>
                             </div>
@@ -30,7 +35,8 @@
                                         <span class="input-group-text" id="addon-wrapping"><i
                                                 class="fas fa-lock"></i></span>
                                     </div>
-                                    <input type="password" id="inputPassword" class="form-control" required
+                                    <input type="password" id="password" name="password" class="form-control"
+                                        #password="ngModel" [(ngModel)]="auth.contrasena" required
                                         style="border-radius: 0.3rem;">
                                     <label for="inputPassword"></label>
                                 </div>
@@ -39,6 +45,7 @@
                             <button class="btn btn-lg btn-warning btn-block text-uppercase" type="submit">
                                 Iniciar sesión
                             </button>
+
                         </form>
                     </div>
                 </div>

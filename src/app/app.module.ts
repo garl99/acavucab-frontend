@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { routing, appRoutingProviders} from './app.routing';
 import { DataTablesModule } from 'angular-datatables';
+import { FormsModule} from '@angular/forms';
+import { HttpClientModule} from '@angular/common/http'
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -23,6 +25,8 @@ import { NCustomersComponent } from './components/n-customers/n-customers.compon
 import { EmployeesComponent } from './components/employees/employees.component';
 import { SuppliersComponent } from './components/suppliers/suppliers.component';
 import { BeersComponent } from './components/beers/beers.component';
+import { AuthService } from './services/auth.service';
+import { IdentityGuard } from './services/identity.guard';
 
 @NgModule({
   declarations: [
@@ -50,11 +54,16 @@ import { BeersComponent } from './components/beers/beers.component';
   imports: [
     BrowserModule,
     routing,
-    DataTablesModule
+    DataTablesModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
-    appRoutingProviders
+    appRoutingProviders,
+    AuthService,
+    IdentityGuard
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

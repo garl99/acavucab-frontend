@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.logout();
   }
 
   onSubmit(form) {
@@ -71,6 +72,32 @@ export class LoginComponent implements OnInit {
         console.log(<any>error);
       }
 
+    );
+
+  }
+
+  logout() {
+
+    
+    this._route.params.subscribe(params => {
+
+      let logout = +params['sure'];
+
+
+      if (logout == 1) {
+
+        localStorage.removeItem('token');
+        localStorage.removeItem('identity');
+        this.token = null;
+        this.identity = null;
+
+        //REDICCIONAR A INICIO
+
+        this._router.navigate(['home']);
+
+      }
+
+    }
     );
 
   }

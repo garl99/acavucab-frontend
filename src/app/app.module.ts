@@ -27,6 +27,8 @@ import { SuppliersComponent } from './components/suppliers/suppliers.component';
 import { BeersComponent } from './components/beers/beers.component';
 import { AuthService } from './services/auth.service';
 import { IdentityGuard } from './services/identity.guard';
+import { LoginDisabled } from './services/login-disabled.guard';
+
 
 @NgModule({
   declarations: [
@@ -61,7 +63,8 @@ import { IdentityGuard } from './services/identity.guard';
   providers: [
     appRoutingProviders,
     AuthService,
-    IdentityGuard
+    IdentityGuard,
+    LoginDisabled
   ],
   bootstrap: [AppComponent]
 })

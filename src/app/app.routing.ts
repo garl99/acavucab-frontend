@@ -21,13 +21,15 @@ import { SuppliersComponent } from './components/suppliers/suppliers.component';
 
 //GUARD
 import { IdentityGuard } from './services/identity.guard';
+import { LoginDisabled } from './services/login-disabled.guard';
 
 
 //DEFINIR RUTAS
 const appRoutes: Routes = [
     {path: '', component: HomeComponent},
     {path: 'home', component: HomeComponent},
-    {path: 'login', component: LoginComponent},
+    {path: 'login', component: LoginComponent, canActivate:[LoginDisabled]},
+    {path: 'logout/:sure', component: LoginComponent},
     {path: 'dashboard', component: DashboardComponent, canActivate:[IdentityGuard]},
     {path: 'cart', component: CartComponent},
     {path: 'all-products', component: ProductsComponent},
@@ -39,6 +41,7 @@ const appRoutes: Routes = [
     {path: 'j-customers', component: JCustomersComponent},
     {path: 'n-customers', component: NCustomersComponent},
     {path: 'suppliers', component: SuppliersComponent},
+
 
 
 ];

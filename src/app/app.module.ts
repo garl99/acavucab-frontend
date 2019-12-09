@@ -28,6 +28,7 @@ import { BeersComponent } from './components/beers/beers.component';
 import { AuthService } from './services/auth.service';
 import { IdentityGuard } from './services/identity.guard';
 import { LoginDisabled } from './services/login-disabled.guard';
+import { BeerService } from './services/beer.service';
 
 
 @NgModule({
@@ -51,7 +52,7 @@ import { LoginDisabled } from './services/login-disabled.guard';
     NCustomersComponent,
     EmployeesComponent,
     SuppliersComponent,
-    BeersComponent
+    BeersComponent,
   ],
   imports: [
     BrowserModule,
@@ -64,7 +65,8 @@ import { LoginDisabled } from './services/login-disabled.guard';
     appRoutingProviders,
     AuthService,
     IdentityGuard,
-    LoginDisabled
+    LoginDisabled,
+    BeerService
   ],
   bootstrap: [AppComponent]
 })

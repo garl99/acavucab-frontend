@@ -29,6 +29,7 @@ import { AuthService } from './services/auth.service';
 import { IdentityGuard } from './services/identity.guard';
 import { LoginDisabled } from './services/login-disabled.guard';
 import { BeerService } from './services/beer.service';
+import { QuoteService } from './services/quote.service';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import { BeerService } from './services/beer.service';
     AuthService,
     IdentityGuard,
     LoginDisabled,
-    BeerService
+    BeerService,
+    QuoteService
   ],
   bootstrap: [AppComponent]
 })

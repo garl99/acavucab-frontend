@@ -23,6 +23,7 @@ import { SuppliersComponent } from './components/suppliers/suppliers.component';
 import { IdentityGuard } from './services/identity.guard';
 import { LoginDisabled } from './services/login-disabled.guard';
 import { ProductComponent } from './components/product/product.component';
+import { QuoteComponent } from './components/quote/quote.component';
 
 
 //DEFINIR RUTAS
@@ -43,6 +44,7 @@ const appRoutes: Routes = [
     {path: 'n-customers', component: NCustomersComponent},
     {path: 'suppliers', component: SuppliersComponent},
     {path: 'product/:id', component: ProductComponent},
+    {path: 'dashboard/quote', component: QuoteComponent},
 
 
 

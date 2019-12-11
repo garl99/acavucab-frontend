@@ -8,11 +8,10 @@
 
     <!-- Contenido -->
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
-        aria-hidden="true">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header" style="background-color:#269ECE;" >
+                <div class="modal-header" style="background-color:#269ECE;">
                     <h4 class="modal-title" id="myModalLabel"></h4>
                     <button type="button" class="close" data-dismiss="modal"><span
                             aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -95,16 +94,18 @@
                 </nav>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-3" style="background-color: white;">
                 <h5 class="text-center py-3">Resumen</h5>
                 <p class="text-justify" *ngFor="let beer of jsonArray">
-                    cerveza: {{beer.nombre}} , cant: {{beer.cantidad_cervezas}} </p>
-                    
-                <hr>
-                <h5>TOTAL= Bs.S {{total}}</h5>
+                    #{{beer.id}} cerveza: {{beer.nombre}} , cant: {{beer.cantidad_cervezas}} </p>
 
-                <div class="py-5">
-                    <button type="button" class="btn btn-warning btn-sm btn-block" (click)="reserve()">Reservar</button>
+               
+
+
+                <div class="py-5" style="position: absolute; bottom: 0; right: 0; left: 0;">
+                    <hr>
+                    <h5>TOTAL= Bs.S {{total}}</h5>
+                    <button  type="button" class="btn btn-warning btn-sm btn-block w-100" (click)="reserve()">Reservar</button>
                 </div>
             </div>
         </div>

@@ -24,6 +24,7 @@ import { IdentityGuard } from './services/identity.guard';
 import { LoginDisabled } from './services/login-disabled.guard';
 import { ProductComponent } from './components/product/product.component';
 import { QuoteComponent } from './components/quote/quote.component';
+import { CarnetComponent } from './reports/carnet/carnet.component';
 
 
 //DEFINIR RUTAS
@@ -45,6 +46,8 @@ const appRoutes: Routes = [
     {path: 'suppliers', component: SuppliersComponent},
     {path: 'product/:id', component: ProductComponent},
     {path: 'dashboard/quote', component: QuoteComponent},
+    {path: 'dashboard/carnet/:id', component: CarnetComponent},
+
 
 
 

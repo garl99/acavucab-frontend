@@ -1,0 +1,60 @@
+<br><br><br>
+
+<body>
+
+    <div class="my_id py-3 my-5">
+
+        <h1 align="center" style=" color:black; font-family: 'Shrikhand', cursive;">ACAVUCAB</h1>
+
+        <img class="img_circle py-3" src="{{url + 'qr-carnet/' + identity.id}}" style="margin-left: 70px;"><br>
+        <table width="100%" *ngIf="data_carnet">
+            <tr>
+                <th>
+                    <p align="right">N° identificador:</p>
+                </th>
+                <td>
+                    <p>{{data_carnet.identificador}}</p>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p align="right">Nombre:</p>
+                </th>
+                <td>
+                    <p>{{data_carnet.nombre}}</p>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p align="right">Apellido:</p>
+                </th>
+                <td>
+                    <p>{{data_carnet.apellido}}</p>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p align="right">Tipo de cliente:</p>
+                </th>
+                <td>
+                    <p>{{data_carnet.cliente}}</p>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <p align="right">RIF:</p>
+                </th>
+                <td>
+                    <p>{{data_carnet.rif}}</p>
+                </td>
+            </tr>
+        </table>
+        <br>
+
+        <div align="center" class="address"><b>Dirección:</b>
+            <p> Final Av. Teherán, Urb. Montalbán, Caracas 1020 Apdo. 20.332, Venezuela </p>
+        </div>
+
+
+    </div>
+</body>

@@ -30,6 +30,7 @@ import { IdentityGuard } from './services/identity.guard';
 import { LoginDisabled } from './services/login-disabled.guard';
 import { BeerService } from './services/beer.service';
 import { QuoteService } from './services/quote.service';
+import { CarnetComponent } from './reports/carnet/carnet.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import { QuoteService } from './services/quote.service';
     EmployeesComponent,
     SuppliersComponent,
     BeersComponent,
+    CarnetComponent,
   ],
   imports: [
     BrowserModule,

@@ -29,6 +29,7 @@ import { AuthService } from './services/auth.service';
 import { IdentityGuard } from './services/identity.guard';
 import { LoginDisabled } from './services/login-disabled.guard';
 import { BeerService } from './services/beer.service';
+import { RegisterComponent } from './components/register/register.component';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { BeerService } from './services/beer.service';
     EmployeesComponent,
     SuppliersComponent,
     BeersComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

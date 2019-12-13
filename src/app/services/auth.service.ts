@@ -67,7 +67,7 @@ export class AuthService {
 
     let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
 
-    return this._http.get(this.url + 'data-carnet/'+id, { headers: headers });;
+    return this._http.get(this.url + 'data-carnet/'+id, { headers: headers });
 
   }
 
@@ -75,7 +75,7 @@ export class AuthService {
 
     let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
 
-    return this._http.get(this.url + 'qr-carnet/'+id, { headers: headers });;
+    return this._http.get(this.url + 'qr-carnet/'+id, { headers: headers });
 
   }
 

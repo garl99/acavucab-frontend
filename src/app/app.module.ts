@@ -31,6 +31,7 @@ import { LoginDisabled } from './services/login-disabled.guard';
 import { BeerService } from './services/beer.service';
 import { QuoteService } from './services/quote.service';
 import { CarnetComponent } from './reports/carnet/carnet.component';
+import { PlaceService } from './services/places.service';
 
 
 @NgModule({
@@ -70,7 +71,9 @@ import { CarnetComponent } from './reports/carnet/carnet.component';
     IdentityGuard,
     LoginDisabled,
     BeerService,
-    QuoteService
+    QuoteService,
+    PlaceService
+
   ],
   bootstrap: [AppComponent]
 })

@@ -47,6 +47,7 @@ const appRoutes: Routes = [
     {path: 'product/:id', component: ProductComponent},
     {path: 'dashboard/quote', component: QuoteComponent},
     {path: 'dashboard/carnet/:id', component: CarnetComponent},
+    {path: 'dashboard/profile/:sure', component: DashboardComponent}
 
 
 

@@ -9,12 +9,12 @@
 <div class="container">
     <div class="row py-5">
         <div class="col-md-9" id="items" *ngIf="items">
-            <div class="row py-3 mt-3"> <!-- *ngFor="let item of items"-->
+            <div class="row py-3 mt-3" *ngFor="let item of items | paginate: { itemsPerPage: 3, currentPage: p }">
                 <div class="col-sm-3">
                     <a href="#"><img class="card-img-top" src="http://placehold.it/100x100" alt=""></a>
                 </div>
                 <div class="col-sm-5">
-                    <h5>Cerveza 1</h5>
+                    <h5>{{item.fk_cerveza}}</h5>
                     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis repudiandae accusantium iure
                         delectus, amet pariatur aspernatur architecto dolores eum neque.</p>
                 </div>
@@ -35,21 +35,8 @@
                     <h5>Bs.2000</h5>
                 </div>
             </div>
-
-            <nav aria-label="...">
-                <br>
-                <br>
-                <ul class="pagination pagination-sm " style="position: absolute;bottom: 0%;right: 45%;">
-                    <li class="page-item active" aria-current="page">
-                        <span class="page-link">
-                            1
-                            <span class="sr-only">(current)</span>
-                        </span>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                </ul>
-            </nav>
+            <pagination-controls previousLabel="anterior" nextLabel="siguiente" (pageChange)="p = $event"
+                style="position: absolute;bottom: 0;right: 10%;"></pagination-controls>
         </div>
 
         <div class="col-md-3" id="overview" *ngIf="items">

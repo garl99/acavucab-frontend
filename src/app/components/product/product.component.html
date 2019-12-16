@@ -12,6 +12,59 @@
             </div>
             <!-- /.col-lg-8 -->
             <div class="col-lg-5" *ngIf="beer">
+                <div class="modal fade" id="PagoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color:#269ECE;">
+                                <h4 class="modal-title" id="myModalLabel">Elija el metodo de pago</h4>
+                                <button type="button" class="close" data-dismiss="modal"><span
+                                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Por favor, ingresa los datos solicitados.</p>
+                                <div class="form-group">
+                                    <label for="name">Formas de pago:  </label>
+
+                                    <select class="ml-3" id="#selectList3Type" #selectList3 (change)="optionSelectedType(selectList3.value)" *ngIf="credit_cards">
+                                        <option value="null ">Formas de pago</option>
+                                        <option value="Tarjeta de credito">Tarjeta de credito</option>
+                                        <option value="Tarjeta de debito">Tarjeta de debito</option>
+                                        <option value="Mis puntos">Mis puntos</option>
+                                    </select>
+
+                                    <select *ngIf="credit_cards && optionT==1" class="ml-3" id="#selectList3" #selectList3 (change)="optionSelectedM(selectList3.value,beer)">
+                                        <option value="null disabled">Tus tarjetas</option>
+                                        <option *ngFor="let card of credit_cards" value="{{ card | json }}">{{card.num_tarjeta}}</option>
+                                    </select>
+                                                            
+                                    <select *ngIf="debit_cards && optionT==2"class="ml-3" id="#selectList3" #selectList3 (change)="optionSelectedM(selectList3.value,beer)">
+                                        <option value="null" >Tus tarjetas</option>
+                                        <option *ngFor="let card of debit_cards" value="{{ card | json }}">{{card.num_tarjeta}}</option>
+                                    </select>
+
+                                    <small class="my-2" *ngIf="!credit_cards && (optionT==1)" class="invalid-feedback d-block">No posee tarjetas. Registre una tarjeta en su perfil</small>
+                                    <small class="my-2" *ngIf="!debit_cards && (optionT==2)" class="invalid-feedback d-block">No posee tarjetas. Registre una tarjeta en su perfil</small>
+                                    <div class="row">
+                                        <div class="col-sm-4 mt-2">
+                                            <label for="total">Total a pagar:  Bs.</label>
+                                        </div>
+                                        <div class="col-sm-2 mt-2">
+                                            <label id="price" for="name" style="position: absolute;margin-right: 0;"></label>
+                                        </div>
+                                        
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary" (click)="sell(beer)">Aceptar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <h1 class="font-weight-light">{{beer.nombre}}</h1>
                 <br>
                 <div class="row">
@@ -75,7 +128,7 @@
 
 
 
-                <button class="btn-primary btn-block" (click)="sell(beer)">Comprar</button>
+                <button class="btn-primary btn-block" (click)="openModal(beer)">Comprar</button>
 
                 <button class="btn-success btn-block" (click)="cart(beer)">Agregar al carrito</button>
 

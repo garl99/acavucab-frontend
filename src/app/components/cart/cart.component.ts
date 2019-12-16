@@ -9,7 +9,8 @@ import { AuthService } from '../../services/auth.service';
   providers: [CartService, AuthService]
 })
 export class CartComponent implements OnInit {
-
+  
+  p: number = 1;
   public items;
   public identity;
 

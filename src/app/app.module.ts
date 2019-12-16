@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { routing, appRoutingProviders} from './app.routing';
 import { DataTablesModule } from 'angular-datatables';
 import { FormsModule} from '@angular/forms';
-import { HttpClientModule} from '@angular/common/http'
+import { HttpClientModule} from '@angular/common/http';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -25,6 +26,8 @@ import { NCustomersComponent } from './components/n-customers/n-customers.compon
 import { EmployeesComponent } from './components/employees/employees.component';
 import { SuppliersComponent } from './components/suppliers/suppliers.component';
 import { BeersComponent } from './components/beers/beers.component';
+
+
 import { AuthService } from './services/auth.service';
 import { IdentityGuard } from './services/identity.guard';
 import { LoginDisabled } from './services/login-disabled.guard';
@@ -32,6 +35,7 @@ import { BeerService } from './services/beer.service';
 import { QuoteService } from './services/quote.service';
 import { CarnetComponent } from './reports/carnet/carnet.component';
 import { PlaceService } from './services/places.service';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 @NgModule({
@@ -57,13 +61,15 @@ import { PlaceService } from './services/places.service';
     SuppliersComponent,
     BeersComponent,
     CarnetComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
     routing,
     DataTablesModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPaginationModule
   ],
   providers: [
     appRoutingProviders,

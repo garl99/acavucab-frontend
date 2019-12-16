@@ -4,7 +4,8 @@ export class DataVenta{
         public id:number,
         public cantidad_cervezas: number,
         public rol:string,
-        public cliente_id:number
+        public cliente_id:number,
+        public pago: any,
     ){}
 
 }

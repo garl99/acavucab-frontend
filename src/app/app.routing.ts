@@ -5,6 +5,7 @@ import { Routes, RouterModule} from '@angular/router';
 //IMPORTAR COMPONENTES
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ProductsComponent } from './components/products/products.component';
@@ -32,6 +33,7 @@ const appRoutes: Routes = [
     {path: '', component: HomeComponent},
     {path: 'home', component: HomeComponent},
     {path: 'login', component: LoginComponent, canActivate:[LoginDisabled]},
+    {path: 'register-natural', component: RegisterComponent},
     {path: 'logout/:sure', component: LoginComponent},
     {path: 'dashboard', component: DashboardComponent, canActivate:[IdentityGuard]},
     {path: 'cart', component: CartComponent},

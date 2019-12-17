@@ -14,18 +14,25 @@ declare var $;
 export class DashboardComponent implements OnInit, DoCheck {
   public identity;
   public view_profile;
+  public role;
+
 
   constructor(private _authService: AuthService, private _router: Router,
-    private _route: ActivatedRoute) { }
+    private _route: ActivatedRoute) {
+    this.identity = this._authService.getIdentity();
+    this.role = this.identity.rol;
+  }
+
+
+  ngDoCheck() {
+    this.profile();
+  }
+
 
   ngOnInit() {
     this.identity = this._authService.getIdentity();
     this.view_profile = 0;
-
-  }
-
-  ngDoCheck() {
-    this.profile();
+    console.log(this.identity.rol);
 
   }
 
@@ -35,7 +42,9 @@ export class DashboardComponent implements OnInit, DoCheck {
   }
 
 
-   profile() {
+
+
+  profile() {
     this._route.params.subscribe(params => {
 
       let profile = +params['sure'];

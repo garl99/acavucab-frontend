@@ -32,6 +32,7 @@ import { AuthService } from './services/auth.service';
 import { IdentityGuard } from './services/identity.guard';
 import { LoginDisabled } from './services/login-disabled.guard';
 import { BeerService } from './services/beer.service';
+import { RegisterComponent } from './components/register/register.component';
 import { QuoteService } from './services/quote.service';
 import { CarnetComponent } from './reports/carnet/carnet.component';
 import { PlaceService } from './services/places.service';
@@ -62,6 +63,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     BeersComponent,
     CarnetComponent,
     ProfileComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

@@ -19,7 +19,7 @@ export class BeerService {
 
    return this._http.get(this.url+'get-cervezas',{headers:headers});
 
-  }
+  } 
 
   getBeer(id): Observable<any>{
 

@@ -40,20 +40,27 @@
                 </div>
             </li>-->
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['quote']">
+               <!-- <p *ngIf = "this.role == 'rol_clientej'"  class="invalid-feedback d-block">ay papa</p>-->
+                <div *ngIf = "(this.role == 'rol_clientej') || (this.role == 'rol_clienten')" >
+                    <a class="nav-link" [routerLink]="['quote']">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Presupuesto</span></a>
+                    <span>Presupuesto </span></a>
+                </div>    
             </li>
             <li class="nav-item">
-                <a class="nav-link" [routerLink]="['all-products']">
+                <div *ngIf = "(this.role == 'rol_clientej') || (this.role == 'rol_clienten')">
+                    <a class="nav-link" [routerLink]="['all-products']">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Comprar</span></a>
+                </div>    
             </li>
 
             <li class="nav-item">
+                <div *ngIf = "(this.role == 'rol_clientej') || (this.role == 'rol_clienten')">
                 <a class="nav-link" [routerLink]="['carnet', identity.id]">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Generar Carnet</span></a>
+                </div>    
             </li>
         </ul>
 

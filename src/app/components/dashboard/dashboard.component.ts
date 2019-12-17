@@ -11,12 +11,19 @@ declare var $;
 })
 export class DashboardComponent implements OnInit {
   public identity;
+  public role;
+
  
 
-  constructor(private _authService: AuthService) { }
+  constructor(private _authService: AuthService) {
+    this.identity = this._authService.getIdentity();
+    this.role = this.identity.rol;
+   }
+  
 
   ngOnInit() {
     this.identity = this._authService.getIdentity();
+    console.log(this.identity.rol);
   
   }
 
@@ -24,6 +31,9 @@ export class DashboardComponent implements OnInit {
     $("body").toggleClass("sidebar-toggled");
     $(".sidebar").toggleClass("toggled");
   }
+
+  
+  
 
 
 

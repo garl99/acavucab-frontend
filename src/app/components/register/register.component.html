@@ -155,64 +155,49 @@
 				</div>
 			</div>
 
-			<table class="table table-warning">
-				<thead class="thead">
-					<tr class="text-center">
-						<th scope="col">Nombre</th>
-						<th scope="col">Apellido</th>
-						<th scope="col">Cedula</th>
-						<th scope="col">Telefono</th>
-						<th scope="col">Correo Electronico</th>
-					</tr>
-				</thead>
-				<tbody class="text-center">
-					<tr>
-						<th scope="row">Mark</th>
-						<td>Otto</td>
-						<td>12435</td>
-						<td>012453</td>
-						<td>danda@sadjnaslk</td>
-						<td> <button type="button" class="btn btn-primary">Editar</button></td>
-						<td> <button type="button" class="btn btn-danger">Eliminar</button></td>
-					</tr>
-					<tr>
-						<th scope="row">Mark</th>
-						<td>Otto</td>
-						<td>12435</td>
-						<td>012453</td>
-						<td>danda@sadjnaslk</td>
-						<td> <button type="button" class="btn btn-primary">Editar</button></td>
-						<td> <button type="button" class="btn btn-danger">Eliminar</button></td>
-					</tr>
-					<tr>
-						<th scope="row">Mark</th>
-						<td>Otto</td>
-						<td>12435</td>
-						<td>012453</td>
-						<td>danda@sadjnaslk</td>
-						<td> <button type="button" class="btn btn-primary">Editar</button></td>
-						<td> <button type="button" class="btn btn-danger">Eliminar</button></td>
-					</tr>
-					<tr>
-						<th scope="row">Mark</th>
-						<td>Otto</td>
-						<td>12435</td>
-						<td>012453</td>
-						<td>danda@sadjnaslk</td>
-						<td> <button type="button" class="btn btn-primary">Editar</button></td>
-						<td> <button type="button" class="btn btn-danger">Eliminar</button></td>
-					</tr>
-					<tr>
-						<th scope="row">Mark</th>
-						<td>Otto</td>
-						<td>12435</td>
-						<td>012453</td>
-						<td>danda@sadjnaslk</td>
-						<td> <button type="button" class="btn btn-primary">Editar</button></td>
-						<td> <button type="button" class="btn btn-danger">Eliminar</button></td>
-					</tr>
-				</tbody>
-			</table>
+			<div class="container" style="margin-bottom: 30px;">
+
+
+				<table id="dataTable" #dataTable class="table table-bordered table-hover" style="background-color: #FDF4E3;">
+					<thead class="thead" style="background-color: rgb(42, 41, 40); color: #FFFF;">
+						<tr class="text-center">
+							<th scope="col">Nombre </th>
+							<th scope="col">Apellido</th>
+							<th scope="col">Cedula</th>
+							<th scope="col">Telefono</th>
+							<th scope="col">Correo</th>
+							<th scope="col">Acciones</th>
+		
+						</tr>
+					</thead>
+					<tbody class="tbody">
+						<tr *ngFor="let beer of data" class="text-center">
+							<th scope="row">{{beer.name}}</th>
+							<td>{{beer.type}}</td>
+							<td>{{beer.price}}</td>
+							<td>
+								<div class="row">
+									<div align="center" class="col-sm-4">
+										<form action="#" method="POST">
+											<a  class="btn btn-primary text-white" (click)="openModal(beer)" style="cursor: pointer;"><i
+													class="fas fa-pencil-alt"></i></a>
+										</form>
+		
+									</div>
+		
+									<div align="center" class="col-sm-4">
+										<form action="#" method="POST">
+											<button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+		
+										</form>
+									</div>
+		
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 
 <script src="js/jquery-3.3.1.js"></script>
 <script src="js/bootstrap.min.js"></script>

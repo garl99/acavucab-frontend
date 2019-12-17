@@ -82,7 +82,7 @@ export class BeersComponent implements OnInit {
       });
     }, 0);
 
-
+    
     console.log(this.data);
 
   }

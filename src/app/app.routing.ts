@@ -24,6 +24,8 @@ import { SuppliersComponent } from './components/suppliers/suppliers.component';
 import { IdentityGuard } from './services/identity.guard';
 import { LoginDisabled } from './services/login-disabled.guard';
 import { ProductComponent } from './components/product/product.component';
+import { QuoteComponent } from './components/quote/quote.component';
+import { CarnetComponent } from './reports/carnet/carnet.component';
 
 
 //DEFINIR RUTAS
@@ -31,7 +33,7 @@ const appRoutes: Routes = [
     {path: '', component: HomeComponent},
     {path: 'home', component: HomeComponent},
     {path: 'login', component: LoginComponent, canActivate:[LoginDisabled]},
-    {path: 'register', component: RegisterComponent},
+    {path: 'register-natural', component: RegisterComponent},
     {path: 'logout/:sure', component: LoginComponent},
     {path: 'dashboard', component: DashboardComponent, canActivate:[IdentityGuard]},
     {path: 'cart', component: CartComponent},
@@ -45,6 +47,9 @@ const appRoutes: Routes = [
     {path: 'n-customers', component: NCustomersComponent},
     {path: 'suppliers', component: SuppliersComponent},
     {path: 'product/:id', component: ProductComponent},
+    {path: 'dashboard/quote', component: QuoteComponent},
+    {path: 'dashboard/carnet/:id', component: CarnetComponent},
+
 
 
 

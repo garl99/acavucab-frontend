@@ -1,1 +1,114 @@
-<p>quote works!</p>
+<body>
+
+    <!-- Titulo -->
+    <div class="container mt-3 py-3">
+        <br><br><br>
+        <h1 class="text-center">Presupuesto</h1>
+    </div>
+
+    <!-- Contenido -->
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#269ECE;">
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+                    <button type="button" class="close" data-dismiss="modal"><span
+                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+
+                    <!--REVISAR AQUI LOS NG MODEL-->
+                    <form id="Form">
+                        <p>Por favor, ingresa los datos solicitados.</p>
+                        <div class="form-group">
+                            <label for="name">Cantidad</label>
+                            <div class="input-group">
+                                <input id="qty" class="form-control" type="text" placeholder="Ingrese la cantidad">
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" (click)="close()">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Buscar" style="width: 10px;">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary" type="button">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row py-5">
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 mb-4" *ngFor="let beer of beers">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="#" class="ml-2 p-2">{{beer.nombre}} </a>
+                                    <input id="check{{beer.id}}" type="checkbox" class="form-check-input ml-1 mt-2"
+                                        (click)="checkClick(beer)" style="cursor: pointer;">
+                                </h4>
+                                <div class="row">
+                                    <div class="col-sm-12 pl-3">
+                                        <h5 style="margin-left: 15px;display: inline;">Bs. </h5>
+                                        <h5 id="price" style="display: inline;">{{beer.precio_unitario}}</h5>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                </div>
+
+
+                <nav aria-label="...">
+                    <br>
+                    <br>
+                    <ul class="pagination pagination-sm " style="position: absolute;bottom: 0%;right: 45%;">
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">
+                                1
+                                <span class="sr-only">(current)</span>
+                            </span>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="col-md-3" style="background-color: white;">
+                <h5 class="text-center py-3">Resumen</h5>
+                <p class="text-justify" *ngFor="let beer of jsonArray">
+                    #{{beer.id}} cerveza: {{beer.nombre}} , cant: {{beer.cantidad_cervezas}} </p>
+
+               
+
+
+                <div class="py-5" style="position: absolute; bottom: 0; right: 0; left: 0;">
+                    <hr>
+                    <h5>TOTAL= Bs.S {{total}}</h5>
+                    <button  type="button" class="btn btn-warning btn-sm btn-block w-100" (click)="reserve()">Reservar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>

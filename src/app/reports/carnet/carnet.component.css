@@ -1,0 +1,27 @@
+body{  
+    width: 100%; 
+     height: auto; 
+    }  
+     .img_circle { 
+     width:150px; 
+    }
+     .my_id{
+     margin: 0 auto; 
+     padding-top: 5px; 
+     width: 300px; 
+     height:auto;  
+     border: 3px solid black; 
+     border-radius: 10px;
+     background: rgb(252, 243, 207);
+     background-size: cover; 
+    } 
+    table { 
+     font-size: 14px;
+    }
+     .address{ 
+     width: 100%; 
+     height: auto; 
+     background-color: #1c80a2; 
+     color: white; }tr p{ height: 2px;
+    }
+    

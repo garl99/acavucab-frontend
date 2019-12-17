@@ -8,60 +8,75 @@ import { global } from './global';
 
 export class AuthService {
   public url: string;
-  public token:string;
-  public identity:string;
-  
+  public token: string;
+  public identity: string;
 
-  constructor(public _http: HttpClient) { 
-    this.url=global.url;
+
+  constructor(public _http: HttpClient) {
+    this.url = global.url;
   }
 
-  signup(auth, getToken=null): Observable<any>{
+  signup(auth, getToken = null): Observable<any> {
 
-    if(getToken!=null){
-      auth.getToken='true';
-   }
-
-
-   let json=JSON.stringify(auth);
-
-   let params= 'json='+json;
-
-   let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
-
-   return this._http.post(this.url+'login',params,{headers:headers});
-
-  }
-
-  getIdentity(){
-
-    let identity=JSON.parse(localStorage.getItem('identity'));
-
-    if(identity && identity!='undefined'){
-        this.identity=identity;
+    if (getToken != null) {
+      auth.getToken = 'true';
     }
-    else{
-        this.identity=null;
+
+
+    let json = JSON.stringify(auth);
+
+    let params = 'json=' + json;
+
+    let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+
+    return this._http.post(this.url + 'login', params, { headers: headers });
+
+  }
+
+  getIdentity() {
+
+    let identity = JSON.parse(localStorage.getItem('identity'));
+
+    if (identity && identity != 'undefined') {
+      this.identity = identity;
+    }
+    else {
+      this.identity = null;
     }
 
     return this.identity;
 
-}
+  }
 
-getToken(){
+  getToken() {
 
-    let token=localStorage.getItem('token');
+    let token = localStorage.getItem('token');
 
-    if(token && token!='undefined'){
-        this.token=token;
+    if (token && token != 'undefined') {
+      this.token = token;
     }
-    else{
-        this.token=null;
+    else {
+      this.token = null;
     }
 
     return this.token;
 
-}
+  }
 
+  getDataCarnet(id): Observable<any> {
+
+    let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+
+    return this._http.get(this.url + 'data-carnet/'+id, { headers: headers });
+
+  }
+
+  getQR(id): Observable<any> {
+
+    let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+
+    return this._http.get(this.url + 'qr-carnet/'+id, { headers: headers });
+
+  }
 
 }

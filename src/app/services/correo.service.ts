@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Correo} from '../models/correo';
+import {Correo_electronico} from '../models/correo_electronico';
 import {global} from './global';
 
 @Injectable()

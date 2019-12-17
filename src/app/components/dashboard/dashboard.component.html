@@ -40,7 +40,7 @@
                 </div>
             </li>-->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" [routerLink]="['quote']">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Presupuesto</span></a>
             </li>
@@ -48,6 +48,12 @@
                 <a class="nav-link" [routerLink]="['all-products']">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Comprar</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['carnet', identity.id]">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Generar Carnet</span></a>
             </li>
         </ul>
 
@@ -86,6 +92,26 @@
                     <span class="sr-only">Next</span>
                 </a>
             </div>
+
+
+            <!--<select #selectList (change)="optionSelected(selectList.value)">
+                <option value="null" >Estado</option>
+                <option *ngFor="let state of states" value="{{ state | json }}">{{state.nombre}}</option>
+            </select>
+
+            <select #selectList2 (change)="optionSelected2(selectList2.value)">
+                <option value="null">Municipio</option>
+                <option *ngFor="let muni of munis" value="{{ muni | json }}">{{muni.nombre}}</option>
+            </select>
+
+            <select id="#selectList3" #selectList3 (change)="optionSelected3(selectList3.value)">
+                <option value="null" >Parroquia</option>
+                <option *ngFor="let parr of parrs" value="{{ parr | json }}">{{parr.nombre}}</option>
+            </select>-->
+
+
+
+
 
         </div>
 

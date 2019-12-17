@@ -8,34 +8,8 @@
 
 <div class="container">
     <div class="row py-5">
-        <div class="col-md-9" id="items">
-            <div class="row py-3 mt-3">
-                <div class="col-sm-3">
-                    <a href="#"><img class="card-img-top" src="http://placehold.it/100x100" alt=""></a>
-                </div>
-                <div class="col-sm-5">
-                    <h5>Cerveza 1</h5>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis repudiandae accusantium iure
-                        delectus, amet pariatur aspernatur architecto dolores eum neque.</p>
-                </div>
-                <div class="col-sm-2">
-                    <h5>Cantidad</h5>
-                    <div class="form-group">
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <h5>Precio</h5>
-                    <h5>Bs.2000</h5>
-                </div>
-            </div>
-            <div class="row py-3">
+        <div class="col-md-9" id="items" *ngIf="items">
+            <div class="row py-3 mt-3"> <!-- *ngFor="let item of items"-->
                 <div class="col-sm-3">
                     <a href="#"><img class="card-img-top" src="http://placehold.it/100x100" alt=""></a>
                 </div>
@@ -62,32 +36,6 @@
                 </div>
             </div>
 
-            <div class="row py-3">
-                <div class="col-sm-3">
-                    <a href="#"><img class="card-img-top" src="http://placehold.it/100x100" alt=""></a>
-                </div>
-                <div class="col-sm-5">
-                    <h5>Cerveza 1</h5>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis repudiandae accusantium iure
-                        delectus, amet pariatur aspernatur architecto dolores eum neque.</p>
-                </div>
-                <div class="col-sm-2">
-                    <h5>Cantidad</h5>
-                    <div class="form-group">
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <h5>Precio</h5>
-                    <h5>Bs.2000</h5>
-                </div>
-            </div>
             <nav aria-label="...">
                 <br>
                 <br>
@@ -104,7 +52,7 @@
             </nav>
         </div>
 
-        <div class="col-md-3" id="overview">
+        <div class="col-md-3" id="overview" *ngIf="items">
 
             <h5 class="text-center py-3 mt-4">Resumen carrito</h5>
 

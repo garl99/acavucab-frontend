@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form) {
+    console.log(this.auth);
     this._authService.signup(this.auth).subscribe(
       response => {
         if (response.status != 'error') {

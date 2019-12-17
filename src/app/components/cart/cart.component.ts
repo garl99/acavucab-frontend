@@ -154,7 +154,17 @@ export class CartComponent implements OnInit {
     console.log(json);
 
 
-    this._sellService.doSell2(data_venta);
+    this._sellService.doSell2(data_venta).subscribe(
+      response  =>  {
+        console.log(response);
+      },
+      error =>  {
+        console.log(<any>error);
+
+      }
+    );
+
+    $('#PagoModal').modal('hide');
 
   }
 

@@ -196,7 +196,7 @@ export class ProductComponent implements OnInit {
 
 
   cart(beer) {
-    //console.log(beer);
+    console.log(beer);
 
 
     let $qty = +($('#inputGroupSelect01').val());
@@ -204,6 +204,8 @@ export class ProductComponent implements OnInit {
     let data_venta = new DataVenta(beer.id, $qty, this.identity.rol, this.identity.id, null);  //data_carrito
 
 
+    console.log(JSON.stringify(data_venta));
+    
     this._cartService.addCart(data_venta).subscribe(
       response => {
         console.log(response);

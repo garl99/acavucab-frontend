@@ -19,8 +19,7 @@ export class DashboardComponent implements OnInit, DoCheck {
 
   constructor(private _authService: AuthService, private _router: Router,
     private _route: ActivatedRoute) {
-    this.identity = this._authService.getIdentity();
-    this.role = this.identity.rol;
+
   }
 
 
@@ -31,6 +30,7 @@ export class DashboardComponent implements OnInit, DoCheck {
 
   ngOnInit() {
     this.identity = this._authService.getIdentity();
+    this.role = this.identity.rol;
     this.view_profile = 0;
     console.log(this.identity.rol);
 

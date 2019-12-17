@@ -126,7 +126,7 @@ export class ProductComponent implements OnInit {
   }
 
   optionSelectedType(option) {
-    console.log(option);
+    //console.log(option);
     if (option == 'Tarjeta de credito') {
       this.optionT = 1;
     } else if (option == 'Tarjeta de debito') {
@@ -136,8 +136,8 @@ export class ProductComponent implements OnInit {
       this.optionT = 3;
     }
 
-    console.log(this.debit_cards);
-    console.log(this.credit_cards);
+    //console.log(this.debit_cards);
+    //console.log(this.credit_cards);
   }
 
 
@@ -165,12 +165,12 @@ export class ProductComponent implements OnInit {
       this.count = 1;
     }
 
-    console.log(this.methodP);
+    //console.log(this.methodP);
   }
 
   sell(beer) {
-    console.log(this.methodP);
-    console.log(beer.id);
+    //console.log(this.methodP);
+    //console.log(beer.id);
 
     let qty = +($('#inputGroupSelect01').val());
 
@@ -179,7 +179,7 @@ export class ProductComponent implements OnInit {
     let json = JSON.stringify(data_venta);
     console.log(json);
 
-    /*this._sellService.doSell(data_venta).subscribe(
+    this._sellService.doSell(data_venta).subscribe(
       response => {
         console.log(response);
       },
@@ -187,7 +187,8 @@ export class ProductComponent implements OnInit {
         console.log(<any>error);
 
       }
-    );*/
+    );
+    $('#PagoModal').modal('hide');
 
 
 
@@ -195,7 +196,7 @@ export class ProductComponent implements OnInit {
 
 
   cart(beer) {
-    console.log(beer);
+    //console.log(beer);
 
 
     let $qty = +($('#inputGroupSelect01').val());

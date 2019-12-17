@@ -19,24 +19,34 @@
             <li class="nav-item pt-3">
                 <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
+                    <span class="ml-2">Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['quote']">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Presupuesto</span></a>
+                    <span class="ml-2">Presupuesto</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['all-products']">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Comprar</span></a>
+                    <span class="ml-2">Comprar</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['carnet', identity.id]">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Generar Carnet</span></a>
+                    <i class="far fa-address-card"></i>
+                    <span class="ml-2">Generar Carnet</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['carnet', identity.id]">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="ml-2">Mis compras</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['carnet', identity.id]">
+                    <i class="fas fa-cash-register"></i>
+                    <span class="ml-2">Manejo de ventas</span></a>
             </li>
         </ul>
 

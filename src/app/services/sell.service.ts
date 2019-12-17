@@ -35,7 +35,7 @@ export class SellService {
 
         let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
 
-        return this._http.post(this.url + 'register-venta', params, { headers: headers });
+        return this._http.post(this.url + 'register-venta2', params, { headers: headers });
 
     }
 

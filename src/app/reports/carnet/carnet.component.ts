@@ -32,7 +32,7 @@ export class CarnetComponent implements OnInit {
 
     
     
-    this._authService.getDataCarnet(this.identity.id).subscribe(    //Validar aca
+    this._authService.getDataCarnet(this.identity.id,this.identity.rol).subscribe(    //Validar aca
       response=>{
         this.data_carnet=response.data_carnet;
       },

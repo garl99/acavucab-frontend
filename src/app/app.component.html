@@ -6,14 +6,14 @@
       <a href="#" class="navbar-brand">
         <img src="../assets/img/ARTESANALES_opt.png" width="50" height="50" class="d-inline-block align-top" alt="">
         <a class="navbar-brand text-white" href="#">
-          <h5 class="ml-3 mt-2">ACAVUCAB</h5>
+          <h5 class="ml-3 mt-2">ACAVUCAB (b)</h5>
         </a>
       </a>
 
       <!-- Navbar -->
       <div class="collapse navbar-collapse">
 
-        <ul class="navbar-nav ml-auto" >
+        <ul class="navbar-nav ml-auto">
           <li class="nav-item " *ngIf="!identity">
             <a href="/" class="nav-link">Inicio</a>
           </li>
@@ -27,29 +27,36 @@
             <a [routerLink]="['/login']" class="nav-link">Iniciar sesión</a>
           </li>
           <li class="nav-item dropdown" *ngIf="identity">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
               {{identity.primer_nombre}}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" [routerLink]="['dashboard']">Mi sesión</a>
+              <a class="dropdown-item" [routerLink]="['dashboard/profile/1']">Mi perfil</a>
               <a class="dropdown-item" [routerLink]="['/logout/1']">salir</a>
             </div>
           </li>
+          <li class="nav-item active" *ngIf="identity">
+            <a class="nav-link" [routerLink]="['/cart']"><img src="../assets/img/carrito.png" width="30" height="30"
+                class="d-inline-block align-top" alt="">
+            </a>
+          </li>
 
-          
+
         </ul>
       </div>
     </nav>
   </div>
 
   <!--CONTENIDO-->
-  
-    <router-outlet></router-outlet>
-  
-  
 
-  
-    <!-- Footer -->
+  <router-outlet></router-outlet>
+
+
+
+
+  <!-- Footer -->
   <footer class="page-footer font-small unique-color-dark" style=" color: white;">
 
     <!-- Footer Links -->

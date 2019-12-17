@@ -63,19 +63,19 @@ export class AuthService {
 
   }
 
-  getDataCarnet(id): Observable<any> {
+  getDataCarnet(id,rol): Observable<any> {
 
     let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
 
-    return this._http.get(this.url + 'data-carnet/'+id, { headers: headers });
+    return this._http.get(this.url + 'data-carnet/'+id+'/'+rol, { headers: headers });
 
   }
 
-  getQR(id): Observable<any> {
+  getQR(id,rol): Observable<any> {
 
     let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
 
-    return this._http.get(this.url + 'qr-carnet/'+id, { headers: headers });
+    return this._http.get(this.url + 'qr-carnet/'+id+'/'+rol, { headers: headers });
 
   }
 

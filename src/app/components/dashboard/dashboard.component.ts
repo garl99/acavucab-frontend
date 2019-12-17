@@ -1,25 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { PlaceService } from '../../services/places.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
+
 declare var $;
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  providers: [AuthService, PlaceService]
+  providers: [AuthService]
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, DoCheck {
   public identity;
-  public states;
-  public munis;
-  public parrs;
+  public view_profile;
 
-  constructor(private _authService: AuthService, private _placeService: PlaceService) { }
+  constructor(private _authService: AuthService, private _router: Router,
+    private _route: ActivatedRoute) { }
 
   ngOnInit() {
     this.identity = this._authService.getIdentity();
-    this.loadStates();
+    this.view_profile = 0;
+
+  }
+
+  ngDoCheck() {
+    this.profile();
 
   }
 
@@ -29,64 +35,21 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  loadStates() {
-    this._placeService.getStates().subscribe(     //validar aqui
+   profile() {
+    this._route.params.subscribe(params => {
 
-      response => {
-        this.states = response;
-        console.log('cargando estados de venezuela');
-      },
+      let profile = +params['sure'];
 
-      error => {
-        console.log(<any>error);
-
+      if (profile == 1) {
+        this.view_profile = 1;
       }
 
+    }
     );
 
 
   }
 
-  optionSelected(selectedVendor) {
-
-    this.parrs=null;
-    this.munis=null;
-    
-    let array=JSON.parse(selectedVendor);
-    this._placeService.getPlaces(array.id).subscribe(     //validar aqui
-
-      response => {
-        this.munis = response;      
-        console.log('cargando Municipio de estado seleccionado');
-
-      },
-
-      error => {
-        console.log(<any>error);
-
-      }
-
-    );
-  }
-
-  optionSelected2(selectedVendor) {
-    
-    let array=JSON.parse(selectedVendor);
-    this._placeService.getPlaces(array.id).subscribe(     //validar aqui
-
-      response => {
-        this.parrs = response;      
-        console.log('cargando Parroquias de Municipio seleccionado');
-
-      },
-
-      error => {
-        console.log(<any>error);
-
-      }
-
-    );
-  }
 
 
 }

@@ -9,6 +9,7 @@ import { BeerService} from '../../services/beer.service';
 })
 export class ProductsComponent implements OnInit {
   public beers;
+  p: number = 1;
 
   constructor(private _beerService:BeerService) { }
 

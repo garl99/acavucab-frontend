@@ -8,117 +8,140 @@
 
 <div class="container">
     <div class="row py-5">
-        <div class="col-md-9" id="items">
-            <div class="row py-3 mt-3">
-                <div class="col-sm-3">
-                    <a href="#"><img class="card-img-top" src="http://placehold.it/100x100" alt=""></a>
-                </div>
-                <div class="col-sm-5">
-                    <h5>Cerveza 1</h5>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis repudiandae accusantium iure
-                        delectus, amet pariatur aspernatur architecto dolores eum neque.</p>
-                </div>
-                <div class="col-sm-2">
-                    <h5>Cantidad</h5>
-                    <div class="form-group">
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <h5>Precio</h5>
-                    <h5>Bs.2000</h5>
-                </div>
-            </div>
-            <div class="row py-3">
-                <div class="col-sm-3">
-                    <a href="#"><img class="card-img-top" src="http://placehold.it/100x100" alt=""></a>
-                </div>
-                <div class="col-sm-5">
-                    <h5>Cerveza 1</h5>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis repudiandae accusantium iure
-                        delectus, amet pariatur aspernatur architecto dolores eum neque.</p>
-                </div>
-                <div class="col-sm-2">
-                    <h5>Cantidad</h5>
-                    <div class="form-group">
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-sm-2">
-                    <h5>Precio</h5>
-                    <h5>Bs.2000</h5>
-                </div>
-            </div>
+        <div class="col-md-9" id="items" *ngIf="items">
+            <div class="row py-3 mt-3" *ngFor="let item of items | paginate: { itemsPerPage: 3, currentPage: p }">
 
-            <div class="row py-3">
+                <div class="modal fade" id="PagoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color:#269ECE;">
+                                <h4 class="modal-title" id="myModalLabel">Elija el metodo de pago</h4>
+                                <button type="button" class="close" data-dismiss="modal"><span
+                                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Por favor, ingresa los datos solicitados.</p>
+                                <div class="form-group">
+                                    <label for="name">Formas de pago: </label>
+
+                                    <select class="ml-3" id="#selectList3Type" #selectList3
+                                        (change)="optionSelectedType(selectList3.value)" *ngIf="credit_cards">
+                                        <option value="null ">Formas de pago</option>
+                                        <option value="Tarjeta de credito">Tarjeta de credito</option>
+                                        <option value="Tarjeta de debito">Tarjeta de debito</option>
+                                        <option value="Mis puntos">Mis puntos</option>
+                                    </select>
+
+                                    <select *ngIf="credit_cards && optionT==1" class="ml-3" id="#selectList3"
+                                        #selectList3 (change)="optionSelectedM(selectList3.value,item)">
+                                        <option value="null disabled">Tus tarjetas</option>
+                                        <option *ngFor="let card of credit_cards" value="{{ card | json }}">
+                                            {{card.num_tarjeta}}</option>
+                                    </select>
+
+                                    <select *ngIf="debit_cards && optionT==2" class="ml-3" id="#selectList3"
+                                        #selectList3 (change)="optionSelectedM(selectList3.value,item)">
+                                        <option value="null">Tus tarjetas</option>
+                                        <option *ngFor="let card of debit_cards" value="{{ card | json }}">
+                                            {{card.num_tarjeta}}</option>
+                                    </select>
+
+                                    <small class="my-2" *ngIf="!credit_cards && (optionT==1)"
+                                        class="invalid-feedback d-block">No posee tarjetas. Registre una tarjeta en su
+                                        perfil</small>
+                                    <small class="my-2" *ngIf="!debit_cards && (optionT==2)"
+                                        class="invalid-feedback d-block">No posee tarjetas. Registre una tarjeta en su
+                                        perfil</small>
+                                    <div class="row">
+                                        <div class="col-sm-4 mt-2">
+                                            <label for="total">Total a pagar: Bs.</label>
+                                        </div>
+                                        <div class="col-sm-2 mt-2">
+                                            <label id="price" for="name"
+                                                style="position: absolute;margin-right: 0;"></label>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary" (click)="sell()">Aceptar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-sm-3">
                     <a href="#"><img class="card-img-top" src="http://placehold.it/100x100" alt=""></a>
                 </div>
                 <div class="col-sm-5">
-                    <h5>Cerveza 1</h5>
+                    <h5>{{item.cerveza}}</h5>
                     <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis repudiandae accusantium iure
                         delectus, amet pariatur aspernatur architecto dolores eum neque.</p>
                 </div>
                 <div class="col-sm-2">
                     <h5>Cantidad</h5>
-                    <div class="form-group">
-                        <select class="form-control" id="exampleFormControlSelect1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
+                    <h5>{{item.cantidad_cervezas}}</h5>
                 </div>
                 <div class="col-sm-2">
-                    <h5>Precio</h5>
-                    <h5>Bs.2000</h5>
+                    <h5>Precio(Bs)</h5>
+                    <h5>{{item.precio}}</h5>
                 </div>
             </div>
-            <nav aria-label="...">
-                <br>
-                <br>
-                <ul class="pagination pagination-sm " style="position: absolute;bottom: 0%;right: 45%;">
-                    <li class="page-item active" aria-current="page">
-                        <span class="page-link">
-                            1
-                            <span class="sr-only">(current)</span>
-                        </span>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                </ul>
-            </nav>
+            <pagination-controls previousLabel="anterior" nextLabel="siguiente" (pageChange)="p = $event"
+                style="position: absolute;bottom: 0;right: 10%;"></pagination-controls>
         </div>
 
-        <div class="col-md-3" id="overview">
+        <div class="div" *ngIf="!items">
+            <div class="row">
+                <div class="col-md-12">
+                    <small style="margin-left: 300px;" class="my-2"
+                    class="invalid-feedback d-block text-center">Aún no ha agregado nada al acarrito</small>
+                </div>
+            </div>
+
+        </div>
+        
+
+        <div class="col-md-3" id="overview" *ngIf="items">
 
             <h5 class="text-center py-3 mt-4">Resumen carrito</h5>
-
-            <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum enim hic
-                repellat necessitatibus vel modi! Sunt quia quos perspiciatis tempore fugit quasi culpa expedita
-                officia! Voluptas temporibus quisquam architecto dignissimos.</p>
-            <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum enim hic
-                repellat necessitatibus vel modi! Sunt quia quos perspiciatis tempore fugit quasi culpa expedita
-                officia! Voluptas temporibus quisquam architecto dignissimos.</p>
-            <hr>
-            <h5>TOTAL= Bs.S 10000</h5>
-
-            <div class="py-5">
-                <button type="button" class="btn btn-primary btn-sm btn-block">Proceso de pago</button>
+            <div class="row">
+                <div class="col-sm-4">
+                    <p style="font-weight: bold;" class="text-justify">nombre</p>
+                </div>
+                <div class="col-sm-4">
+                    <p style="font-weight: bold;" class="text-justify">cant</p>
+                </div>
+                <div class="col-sm-4">
+                    <p style="font-weight: bold;" class="text-justify">subtotal</p>
+                </div>
+            </div>
+            <div class="row" *ngFor="let item of items">
+                <div class="col-sm-4">
+                    <p class="text-justify"> {{item.cerveza }}</p>
+                </div>
+                <div class="col-sm-4">
+                    <p class="text-justify"> {{item.cantidad_cervezas}}</p>
+                </div>
+                <div class="col-sm-4">
+                    <p class="text-justify"> {{item.precio}}</p>
+                </div>
+            </div>
+            <div class="py-5" style="position: absolute; bottom: 0; padding-left: 30px;">
+                <hr>
+                <div class="row">
+                    <div class="col-md-7">
+                        <h5>TOTAL=Bs.</h5>
+                    </div>
+                    <div class="col-md-5">
+                        <h5>{{total}}</h5>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary btn-sm btn-block" (click)="openModal()">Proceso de pago</button>
             </div>
         </div>
     </div>

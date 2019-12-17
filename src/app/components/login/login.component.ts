@@ -31,19 +31,19 @@ export class LoginComponent implements OnInit {
   onSubmit(form) {
     this._authService.signup(this.auth).subscribe(
       response => {
-        if(response.status!='error'){
+        if (response.status != 'error') {
           this.status = 'success';
-          this.token=response;
+          this.token = response;
 
-          this._authService.signup(this.auth,true).subscribe(
+          this._authService.signup(this.auth, true).subscribe(
             response => {
-              this.identity=response;
+              this.identity = response;
               //console.log(this.identity);
               //console.log(this.token);
 
               //PERSISTIR DATOS DE USUARIO
-              localStorage.setItem('token',this.token);
-              localStorage.setItem('identity',JSON.stringify(this.identity));
+              localStorage.setItem('token', this.token);
+              localStorage.setItem('identity', JSON.stringify(this.identity));
 
               //REDICCIONAR A INICIO
 
@@ -54,18 +54,18 @@ export class LoginComponent implements OnInit {
               this.status = 'error';
               console.log(<any>error);
             }
-      
+
           );
 
 
 
         }
 
-        else{
+        else {
           this.status = 'error';
           console.log('Datos incorrectos');
         }
-        
+
       },
       error => {
         this.status = 'error';
@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit {
 
   logout() {
 
-    
+
     this._route.params.subscribe(params => {
 
       let logout = +params['sure'];

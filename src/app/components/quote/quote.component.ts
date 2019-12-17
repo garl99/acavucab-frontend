@@ -84,9 +84,9 @@ export class QuoteComponent implements OnInit {
 
     this.total = acu;
 
-    this.jsonArray.push({ cliente:this.identity.id,id: this.myBeer.id, nombre:this.myBeer.nombre, precio:this.myBeer.precio_unitario, cantidad_cervezas:qty});
+    this.jsonArray.push({ cliente:this.identity.id,rol:this.identity.rol,id: this.myBeer.id, nombre:this.myBeer.nombre, precio:this.myBeer.precio_unitario, cantidad_cervezas:qty});
     
-  
+    
 
   }
 

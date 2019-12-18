@@ -63,15 +63,23 @@
             </li>
 
             <li class="nav-item">
-                <div *ngIf="(this.role == 'rol_admin')">
+                <div >
                     <a class="nav-link" [routerLink]="['suppliers']">
-                        <i class="fas fa-cash-register"></i>
+                        <i class="fas fa-fw fa-folder"></i>
                         <span class="ml-2">Gestion de proveedores</span></a>
                 </div>
             </li>
 
+            <li class="nav-item">
+                <div>
+                    <a class="nav-link" [routerLink]="['beers']">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span class="ml-2">Gestion de cervezas</span></a>
+                </div>
+            </li>
+
             <li class="nav-item dropdown">
-                <div >
+                <div>
                     <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-fw fa-folder"></i>

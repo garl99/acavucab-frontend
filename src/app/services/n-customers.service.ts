@@ -23,6 +23,20 @@ export class CustomersNService {
         return this._http.get(this.url+'get-natural',{headers:headers})
     }
 
+    getCustomerj(): Observable<any>{
+
+        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+
+        return this._http.get(this.url+'get-juridico',{headers:headers})
+    }
+
+    getSuppliers(): Observable<any>{
+
+        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+
+        return this._http.get(this.url+'get-proveedor',{headers:headers})
+    }
+
     getPlaces(place): Observable<any>{
 
         let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');

@@ -34,7 +34,7 @@
     <hr id="HR">
 
     <!-- Bookmark form -->
-    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div id="modal" class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -47,60 +47,123 @@
                 <div class="modal-body">
 
                     <!--REVISAR AQUI LOS NG MODEL-->
-                    <form id="userForm">
+                    <form id="userForm" #Form="ngForm" (ngSubmit)="onSubmit(Form)" method="POST">
                         <p>Por favor, ingresa los datos solicitados.</p>
                         <div class="form-group">
-                            <label for="title">Nombre</label>
+                            <label for="rif">RIF</label>
                             <div class="input-group">
-                                <input ng-model="user.PENDIENTE" id="title" class="form-control" type="text"
-                                    placeholder="Ingrese el nombre">
+                                <input id="rif" class="form-control" type="text"
+                                    placeholder="Ingrese el RIF">
                             </div>
                         </div>
-
-                        <!--REVISAR AQUI LOS NG MODEL-->
                         <div class="form-group">
-                            <label for="url">Apellido</label>
+                            <label for="rif">Cedula</label>
                             <div class="input-group">
-                                <input ng-model="user.PENDIENTE" id="url" class="form-control" type="url"
-                                    placeholder="Ingrese el apellido">
+                                <input id="cedula" class="form-control" type="text"
+                                    placeholder="Ingrese el RIF">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="url">Cedula</label>
+                            <label for="primer_nombre">Primer nombre</label>
                             <div class="input-group">
-                                <input ng-model="user.PENDIENTE" id="url" class="form-control" type="url"
-                                    placeholder="Ingrese la cedula">
+                                <input  id="primer_nombre" class="form-control" type="text"
+                                    placeholder="Ingrese el primer nombre">
+                            </div>
+                        </div>
+
+                        
+                        <div class="form-group">
+                            <label for="segundo_nombre">Segundo nombre</label>
+                            <div class="input-group">
+                                <input id="segundo_nombre" class="form-control" type="text"
+                                    placeholder="Ingrese el segundo nombre">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="primer_apellido">Primer apellido</label>
+                            <div class="input-group">
+                                <input id="primer_apellido" class="form-control" type="text"
+                                    placeholder="Ingrese el primer apellido">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="segundo_apellido">Segundo apellido</label>
+                            <div class="input-group">
+                                <input id="segundo_apellido" class="form-control" type="text"
+                                    placeholder="Ingrese el segundo apellido" >
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label for="url">Telefono</label>
-                            <div class="input-group">
-                                <input ng-model="user.PENDIENTE" id="url" class="form-control" type="url"
-                                    placeholder="Ingrese el telefono">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="codigo">codigo de area</label>
+                                    <div class="input-group">
+                                        <input  id="clave_area" class="form-control" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="numero">numero</label>
+                                    <div class="input-group">
+                                        <input  id="numero" class="form-control" type="text" >
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
 
+                        
                         <div class="form-group">
-                            <label for="url">Correo electrónico</label>
+                            <label for="correo">Correo electronico:</label>
                             <div class="input-group">
-                                <input ng-model="user.PENDIENTE" id="url" class="form-control" type="url"
+                                <input id="correo" class="form-control" type="url"
                                     placeholder="Ingrese el correo">
                             </div>
                         </div>
-                    </form>
+                        <div class="form-group">
+                            <label for="url">Direccion Fisica: </label><br>
+                            <select #selectList (change)="optionSelected(selectList.value)">
+                                <option value="null">Estado</option>
+                                <option *ngFor="let state of states" value="{{ state | json }}">{{state.nombre}}
+                                </option>
+                            </select>
 
+                            <select #selectList2 (change)="optionSelected2(selectList2.value)">
+                                <option value="null">Municipio</option>
+                                <option *ngFor="let muni of munis" value="{{ muni | json }}">{{muni.nombre}}
+                                </option>
+                            </select>
+
+                            <select #selectList3 (change)="optionSelected3(selectList3.value)">
+                                <option value="null">Parroquia</option>
+                                <option *ngFor="let parr of parrs" value="{{ parr | json }}">{{parr.nombre}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="dir">Direccion completa:</label>
+                            <div class="input-group">
+                                <input  id="dir" class="form-control" type="text"
+                                    placeholder="Ingrese la direccion fisica completa">
+                            </div>
+                        </div>
+                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
+                            Registrar
+                        </button>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" (click)="create()">Guardar</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <table id="dataTable" #dataTable class="table table-bordered table-hover" style="background-color: #FDF4E3;margin-bottom: 30px;">
+    <table id="dataTable" #dataTable class="table table-bordered table-hover" style="margin-bottom: 30px;background-color: #FDF4E3;margin-bottom: 30px;">
         <thead class="thead" style="background-color: rgb(42, 41, 40); color: #FFFF;">
             <tr class="text-center">
                 <th scope="col">id</th>
@@ -114,12 +177,12 @@
         </thead>
         <tbody class="tbody">
             <tr *ngFor="let clienten of clientesn" class="text-center">
-                <th scope="row">{{clienten.id}</th>
-                <td>{{clienten.nombre}}</td>
-                <td>{{clienten.apellido}}</td>
+                <th scope="row">{{clienten.id}}</th>
+                <td>{{clienten.primer_nombre}}</td>
+                <td>{{clienten.primer_apellido}}</td>
                 <td>{{clienten.cedula}}</td>
                 <td>{{clienten.telefono}}</td>
-                <td>{{clienten.correoe}}</td>
+                <td>{{clienten.correo}}</td>
                 <td>
                     <div class="row">
                         <div align="center" class="col-sm-4">
@@ -132,7 +195,7 @@
 
                         <div align="center" class="col-sm-4">
                             <form action="#" method="POST">
-                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                <button type="submit" class="btn btn-danger" (click)="delete(clienten.id)"><i class="fas fa-trash"></i></button>
 
                             </form>
                         </div>

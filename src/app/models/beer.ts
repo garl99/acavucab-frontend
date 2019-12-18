@@ -7,3 +7,13 @@ export class Beer{
     ){}
 
 }
+
+export class Beer2{
+
+    constructor(
+        public nombre_tipo_c: string,
+        public nombre: string,
+        public precio_unitario_c:number
+    ){}
+
+}

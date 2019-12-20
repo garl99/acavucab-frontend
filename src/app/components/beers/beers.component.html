@@ -6,9 +6,15 @@
 
     <div class="row text-left mt-5">
         <div class="col-5">
-            <h2 id="Encabezado">Cervezas</h2>
-            <a href="#" class="btn btn-primary ml-2" data-toggle="modal" data-target="#userModal">Agregar <i
+            <div class="row">
+                <h2 id="Encabezado">Cervezas</h2>
+                <a id="hand" class="btn" (click)="updateDatable()"><i class="fas fa-sync-alt"></i></a>
+            </div>
+
+            <a href="#" class="btn btn-primary ml-2" data-toggle="modal" data-target="#beerModal">Agregar <i
                     class="fas fa-plus-circle"></i></a>
+
+
         </div>
         <div class="col-7 ">
             <div class="float-right ">
@@ -35,7 +41,7 @@
     <hr id="HR">
 
     <!-- Bookmark form -->
-    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div class="modal fade" id="beerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -47,19 +53,20 @@
                 <div class="modal-body">
 
                     <!--REVISAR AQUI LOS NG MODEL-->
-                    <form id="userForm" #Form="ngForm" (ngSubmit)="onSubmit(Form)" method="POST">
+                    <form id="CreateBeerForm" #Form="ngForm" (ngSubmit)="onSubmit(Form)" method="POST">
                         <p>Por favor, ingresa los datos solicitados.</p>
                         <div class="form-group">
                             <label for="name">Nombre cerveza</label>
                             <div class="input-group">
-                                <input  id="nombre" class="form-control" type="text"
+                                <input id="nombre" class="form-control" type="text"
                                     placeholder="Ingrese el nombre de la cerveza">
                             </div>
                         </div>
- 
+
                         <div class="form-group">
                             <label for="type">Tipo de cerveza</label>
-                            <select #selectList3 (change)="optionSelected3(selectList3.value)">
+                            <select id="select1" class="ml-2" #selectList3
+                                (change)="optionSelected3(selectList3.value)">
                                 <option value="null">Seleccionar..</option>
                                 <option *ngFor="let tipo of tipos" value="{{ tipo | json }}">{{tipo.nombre}}
                                 </option>
@@ -69,13 +76,12 @@
                         <div class="form-group">
                             <label for="price">Precio</label>
                             <div class="input-group">
-                                <input id="precio" class="form-control" type="text"
-                                    placeholder="Ingrese precio">
+                                <input id="precio" class="form-control" type="text" placeholder="Ingrese precio">
                             </div>
                         </div>
 
-                        
-                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
+
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">
                             Registrar
                         </button>
 
@@ -102,38 +108,42 @@
                 <div class="modal-body">
 
                     <!--REVISAR AQUI LOS NG MODEL-->
-                    <form id="userForm" #Form="ngForm" (ngSubmit)="onSubmit(Form)" method="POST">
+                    <form id="UpdateBeerForm" #Form="ngForm" (ngSubmit)="onSubmit(Form)" method="POST">
                         <p>Por favor, ingresa los datos solicitados.</p>
                         <div class="form-group">
                             <label for="name">Nombre cerveza</label>
                             <div class="input-group">
-                                <input ng-model="user.PENDIENTE" id="nameu" class="form-control" type="text"
+                                <input id="nameu" class="form-control" type="text"
                                     placeholder="Ingrese el nombre de la cerveza">
                             </div>
                         </div>
 
-                        <!--<div class="form-group">
+                        <div class="form-group">
                             <label for="type">Tipo de cerveza</label>
-                            <select #selectList3 (change)="optionSelected3(selectList3.value)">
+                            <select id="select2" class="ml-2" #selectList4
+                                (change)="optionSelected4(selectList4.value)">
                                 <option value="null">Seleccionar..</option>
-                                <option *ngFor="let tipo of tipos" value="{{ tipo | json }}">{{tipo.nombre}}
+                                <option *ngFor="let tipos of tipos2" value="{{ tipos | json }}">{{tipos.nombre}}
                                 </option>
                             </select>
-                        </div>-->
+                        </div>
 
 
                         <div class="form-group">
                             <label for="price">Precio</label>
                             <div class="input-group">
-                                <input id="priceu" class="form-control" type="text"
-                                    placeholder="Ingrese precio">
+                                <input id="priceu" class="form-control" type="text" placeholder="Ingrese precio">
                             </div>
                         </div>
 
-                        
+
                         <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
                             Registrar
                         </button>
+
+
+
+
                     </form>
 
                 </div>
@@ -153,6 +163,7 @@
                 <tr class="text-center">
                     <th scope="col">id</th>
                     <th scope="col">Nombre</th>
+                    <th scope="col">Tipo de cerveza</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Acciones</th>
 
@@ -162,29 +173,50 @@
                 <tr *ngFor="let beer of beers" class="text-center">
                     <th scope="row">{{beer.id}}</th>
                     <td>{{beer.nombre}}</td>
+                    <td>{{beer.tipoc}}</td>
                     <td>{{beer.precio_unitario}}</td>
                     <td>
                         <div class="row">
                             <div align="center" class="col-sm-4">
                                 <form action="#" method="POST">
-                                    <a  class="btn btn-primary text-white" (click)="openModal(beer)" style="cursor: pointer;"><i
-                                            class="fas fa-pencil-alt"></i></a>
+                                    <a class="btn btn-primary text-white" (click)="openModal(beer)"
+                                        style="cursor: pointer;"><i class="fas fa-pencil-alt"></i></a>
                                 </form>
 
                             </div>
 
                             <div align="center" class="col-sm-4">
                                 <form action="#" method="POST">
-                                    <button type="submit" class="btn btn-danger" (click)="delete(beer.id)"><i class="fas fa-trash"></i></button>
+                                    <button type="submit" class="btn btn-danger" (click)="openModalDelete()"><i
+                                            class="fas fa-trash"></i></button>
 
                                 </form>
                             </div>
 
                         </div>
                     </td>
+                    <div id="confirmation" class="modal" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="">
+                                    <h5 class="modal-title text-center py-3">Borrar cerveza</h5> <hr>
+                                    <img src="../../../assets/img/rusure.png" alt="" style="width: 50px;">
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Estas realmente seguro de borrar esta cerveza?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-danger" (click)="delete(beer.id)">Borrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </tr>
             </tbody>
         </table>
     </div>
 
 </div>
+
+<simple-notifications></simple-notifications>

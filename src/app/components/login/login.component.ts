@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Auth } from '../../models/auth';
 import { AuthService } from '../../services/auth.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { NotificationsService} from 'angular2-notifications';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [AuthService]
+  providers: [AuthService, NotificationsService]
 })
 export class LoginComponent implements OnInit {
 
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private _authService: AuthService,
     private _router: Router,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _service: NotificationsService
   ) {
     this.auth = new Auth('', '');
   }
@@ -29,16 +31,24 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(form) {
+    
     console.log(this.auth);
     this._authService.signup(this.auth).subscribe(
       response => {
         if (response.status != 'error') {
           this.status = 'success';
           this.token = response;
-
+          
+          this.loginSuccess();
           this._authService.signup(this.auth, true).subscribe(
             response => {
+              
               this.identity = response;
+              
+              if(this.status=='success'){
+               
+                console.log('entro');
+              }
               //console.log(this.identity);
               //console.log(this.token);
 
@@ -47,13 +57,15 @@ export class LoginComponent implements OnInit {
               localStorage.setItem('identity', JSON.stringify(this.identity));
 
               //REDICCIONAR A INICIO
-
+            
               this._router.navigate(['dashboard']);
+              
 
             },
             error => {
               this.status = 'error';
               console.log(<any>error);
+              this.loginError();
             }
 
           );
@@ -65,6 +77,8 @@ export class LoginComponent implements OnInit {
         else {
           this.status = 'error';
           console.log('Datos incorrectos');
+          this.loginError();
+
         }
 
       },
@@ -74,6 +88,8 @@ export class LoginComponent implements OnInit {
       }
 
     );
+
+
 
   }
 
@@ -101,6 +117,26 @@ export class LoginComponent implements OnInit {
     }
     );
 
+  }
+
+  loginSuccess(){
+    this._service.success('Datos correctos','Accediendo al sistema. Por favor, espere....',{
+      timeOut: 5000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
+  }
+
+  loginError(){
+    this._service.error('Datos incorrectos','Por favor, intente de nuevo',{
+      timeOut: 5000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
   }
 
 }

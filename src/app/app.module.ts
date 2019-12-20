@@ -5,6 +5,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { FormsModule} from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -26,6 +27,8 @@ import { NCustomersComponent } from './components/n-customers/n-customers.compon
 import { EmployeesComponent } from './components/employees/employees.component';
 import { SuppliersComponent } from './components/suppliers/suppliers.component';
 import { BeersComponent } from './components/beers/beers.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { CarnetComponent } from './reports/carnet/carnet.component';
 
 
 import { AuthService } from './services/auth.service';
@@ -33,9 +36,8 @@ import { IdentityGuard } from './services/identity.guard';
 import { LoginDisabled } from './services/login-disabled.guard';
 import { BeerService } from './services/beer.service';
 import { QuoteService } from './services/quote.service';
-import { CarnetComponent } from './reports/carnet/carnet.component';
 import { PlaceService } from './services/places.service';
-import { ProfileComponent } from './components/profile/profile.component';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 
 @NgModule({
@@ -69,7 +71,9 @@ import { ProfileComponent } from './components/profile/profile.component';
     DataTablesModule,
     FormsModule,
     HttpClientModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    BrowserAnimationsModule, 
+    SimpleNotificationsModule.forRoot()
   ],
   providers: [
     appRoutingProviders,

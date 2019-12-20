@@ -64,7 +64,7 @@ export class ServicioConTodoService {
         let params = 'json=' + json;
 
         let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded')
-                                       .set('Authorization', token);;
+                                       .set('Authorization', token);
 
         return this._http.post(this.url + 'register-cerveza', params, { headers: headers });
 
@@ -91,8 +91,9 @@ export class ServicioConTodoService {
 
     }
 
-    getdelete4(id): Observable<any>{
-        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+    getdelete4(id,token): Observable<any>{
+        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded')
+                                       .set('Authorization', token);;
 
         return this._http.delete(this.url+'delete-cerveza/'+id,{headers:headers})
 

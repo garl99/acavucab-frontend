@@ -23,7 +23,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <!-- <p *ngIf = "this.role == 'rol_clientej'"  class="invalid-feedback d-block">ay papa</p>-->
+                
                 <div *ngIf="(this.role == 'rol_clientej') || (this.role == 'rol_clienten')">
                     <a class="nav-link" [routerLink]="['quote']">
                         <i class="fas fa-fw fa-chart-area"></i>
@@ -47,7 +47,7 @@
             </li>
             <li class="nav-item">
                 <div *ngIf="(this.role == 'rol_clientej') || (this.role == 'rol_clienten')">
-                    <a class="nav-link" [routerLink]="['carnet', identity.id]">
+                    <a class="nav-link" [routerLink]="['/']">
                         <i class="fas fa-shopping-bag"></i>
                         <span class="ml-2">Mis compras</span></a>
                 </div>
@@ -55,7 +55,7 @@
 
 
             <li class="nav-item">
-                <div *ngIf="(this.role == 'rol_clientej') || (this.role == 'rol_clienten')">
+                <div *ngIf="(this.role == 'rol_cajera')">
                     <a class="nav-link" [routerLink]="['carnet', identity.id]">
                         <i class="fas fa-cash-register"></i>
                         <span class="ml-2">Manejo de ventas</span></a>
@@ -63,23 +63,27 @@
             </li>
 
             <li class="nav-item">
-                <div >
-                    <a class="nav-link" [routerLink]="['suppliers']">
-                        <i class="fas fa-fw fa-folder"></i>
-                        <span class="ml-2">Gestion de proveedores</span></a>
+                <div *ngIf="(this.role == 'rol_admin')">
+                    <div>
+                        <a class="nav-link" [routerLink]="['suppliers']">
+                            <i class="fas fa-fw fa-folder"></i>
+                            <span class="ml-2">Gestion de proveedores</span></a>
+                    </div>
                 </div>
             </li>
 
             <li class="nav-item">
-                <div>
-                    <a class="nav-link" [routerLink]="['beers']">
-                        <i class="fas fa-fw fa-folder"></i>
-                        <span class="ml-2">Gestion de cervezas</span></a>
+                <div *ngIf="(this.role == 'rol_proveedor')">
+                    <div>
+                        <a class="nav-link" [routerLink]="['beers']">
+                            <i class="fas fa-fw fa-folder"></i>
+                            <span class="ml-2">Gestion de cervezas</span></a>
+                    </div>
                 </div>
             </li>
 
             <li class="nav-item dropdown">
-                <div>
+                <div *ngIf="(this.role == 'rol_admin')">
                     <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-fw fa-folder"></i>

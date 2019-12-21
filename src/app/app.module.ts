@@ -38,6 +38,7 @@ import { BeerService } from './services/beer.service';
 import { QuoteService } from './services/quote.service';
 import { PlaceService } from './services/places.service';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { CRUDService } from './services/crud.service';
 
 
 @NgModule({
@@ -82,7 +83,8 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     LoginDisabled,
     BeerService,
     QuoteService,
-    PlaceService
+    PlaceService,
+    CRUDService
 
   ],
   bootstrap: [AppComponent]

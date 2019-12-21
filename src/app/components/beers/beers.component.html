@@ -68,7 +68,7 @@
                             <select id="select1" class="ml-2" #selectList3
                                 (change)="optionSelected3(selectList3.value)">
                                 <option value="null">Seleccionar..</option>
-                                <option *ngFor="let tipo of tipos" value="{{ tipo | json }}">{{tipo.nombre}}
+                                <option *ngFor="let type of typeBeerOptions" value="{{ type | json }}">{{type.nombre}}
                                 </option>
                             </select>
                         </div>
@@ -80,80 +80,19 @@
                             </div>
                         </div>
 
-
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">
+                        <hr>
+                        <button class="btn btn-warning btn-block text-uppercase" type="submit">
                             Registrar
                         </button>
 
                     </form>
 
                 </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" style="background-color:#269ECE;">
-                    <h4 class="modal-title" id="myModalLabel">Editar Cerveza</h4>
-                    <button type="button" class="close" data-dismiss="modal"><span
-                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                </div>
-                <div class="modal-body">
-
-                    <!--REVISAR AQUI LOS NG MODEL-->
-                    <form id="UpdateBeerForm" #Form="ngForm" (ngSubmit)="onSubmit(Form)" method="POST">
-                        <p>Por favor, ingresa los datos solicitados.</p>
-                        <div class="form-group">
-                            <label for="name">Nombre cerveza</label>
-                            <div class="input-group">
-                                <input id="nameu" class="form-control" type="text"
-                                    placeholder="Ingrese el nombre de la cerveza">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="type">Tipo de cerveza</label>
-                            <select id="select2" class="ml-2" #selectList4
-                                (change)="optionSelected4(selectList4.value)">
-                                <option value="null">Seleccionar..</option>
-                                <option *ngFor="let tipos of tipos2" value="{{ tipos | json }}">{{tipos.nombre}}
-                                </option>
-                            </select>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="price">Precio</label>
-                            <div class="input-group">
-                                <input id="priceu" class="form-control" type="text" placeholder="Ingrese precio">
-                            </div>
-                        </div>
-
-
-                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
-                            Registrar
-                        </button>
-
-
-
-
-                    </form>
-
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+        
 
     <div class="container" style="margin-bottom: 30px;">
 
@@ -170,11 +109,11 @@
                 </tr>
             </thead>
             <tbody class="tbody">
-                <tr *ngFor="let beer of beers" class="text-center">
-                    <th scope="row">{{beer.id}}</th>
-                    <td>{{beer.nombre}}</td>
-                    <td>{{beer.tipoc}}</td>
-                    <td>{{beer.precio_unitario}}</td>
+                <tr *ngFor="let beer of beers">
+                    <th class="text-center" scope="row">{{beer.id}}</th>
+                    <td class="text-center">{{beer.nombre}}</td>
+                    <td class="text-center">{{beer.tipoc}}</td>
+                    <td class="text-center">{{beer.precio_unitario}}</td>
                     <td>
                         <div class="row">
                             <div align="center" class="col-sm-4">
@@ -187,7 +126,7 @@
 
                             <div align="center" class="col-sm-4">
                                 <form action="#" method="POST">
-                                    <button type="submit" class="btn btn-danger" (click)="openModalDelete()"><i
+                                    <button type="submit" class="btn btn-danger" (click)="openModalDelete(beer.id)"><i
                                             class="fas fa-trash"></i></button>
 
                                 </form>
@@ -195,7 +134,58 @@
 
                         </div>
                     </td>
-                    <div id="confirmation" class="modal" tabindex="-1" role="dialog">
+
+                    <div class="modal fade" id="editModal{{beer.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color:#269ECE;">
+                                    <h4 class="modal-title" id="myModalLabel">Editar Cerveza</h4>
+                                    <button type="button" class="close" data-dismiss="modal"><span
+                                            aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <!--REVISAR AQUI LOS NG MODEL-->
+                                    <form id="UpdateBeerForm{{beer.id}}" #Form="ngForm" (ngSubmit)="update(Form,beer)" method="PUT">
+                                        <p>Por favor, ingresa los datos solicitados.</p>
+                                        <div class="form-group">
+                                            <label for="name">Nombre cerveza</label>
+                                            <div class="input-group">
+                                                <input id="nameu{{beer.id}}" class="form-control" type="text"
+                                                    placeholder="Ingrese el nombre de la cerveza">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="type">Tipo de cerveza</label>
+                                            <select id="select2{{beer.id}}" class="ml-2" #selectList4
+                                                (change)="optionSelected4(selectList4.value)">
+                                                <option value="{{ typeSelected | json }}">{{typeSelected[0].nombre}}</option>
+                                                <option *ngFor="let type of typeBeerOptions2" value="{{ type | json }}">{{type.nombre}}
+                                                </option>
+                                            </select>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="price">Precio</label>
+                                            <div class="input-group">
+                                                <input id="priceu{{beer.id}}" class="form-control" type="text" placeholder="Ingrese precio">
+                                            </div>
+                                        </div>
+
+
+                                        <button class="btn btn-primary btn-block text-uppercase" type="submit">
+                                            Actualizar
+                                        </button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="confirmation{{beer.id}}" class="modal text-center" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="">
@@ -204,6 +194,7 @@
                                 </div>
                                 <div class="modal-body">
                                     <p>¿Estas realmente seguro de borrar esta cerveza?</p>
+                                    <p>ALERTA: perdera cualquier información relacionada con esta cerveza</p>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

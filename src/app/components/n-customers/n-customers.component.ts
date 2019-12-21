@@ -4,14 +4,14 @@ import { CustomersNService } from '../../services/n-customers.service';
 import { AuthService } from '../../services/auth.service';
 import { PlaceService } from '../../services/places.service';
 import { CustomersN } from '../../models/n-customers';
-import { ServicioConTodoService } from 'src/app/services/serviciocontodo.service';
+import { CRUDService } from 'src/app/services/crud.service';
 declare var $;
 
 @Component({
   selector: 'app-n-customers',
   templateUrl: './n-customers.component.html',
   styleUrls: ['./n-customers.component.css'],
-  providers: [CustomersNService, AuthService, PlaceService, ServicioConTodoService]
+  providers: [CustomersNService, AuthService, PlaceService, CRUDService]
 })
 export class NCustomersComponent implements OnInit {
 
@@ -25,7 +25,7 @@ export class NCustomersComponent implements OnInit {
 
   constructor(private _customersNService: CustomersNService,
     private _placeService: PlaceService,
-    private _authService: AuthService,private _conto: ServicioConTodoService) {
+    private _authService: AuthService,private _crudService: CRUDService) {
    }
 
   ngOnInit() {
@@ -160,7 +160,7 @@ export class NCustomersComponent implements OnInit {
       console.log(JSON.stringify(data));
 
 
-      this._conto.registerNatural(data).subscribe(
+      this._crudService.registerNatural(data).subscribe(
         response  =>{
           console.log('Se agrego');
         },
@@ -174,7 +174,7 @@ export class NCustomersComponent implements OnInit {
 
 
     delete(id){
-      this._conto.getdelete1(id).subscribe(
+      this._crudService.getdelete1(id).subscribe(
         response  =>{
           console.log('Se elimino');
         },

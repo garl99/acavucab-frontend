@@ -70,8 +70,6 @@ export class LoginComponent implements OnInit {
 
           );
 
-
-
         }
 
         else {
@@ -88,8 +86,6 @@ export class LoginComponent implements OnInit {
       }
 
     );
-
-
 
   }
 

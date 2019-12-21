@@ -6,7 +6,7 @@ import { global } from './global';
 
 @Injectable()
 
-export class ServicioConTodoService {
+export class CRUDService {
     public url: string;
     public token: string;
     public identity: string;
@@ -14,13 +14,6 @@ export class ServicioConTodoService {
 
     constructor(public _http: HttpClient) {
         this.url = global.url;
-    }
-
-    getTypes(): Observable<any>{
-
-        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
-
-        return this._http.get(this.url+'get-tipoc',{headers:headers})
     }
 
 
@@ -73,21 +66,21 @@ export class ServicioConTodoService {
     getdelete1(id): Observable<any>{
         let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
 
-        return this._http.delete(this.url+'delete-natural/'+id,{headers:headers})
+        return this._http.delete(this.url+'delete-natural/'+id,{headers:headers});
 
     }
 
     getdelete2(id): Observable<any>{
         let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
 
-        return this._http.delete(this.url+'delete-juridico/'+id,{headers:headers})
+        return this._http.delete(this.url+'delete-juridico/'+id,{headers:headers});
 
     }
 
     getdelete3(id): Observable<any>{
         let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
 
-        return this._http.delete(this.url+'delete-proveedor/'+id,{headers:headers})
+        return this._http.delete(this.url+'delete-proveedor/'+id,{headers:headers});
 
     }
 
@@ -95,14 +88,22 @@ export class ServicioConTodoService {
         let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded')
                                        .set('Authorization', token);;
 
-        return this._http.delete(this.url+'delete-cerveza/'+id,{headers:headers})
+        return this._http.delete(this.url+'delete-cerveza/'+id,{headers:headers});
 
     }
 
-    getdataBeer(): Observable<any>{
-        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+    updateBeer(id,token,dataBeer): Observable<any>{
 
-        return this._http.get(this.url+'get-cervezas',{headers:headers})
+        let json = JSON.stringify(dataBeer);
+
+        let params = 'json=' + json;
+
+        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded')
+                                       .set('Authorization', token);;
+
+        return this._http.post(this.url + 'update-cerveza/'+id, params, { headers: headers });
 
     }
+
+
 } 

@@ -13,6 +13,13 @@ export class BeerService {
     this.url=global.url;
   }
 
+  getTypes(): Observable<any>{
+
+    let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+
+    return this._http.get(this.url+'get-tipoc',{headers:headers})
+}
+
   getBeers(): Observable<any>{
 
    let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
@@ -28,6 +35,14 @@ export class BeerService {
     return this._http.get(this.url+'beer/'+id,{headers:headers});
  
    }
+
+   
+   getdataBeer(): Observable<any>{
+    let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+
+    return this._http.get(this.url+'get-cervezas',{headers:headers})
+
+}
 
   
 

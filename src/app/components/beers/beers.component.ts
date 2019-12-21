@@ -1,9 +1,10 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import idiom from '../../idiom';
-import { ServicioConTodoService } from '../../services/serviciocontodo.service'
+import { CRUDService} from '../../services/crud.service';
 import { Beer2 } from 'src/app/models/beer';
 import { AuthService } from 'src/app/services/auth.service';
 import { NotificationsService} from 'angular2-notifications';
+import { BeerService } from 'src/app/services/beer.service';
 declare var $;
 
 
@@ -11,31 +12,35 @@ declare var $;
   selector: 'app-beers',
   templateUrl: './beers.component.html',
   styleUrls: ['./beers.component.css'],
-  providers: [ServicioConTodoService, AuthService, NotificationsService]
+  providers: [CRUDService, AuthService, NotificationsService, BeerService]
 })
 export class BeersComponent implements OnInit {
-  public tipoc;
-  public tipoc2;
+  public typeBeerSelected;
+  public typeBeerSelected2;
   public beers;
-  public data;
-  public tipos;
-  public tipos2;
-  public tipod;
+  public typeBeerOptions;
+  public typeBeerOptions2;
+  public typeBeerData;
   public token;
   public identity;
+  public typeSelected=[{
+      nombre: ''
+   }
+  ];
 
 
-  constructor(private _contodo: ServicioConTodoService, private _authService: AuthService, private _service: NotificationsService) { }
+
+  constructor(private _beerService:BeerService, private _crudService: CRUDService, private _authService: AuthService, private _service: NotificationsService) { }
 
   ngOnInit() {
-
+        
     this.token = this._authService.getToken();
     this.identity = this._authService.getIdentity();
 
-    this._contodo.getTypes().subscribe(
+    this._beerService.getTypes().subscribe(
       response => {
-        this.tipos = response;
-        this.tipos2 = response;
+        this.typeBeerOptions = response;
+        this.typeBeerOptions2 = response;
       },
       error => {
         console.log(<any>error);
@@ -43,7 +48,7 @@ export class BeersComponent implements OnInit {
       }
     );
 
-    this._contodo.getdataBeer().subscribe(
+    this._beerService.getdataBeer().subscribe(
       response => {
         this.beers = response.beers;
       },
@@ -65,27 +70,53 @@ export class BeersComponent implements OnInit {
     }, 2000);
 
 
-    console.log(this.data);
-
   }
 
 
 
   openModal(beer) {
 
-
-    $("#nameu").val(beer.nombre);
-    $("#typeu").val(beer.type);
-    $("#priceu").val(beer.precio_unitario);
-    $("#editModal").modal('show');
+     this.typeSelected=[{
+        nombre:  beer.tipoc
+        }
+    ];
+    $("#nameu"+beer.id).val(beer.nombre);
+    $("#priceu"+beer.id).val(beer.precio_unitario);
+    $("#editModal"+beer.id).modal('show');
 
   }
 
 
-  update() {
+  update(Form,beer) {
+
+    let id=beer.id;
+    let nameu=$("#nameu"+beer.id).val();
+    let priceu=$("#priceu"+beer.id).val();
+  
+    if(!this.typeBeerSelected2){
+      this.typeBeerSelected2=this.typeSelected[0].nombre;
+    }
+    let databeer = new Beer2(this.typeBeerSelected2, nameu, priceu);
+
+    this._crudService.updateBeer(id,this.token,databeer).subscribe(
+      response => {
+        console.log(response);
+        this.notificationSucess2();
+        this.updateDatable();
+
+      },
+      error  => {
+        console.log(<any>error);
+        this.notificationBeerError();
+      }
+    );
 
 
-    $("#editModal").modal('hide');
+
+    console.log(databeer);
+    
+    
+    $("#editModal"+beer.id).modal('hide');
 
 
   }
@@ -93,29 +124,30 @@ export class BeersComponent implements OnInit {
 
   optionSelected3(selectedVendor) {
     let array = JSON.parse(selectedVendor);
-    this.tipoc = array.nombre;
+    this.typeBeerSelected = array.nombre;
 
   }
 
   optionSelected4(selectedVendor) {
+    
     let array = JSON.parse(selectedVendor);
-    this.tipoc2 = array.nombre;
+    this.typeBeerSelected2 = array.nombre;
 
   }
 
   onSubmit(Form) {
 
     let nombre = $("#nombre").val();
-    let tipod = this.tipoc;
+    let typeBeerData = this.typeBeerSelected;
     let precio = $("#precio").val();
     console.log(precio); console.log(nombre);
-    let databeer = new Beer2(tipod, nombre, precio);
+    let databeer = new Beer2(typeBeerData, nombre, precio);
 
     console.log(JSON.stringify(databeer));
-    this._contodo.registerCerveza(databeer, this.token).subscribe(
+    this._crudService.registerCerveza(databeer, this.token).subscribe(
       response => {
         this.notificationSucess();
-        this.notificationInfo();
+        this.updateDatable();
         console.log('Se agrego');
         $("#beerModal").modal('hide');
       },
@@ -129,8 +161,10 @@ export class BeersComponent implements OnInit {
 
 
   delete(id) {
-    $("#confirmation").modal('hide');
-    this._contodo.getdelete4(id, this.token).subscribe(
+    console.log(id);
+    
+    $("#confirmation"+id).modal('hide');
+    this._crudService.getdelete4(id, this.token).subscribe(
       response => {
         console.log('Se elimino');
         console.log(response);
@@ -139,14 +173,15 @@ export class BeersComponent implements OnInit {
       },
       error => {
         console.log(<any>error);
+        this.notificationBeerInfo();
         console.log('Fallo');
       }
 
     )
   }
 
-  openModalDelete(){
-    $("#confirmation").modal('show');
+  openModalDelete(id){
+    $("#confirmation"+id).modal('show');
   }
 
   updateDatable() {
@@ -169,8 +204,8 @@ export class BeersComponent implements OnInit {
     });
   }
 
-  notificationInfo(){
-    this._service.info('Informacion','Actualice la tabla cervezas para ver los cambios',{
+  notificationSucess2(){
+    this._service.success('Edición exitosa','Cerveza editada correctamente',{
       timeOut: 5000,
       showProgressBar: true,
       pauseOnHover: true,
@@ -192,6 +227,26 @@ export class BeersComponent implements OnInit {
   notificationBeerDeleted(){
     this._service.success('Registro borrado','Cerveza eliminada correctamente',{
       timeOut: 3000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
+  }
+
+  notificationBeerInfo(){
+    this._service.info('Info','La información de esta cerveza es requerida',{
+      timeOut: 5000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
+  }
+
+  notificationBeerError(){
+    this._service.error('Error','No puede modificar/borrar una cerveza que no le pertenece',{
+      timeOut: 5000,
       showProgressBar: true,
       pauseOnHover: true,
       clickToClose: true,

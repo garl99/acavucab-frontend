@@ -4,7 +4,7 @@ import { CustomersNService } from '../../services/n-customers.service';
 import { AuthService } from '../../services/auth.service';
 import { PlaceService } from '../../services/places.service';
 import { CustomersJ } from 'src/app/models/j-customers';
-import { ServicioConTodoService } from 'src/app/services/serviciocontodo.service';
+import { CRUDService } from 'src/app/services/crud.service';
 
 
 declare var $;
@@ -13,7 +13,7 @@ declare var $;
   selector: 'app-j-customers',
   templateUrl: './j-customers.component.html',
   styleUrls: ['./j-customers.component.css'],
-  providers: [CustomersNService, AuthService, PlaceService, ServicioConTodoService]
+  providers: [CustomersNService, AuthService, PlaceService, CRUDService]
 })
 export class JCustomersComponent implements OnInit {
 
@@ -29,7 +29,7 @@ export class JCustomersComponent implements OnInit {
 
   constructor(private _customersNService: CustomersNService,
     private _placeService: PlaceService,
-    private _authService: AuthService,private _conto: ServicioConTodoService) { }
+    private _authService: AuthService,private _crudService: CRUDService) { }
 
   ngOnInit() {
     this.identity = this._authService.getIdentity();
@@ -205,7 +205,7 @@ export class JCustomersComponent implements OnInit {
       lugar,lugar2,direccion_fisica,direccion_fiscal,correo,pd,nombre,apellido,numero,clave_area,cedula,numero,cla);
   
       console.log(JSON.stringify(data));
-      this._conto.registerJuridico(data).subscribe(
+      this._crudService.registerJuridico(data).subscribe(
         response  =>{
           console.log('Se agrego');
         },
@@ -218,7 +218,7 @@ export class JCustomersComponent implements OnInit {
   }
 
   delete(id){
-    this._conto.getdelete2(id).subscribe(
+    this._crudService.getdelete2(id).subscribe(
       response  =>{
         console.log('Se elimino');
       },

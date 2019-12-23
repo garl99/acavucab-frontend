@@ -162,9 +162,12 @@ export class NCustomersComponent implements OnInit {
 
       this._crudService.registerNatural(data).subscribe(
         response  =>{
+          console.log(response);
+          
           console.log('Se agrego');
         },
         error=>{
+          console.log(<any>error);
           console.log('Fallo');
         }
       );
@@ -176,11 +179,14 @@ export class NCustomersComponent implements OnInit {
     delete(id){
       this._crudService.getdelete1(id).subscribe(
         response  =>{
+          console.log(response);
+          
           console.log('Se elimino');
         },
         error=>{
+          console.log(<any>error);
           console.log('Fallo');
-        } 
+        }
   
       )}
   

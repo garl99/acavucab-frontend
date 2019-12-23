@@ -7,43 +7,57 @@ import { global } from './global';
 
 export class BeerService {
   public url;
-  
 
-  constructor(public _http: HttpClient) { 
-    this.url=global.url;
+
+  constructor(public _http: HttpClient) {
+    this.url = global.url;
   }
 
-  getTypes(): Observable<any>{
+  getTypes(): Observable<any> {
 
     let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
 
-    return this._http.get(this.url+'get-tipoc',{headers:headers})
-}
+    return this._http.get(this.url + 'get-tipoc', { headers: headers })
+  }
 
-  getBeers(): Observable<any>{
-
-   let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
-
-   return this._http.get(this.url+'get-cervezas',{headers:headers});
-
-  } 
-
-  getBeer(id): Observable<any>{
+  getBeers(): Observable<any> {
 
     let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
- 
-    return this._http.get(this.url+'beer/'+id,{headers:headers});
- 
-   }
 
-   
-   getdataBeer(): Observable<any>{
+    return this._http.get(this.url + 'get-cervezas', { headers: headers });
+
+  }
+
+  getBeer(id): Observable<any> {
+
     let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
 
-    return this._http.get(this.url+'get-cervezas',{headers:headers})
+    return this._http.get(this.url + 'beer/' + id, { headers: headers });
 
-}
+  }
 
-  
+
+  getdataBeer(): Observable<any> {
+    let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+
+    return this._http.get(this.url + 'get-cervezas', { headers: headers })
+
+  }
+
+  getBeerSupplier(suppliers): Observable<any> {
+
+    let json = JSON.stringify(suppliers);
+
+    let params = 'json=' + json;
+
+    let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+
+    return this._http.post(this.url + 'get-beers-suppliers', params, { headers: headers });
+
+  }
+
+
+
+
 
 }

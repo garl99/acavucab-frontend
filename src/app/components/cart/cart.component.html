@@ -84,7 +84,7 @@
                 </div>
                 <div class="col-sm-2">
                     <h5>Cantidad</h5>
-                    <h5>{{item.cantidad_cervezas}}</h5>
+                    <h5 class="pl-4">{{item.cantidad_cervezas}}</h5>
                 </div>
                 <div class="col-sm-2">
                     <h5>Precio(Bs)</h5>
@@ -99,7 +99,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <small style="margin-left: 300px;" class="my-2"
-                    class="invalid-feedback d-block text-center">Aún no ha agregado nada al acarrito</small>
+                    class="invalid-feedback d-block text-center">Aún no ha agregado nada al carrito</small>
                 </div>
             </div>
 
@@ -111,20 +111,20 @@
             <h5 class="text-center py-3 mt-4">Resumen carrito</h5>
             <div class="row">
                 <div class="col-sm-4">
-                    <p style="font-weight: bold;" class="text-justify">nombre</p>
+                    <p style="font-weight: bold;" class="text-justify">Nombre</p>
                 </div>
                 <div class="col-sm-4">
-                    <p style="font-weight: bold;" class="text-justify">cant</p>
+                    <p style="font-weight: bold;" class="text-justify">Cant</p>
                 </div>
                 <div class="col-sm-4">
-                    <p style="font-weight: bold;" class="text-justify">subtotal</p>
+                    <p style="font-weight: bold;" class="text-justify">Subtotal</p>
                 </div>
             </div>
             <div class="row" *ngFor="let item of items">
                 <div class="col-sm-4">
                     <p class="text-justify"> {{item.cerveza }}</p>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-4 pl-4">
                     <p class="text-justify"> {{item.cantidad_cervezas}}</p>
                 </div>
                 <div class="col-sm-4">
@@ -146,3 +146,5 @@
         </div>
     </div>
 </div>
+
+<simple-notifications></simple-notifications>

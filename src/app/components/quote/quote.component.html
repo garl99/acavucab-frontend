@@ -24,7 +24,7 @@
                         <div class="form-group">
                             <label for="name">Cantidad</label>
                             <div class="input-group">
-                                <input id="qty" class="form-control" type="text" placeholder="Ingrese la cantidad">
+                                <input id="qty" class="form-control" type="number" placeholder="Ingrese la cantidad">
                             </div>
                         </div>
                     </form>
@@ -82,9 +82,31 @@
             </div>
 
             <div class="col-md-3" style="background-color: white;">
-                <h5 class="text-center py-3">Resumen</h5>
-                <p class="text-justify" *ngFor="let beer of jsonArray">
-                    #{{beer.id}} cerveza: {{beer.nombre}} , cant: {{beer.cantidad_cervezas}} </p>
+                
+                <h5 class="text-center py-3 mt-4">Resumen Presupuesto</h5>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p style="font-weight: bold;" class="text-justify">Nombre</p>
+                    </div>
+                    <div class="col-sm-4 pl-4">
+                        <p style="font-weight: bold;" class="text-justify">Cant</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p style="font-weight: bold;" class="text-justify">Precio</p>
+                    </div>
+                </div>
+                <div class="row" *ngFor="let beer of jsonArray">
+                    <div class="col-sm-4">
+                        <p class="text-justify"> {{beer.nombre}}</p>
+                    </div>
+                    <div class="col-sm-4 pl-4">
+                        <p class="text-justify"> {{beer.cantidad_cervezas}}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="text-justify"> {{beer.precio}}</p>
+                    </div>
+                </div>
+                
 
 
 

@@ -1,0 +1,37 @@
+.styles li a{
+    color: black;
+}
+
+.styles li a:hover{
+    text-decoration-line: underline;
+    text-decoration-color: black;
+    
+}
+
+.color{
+    background:  rgba(253, 205, 45, 1);
+}
+
+#hand:hover{
+    cursor: pointer;
+    color: rgb(42, 143, 201);
+}
+
+#hover:hover{
+    cursor: pointer;
+}
+
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+  }
+
+  ::ng-deep .cdk-overlay-container {
+    z-index: 1200 !important;
+  }

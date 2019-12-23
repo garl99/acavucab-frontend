@@ -43,8 +43,8 @@
             </div>
           </li>
           <li class="nav-item active" *ngIf="identity">
-            <a *ngIf="identity.rol=='rol_clienten'"class="nav-link" [routerLink]="['/cart']"><img src="../assets/img/carrito.png" width="30" height="30"
-                class="d-inline-block align-top" alt="">
+            <a *ngIf="identity.rol=='rol_clienten'"class="nav-link" [routerLink]="['/cart']">
+              <i class="fas fa-cart-plus"></i>
             </a>
           </li>
 

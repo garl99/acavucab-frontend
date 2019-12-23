@@ -7,6 +7,7 @@ import { DataVenta } from '../../models/data_venta';
 import { CartService } from '../../services/cart.service';
 import { SellService } from '../../services/sell.service';
 import { MethodService } from '../../services/method.service';
+import { NotificationsService } from 'angular2-notifications';
 
 declare var $;
 
@@ -15,7 +16,7 @@ declare var $;
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css'],
-  providers: [BeerService, AuthService, CartService, SellService, MethodService]
+  providers: [BeerService, AuthService, CartService, SellService, MethodService, NotificationsService]
 })
 export class ProductComponent implements OnInit {
   public credit_cards;
@@ -30,7 +31,7 @@ export class ProductComponent implements OnInit {
   constructor(
     private _beerService: BeerService, private _router: Router, private _route: ActivatedRoute,
     private _authService: AuthService, private _cartService: CartService, private _sellService: SellService,
-    private _methodService: MethodService
+    private _methodService: MethodService, private _service: NotificationsService
   ) { }
 
 
@@ -182,9 +183,11 @@ export class ProductComponent implements OnInit {
     this._sellService.doSell(data_venta).subscribe(
       response => {
         console.log(response);
+        this.notificationSucessBuy();
       },
       error => {
         console.log(<any>error);
+        this.notificationActionError();
 
       }
     );
@@ -209,14 +212,46 @@ export class ProductComponent implements OnInit {
     this._cartService.addCart(data_venta).subscribe(
       response => {
         console.log(response);
+        this.notificationSucessCart();
       },
       error => {
         console.log(<any>error);
+        this.notificationActionError();
 
       }
     );
 
   }
 
+  
+  notificationSucessCart(){
+    this._service.success('Agregado al carrito','Cerveza agregada al carrito exitosamente',{
+      timeOut: 5000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
+  }
+
+  notificationSucessBuy(){
+    this._service.success('Compra realizada','Gracias por su comprar, retire su factura',{
+      timeOut: 5000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
+  }
+
+  notificationActionError(){
+    this._service.error('Error','No fue posible realizar esta operación. Intente mas tarde.',{
+      timeOut: 5000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
+  }
 
 }

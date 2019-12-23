@@ -25,6 +25,7 @@ import { LoginDisabled } from './services/login-disabled.guard';
 import { ProductComponent } from './components/product/product.component';
 import { QuoteComponent } from './components/quote/quote.component';
 import { CarnetComponent } from './reports/carnet/carnet.component';
+import { EventsComponent } from './components/events/events.component';
 
 
 //DEFINIR RUTAS
@@ -40,14 +41,15 @@ const appRoutes: Routes = [
     {path: 'r-orders', component: ROrdersComponent},
     {path: 'i-orders', component: IOrdersComponent},
     {path: 'dashboard/beers', component: BeersComponent},
-    {path: 'employees', component: EmployeesComponent},
+    {path: 'dashboard/employees', component: EmployeesComponent},
     {path: 'dashboard/j-customers', component: JCustomersComponent},
     {path: 'dashboard/n-customers', component: NCustomersComponent},
     {path: 'dashboard/suppliers', component: SuppliersComponent},
     {path: 'product/:id', component: ProductComponent},
     {path: 'dashboard/quote', component: QuoteComponent},
     {path: 'dashboard/carnet/:id', component: CarnetComponent},
-    {path: 'dashboard/profile/:sure', component: DashboardComponent}
+    {path: 'dashboard/profile/:sure', component: DashboardComponent},
+    {path: 'dashboard/events', component: EventsComponent}
 
 
 

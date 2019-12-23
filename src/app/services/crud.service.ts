@@ -63,6 +63,18 @@ export class CRUDService {
 
     }
 
+    registerEvent(data_event): Observable<any>{
+
+        let json = JSON.stringify(data_event);
+
+        let params = 'json=' + json;
+
+        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+                                      
+        return this._http.post(this.url + 'register-event', params, { headers: headers });
+
+    }
+
     getdelete1(id): Observable<any>{
         let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
 

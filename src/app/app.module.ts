@@ -6,6 +6,14 @@ import { FormsModule} from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatSelectModule} from '@angular/material/select';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -39,6 +47,7 @@ import { QuoteService } from './services/quote.service';
 import { PlaceService } from './services/places.service';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { CRUDService } from './services/crud.service';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -74,7 +83,16 @@ import { CRUDService } from './services/crud.service';
     HttpClientModule,
     NgxPaginationModule,
     BrowserAnimationsModule, 
-    SimpleNotificationsModule.forRoot()
+    SimpleNotificationsModule.forRoot(),
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatNativeDateModule
   ],
   providers: [
     appRoutingProviders,

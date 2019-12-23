@@ -51,6 +51,7 @@ export class BeersComponent implements OnInit {
     this._beerService.getdataBeer().subscribe(
       response => {
         this.beers = response.beers;
+        
       },
       error => {
         console.log(<any>error);

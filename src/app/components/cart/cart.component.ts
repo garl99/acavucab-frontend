@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { AuthService } from '../../services/auth.service';
 import { MethodService } from '../../services/method.service';
 import { SellService } from '../../services/sell.service';
 import { global } from '../../services/global';
 import { DataVenta2 } from 'src/app/models/data_venta';
+import { NotificationsService } from 'angular2-notifications';
 
 declare var $;
 
@@ -12,9 +13,9 @@ declare var $;
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css'],
-  providers: [CartService, AuthService, MethodService, SellService]
+  providers: [CartService, AuthService, MethodService, SellService, NotificationsService]
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, DoCheck {
   p: number = 1;
   public credit_cards;
   public debit_cards;
@@ -27,7 +28,7 @@ export class CartComponent implements OnInit {
   public total;
 
   constructor(private _cartService: CartService, private _authService: AuthService, private _methodService: MethodService,
-    private _sellService: SellService) {
+    private _sellService: SellService, private _service:NotificationsService) {
     this.url = global.url;
 
   }
@@ -36,6 +37,10 @@ export class CartComponent implements OnInit {
     this.loadItems();
     localStorage.removeItem('total');
     localStorage.setItem('total', '0');
+  }
+
+  ngDoCheck(){
+    this.total=parseInt(localStorage.getItem('total'));
   }
 
 
@@ -157,9 +162,11 @@ export class CartComponent implements OnInit {
     this._sellService.doSell2(data_venta).subscribe(
       response  =>  {
         console.log(response);
+        this.notificationSucessBuy();
       },
       error =>  {
         console.log(<any>error);
+        this.notificationActionError();
 
       }
     );
@@ -168,6 +175,26 @@ export class CartComponent implements OnInit {
 
   }
 
+
+  notificationSucessBuy(){
+    this._service.success('Compra realizada','Gracias por su comprar, retire su factura',{
+      timeOut: 5000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
+  }
+
+  notificationActionError(){
+    this._service.error('Error','No fue posible realizar esta operación. Intente mas tarde.',{
+      timeOut: 5000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
+  }
 
 
 }

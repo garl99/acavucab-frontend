@@ -23,7 +23,17 @@
                 </a>
             </li>
             <li class="nav-item">
-                
+                <div>
+                    <div>
+                        <a class="nav-link" href="#">
+                            <i class="far fa-newspaper"></i>
+                            <span class="ml-2">Diario de una cerveza</span></a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+
                 <div *ngIf="(this.role == 'rol_clientej') || (this.role == 'rol_clienten')">
                     <a class="nav-link" [routerLink]="['quote']">
                         <i class="fas fa-fw fa-chart-area"></i>
@@ -33,7 +43,7 @@
             <li class="nav-item">
                 <div *ngIf="(this.role == 'rol_clientej') || (this.role == 'rol_clienten')">
                     <a class="nav-link" [routerLink]="['all-products']">
-                        <i class="fas fa-fw fa-table"></i>
+                        <i class="fas fa-store"></i>
                         <span class="ml-2">Comprar</span></a>
                 </div>
             </li>
@@ -41,8 +51,8 @@
             <li class="nav-item">
                 <div *ngIf="(this.role == 'rol_clientej') || (this.role == 'rol_clienten')">
                     <a class="nav-link" [routerLink]="['carnet', identity.id]">
-                        <i class="fas fa-fw fa-table"></i>
-                        <span>Generar Carnet</span></a>
+                        <i class="fas fa-id-badge"></i>
+                        <span class="ml-2">Mi Carnet</span></a>
                 </div>
             </li>
             <li class="nav-item">
@@ -73,11 +83,41 @@
             </li>
 
             <li class="nav-item">
-                <div *ngIf="(this.role == 'rol_proveedor')">
+                <div *ngIf="(this.role == 'rol_proveedor') || (this.role == 'rol_admin')">
                     <div>
                         <a class="nav-link" [routerLink]="['beers']">
                             <i class="fas fa-fw fa-folder"></i>
                             <span class="ml-2">Gestion de cervezas</span></a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <div *ngIf="(this.role == 'rol_admin')">
+                    <div>
+                        <a class="nav-link" [routerLink]="['events']">
+                            <i class="fas fa-fw fa-folder"></i>
+                            <span class="ml-2">Gestion de eventos</span></a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <div *ngIf="(this.role == 'rol_admin')">
+                    <div>
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-fw fa-folder"></i>
+                            <span class="ml-2">Gestion de usuario</span></a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <div *ngIf="(this.role == 'rol_admin')">
+                    <div>
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-fw fa-folder"></i>
+                            <span class="ml-2">Gestion de roles</span></a>
                     </div>
                 </div>
             </li>
@@ -95,6 +135,61 @@
                     </div>
                 </div>
             </li>
+
+
+            <li class="nav-item dropdown">
+                <div *ngIf="(this.role == 'rol_admin')">
+                    <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-fw fa-folder"></i>
+                        <span>Reportes</span>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                        <a class="dropdown-item" href="#"> Reporte A</a>
+                        <a class="dropdown-item" href="#"> Reporte B</a>
+                        <a class="dropdown-item" href="#"> Reporte C</a>
+                        <a class="dropdown-item" href="#"> Reporte D</a>
+                        <a class="dropdown-item" href="#"> Reporte E</a>
+                        <a class="dropdown-item" href="#"> Reporte F</a>
+                        <a class="dropdown-item" href="#"> Reporte G</a>
+                        <a class="dropdown-item" href="#"> Reporte H</a>
+                        <a class="dropdown-item" href="#"> Reporte I</a>
+                        <a class="dropdown-item" href="#"> Reporte J</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <div *ngIf="(this.role == 'rol_clientej') || (this.role == 'rol_clienten')">
+                    <div>
+                        <a class="nav-link" href="#">
+                            <i class="fab fa-fly"></i>
+                            <span class="ml-2">Eventos</span></a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <div *ngIf="(this.role == 'rol_admin')">
+                    <div>
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-file-word"></i>
+                            <span class="ml-2">Archivo de asistencia</span></a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <div *ngIf="(this.role == 'rol_proveedor')">
+                    <div>
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-folder-open"></i>
+                            <span class="ml-2">Ordenes</span></a>
+                    </div>
+                </div>
+            </li>
+
+
 
         </ul>
 

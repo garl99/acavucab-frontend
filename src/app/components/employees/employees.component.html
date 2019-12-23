@@ -11,23 +11,23 @@
             <a href="#" class="btn btn-primary ml-2" data-toggle="modal" data-target="#userModal">Agregar <i
                     class="fas fa-plus-circle"></i></a>
         </div>
-        <div class="col-7">
-            <div class="float-right">
+        <div class="col-7 ">
+            <div class="float-right ">
                 <ul class="nav justify-content-center styles">
                     <li class="nav-item">
-                        <a class="nav-link" [routerLink]="['/j-customers']">Clientes Juridicos</a>
+                        <a class="nav-link" [routerLink]="['/dashboard/j-customers']">Clientes Juridicos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" [routerLink]="['/n-customers']">Clientes naturales</a>
+                        <a class="nav-link" [routerLink]="['/dashboard/n-customers']">Clientes naturales</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" [routerLink]="['/suppliers']">Proveedores</a>
+                        <a class="nav-link active" [routerLink]="['/dashboard/suppliers']">Proveedores</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" [routerLink]="['/beers']">Cervezas</a>
+                        <a class="nav-link" [routerLink]="['/dashboard/beers']">Cervezas</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" [routerLink]="['/employees']">Empleados</a>
+                        <a class="nav-link" [routerLink]="['/dashboard/employees']">Empleados</a>
                     </li>
                 </ul>
             </div>
@@ -52,66 +52,66 @@
                     <form id="userForm">
                         <p>Por favor, ingresa los datos solicitados.</p>
                         <div class="form-group">
-                            <label for="title">Nombre</label>
+                            <label for="name">Nombre</label>
                             <div class="input-group">
-                                <input ng-model="user.PENDIENTE" id="title" class="form-control" type="text"
+                                <input id="name" class="form-control" type="text"
                                     placeholder="Ingrese el nombre">
                             </div>
                         </div>
 
                         <!--REVISAR AQUI LOS NG MODEL-->
                         <div class="form-group">
-                            <label for="url">Apellido</label>
+                            <label for="lastname">Apellido</label>
                             <div class="input-group">
-                                <input ng-model="user.PENDIENTE" id="url" class="form-control" type="url"
+                                <input id="lastname" class="form-control" type="url"
                                     placeholder="Ingrese el apellido">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="url">Cedula</label>
+                            <label for="ced">Cedula</label>
                             <div class="input-group">
-                                <input ng-model="user.PENDIENTE" id="url" class="form-control" type="url"
+                                <input id="ced" class="form-control" type="url"
                                     placeholder="Ingrese la cedula">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="url">Hora de entrada</label>
+                            <label for="et">Hora de entrada</label>
                             <div class="input-group">
-                                <input ng-model="user.PENDIENTE" id="url" class="form-control" type="url"
+                                <input  id="et" class="form-control" type="url"
                                     placeholder="Ingrese la hora de entrada">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="url">Hora de salida</label>
+                            <label for="dt">Hora de salida</label>
                             <div class="input-group">
-                                <input ng-model="user.PENDIENTE" id="url" class="form-control" type="url"
+                                <input id="dt" class="form-control" type="url"
                                     placeholder="Ingrese la hora de salida">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="url">Cargo</label>
+                            <label for="position">Cargo</label>
                             <div class="input-group">
-                                <input ng-model="user.PENDIENTE" id="url" class="form-control" type="url"
+                                <input  id="position" class="form-control" type="url"
                                     placeholder="Ingrese el cargo">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="url">Beneficios</label>
+                            <label for="gift">Beneficios</label>
                             <div class="input-group">
-                                <input ng-model="user.PENDIENTE" id="url" class="form-control" type="url"
+                                <input id="gift" class="form-control" type="url"
                                     placeholder="Ingrese beneficios">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="url">Salario</label>
+                            <label for="salary">Salario</label>
                             <div class="input-group">
-                                <input ng-model="user.PENDIENTE" id="url" class="form-control" type="url"
+                                <input id="salary" class="form-control" type="url"
                                     placeholder="Ingrese salario">
                             </div>
                         </div>
@@ -142,238 +142,6 @@
 
         </thead>
         <tbody class="tbody">
-            <tr class="text-center">
-                <th scope="row">Daniel</th>
-                <td>Diaz</td>
-                <td>12435</td>
-                <td>8:00</td>
-                <td>10:00</td>
-                <td>Gerente</td>
-                <td><button type="button" class="btn btn-info btn-circle ml-1"><i class="fas fa-info"></i></button></td>
-                <td>100.000.00</td>
-                <td>
-                    <div class="row">
-                        <div align="center" class="col-sm-4">
-                            <form action="#" method="POST">
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
-
-                            </form>
-
-                        </div>
-
-                        <div align="center" class="col-sm-4">
-                            <form action="#" method="POST">
-                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-
-                            </form>
-                        </div>
-
-                    </div>
-                </td>
-            </tr>
-            <tr class="text-center">
-                <th scope="row">Daniel</th>
-                <td>Diaz</td>
-                <td>12435</td>
-                <td>8:00</td>
-                <td>10:00</td>
-                <td>Gerente</td>
-                <td><button type="button" class="btn btn-info btn-circle ml-1"><i class="fas fa-info"></i></button></td>
-                <td>100.000.00</td>
-                <td>
-                    <div class="row">
-                        <div align="center" class="col-sm-4">
-                            <form action="#" method="POST">
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
-
-                            </form>
-
-                        </div>
-
-                        <div align="center" class="col-sm-4">
-                            <form action="#" method="POST">
-                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-
-                            </form>
-                        </div>
-
-                    </div>
-                </td>
-            </tr>
-            <tr class="text-center">
-                <th scope="row">Daniel</th>
-                <td>Diaz</td>
-                <td>12435</td>
-                <td>8:00</td>
-                <td>10:00</td>
-                <td>Gerente</td>
-                <td><button type="button" class="btn btn-info btn-circle ml-1"><i class="fas fa-info"></i></button></td>
-                <td>100.000.00</td>
-                <td>
-                    <div class="row">
-                        <div align="center" class="col-sm-4">
-                            <form action="#" method="POST">
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
-
-                            </form>
-
-                        </div>
-
-                        <div align="center" class="col-sm-4">
-                            <form action="#" method="POST">
-                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-
-                            </form>
-                        </div>
-
-                    </div>
-                </td>
-            </tr>
-            <tr class="text-center">
-                <th scope="row">Daniel</th>
-                <td>Diaz</td>
-                <td>12435</td>
-                <td>8:00</td>
-                <td>10:00</td>
-                <td>Gerente</td>
-                <td><button type="button" class="btn btn-info btn-circle ml-1"><i class="fas fa-info"></i></button></td>
-                <td>100.000.00</td>
-                <td>
-                    <div class="row">
-                        <div align="center" class="col-sm-4">
-                            <form action="#" method="POST">
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
-
-                            </form>
-
-                        </div>
-
-                        <div align="center" class="col-sm-4">
-                            <form action="#" method="POST">
-                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-
-                            </form>
-                        </div>
-
-                    </div>
-                </td>
-            </tr>
-            <tr class="text-center">
-                <th scope="row">Daniel</th>
-                <td>Diaz</td>
-                <td>12435</td>
-                <td>8:00</td>
-                <td>10:00</td>
-                <td>Gerente</td>
-                <td><button type="button" class="btn btn-info btn-circle ml-1"><i class="fas fa-info"></i></button></td>
-                <td>100.000.00</td>
-                <td>
-                    <div class="row">
-                        <div align="center" class="col-sm-4">
-                            <form action="#" method="POST">
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
-
-                            </form>
-
-                        </div>
-
-                        <div align="center" class="col-sm-4">
-                            <form action="#" method="POST">
-                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-
-                            </form>
-                        </div>
-
-                    </div>
-                </td>
-            </tr>
-            <tr class="text-center">
-                <th scope="row">Daniel</th>
-                <td>Diaz</td>
-                <td>12435</td>
-                <td>8:00</td>
-                <td>10:00</td>
-                <td>Gerente</td>
-                <td><button type="button" class="btn btn-info btn-circle ml-1"><i class="fas fa-info"></i></button></td>
-                <td>100.000.00</td>
-                <td>
-                    <div class="row">
-                        <div align="center" class="col-sm-4">
-                            <form action="#" method="POST">
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
-
-                            </form>
-
-                        </div>
-
-                        <div align="center" class="col-sm-4">
-                            <form action="#" method="POST">
-                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-
-                            </form>
-                        </div>
-
-                    </div>
-                </td>
-            </tr>
-            <tr class="text-center">
-                <th scope="row">Daniel</th>
-                <td>Diaz</td>
-                <td>12435</td>
-                <td>8:00</td>
-                <td>10:00</td>
-                <td>Gerente</td>
-                <td><button type="button" class="btn btn-info btn-circle ml-1"><i class="fas fa-info"></i></button></td>
-                <td>100.000.00</td>
-                <td>
-                    <div class="row">
-                        <div align="center" class="col-sm-4">
-                            <form action="#" method="POST">
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
-
-                            </form>
-
-                        </div>
-
-                        <div align="center" class="col-sm-4">
-                            <form action="#" method="POST">
-                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-
-                            </form>
-                        </div>
-
-                    </div>
-                </td>
-            </tr>
-            <tr class="text-center">
-                <th scope="row">Daniel</th>
-                <td>Diaz</td>
-                <td>12435</td>
-                <td>8:00</td>
-                <td>10:00</td>
-                <td>Gerente</td>
-                <td><button type="button" class="btn btn-info btn-circle ml-1"><i class="fas fa-info"></i></button></td>
-                <td>100.000.00</td>
-                <td>
-                    <div class="row">
-                        <div align="center" class="col-sm-4">
-                            <form action="#" method="POST">
-                                <button type="submit" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></button>
-
-                            </form>
-
-                        </div>
-
-                        <div align="center" class="col-sm-4">
-                            <form action="#" method="POST">
-                                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-
-                            </form>
-                        </div>
-
-                    </div>
-                </td>
-            </tr>
             <tr class="text-center">
                 <th scope="row">Daniel</th>
                 <td>Diaz</td>

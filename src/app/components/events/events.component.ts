@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { EventService } from 'src/app/services/events.service';
 import idiom from '../../idiom';
+import { Event } from 'src/app/models/event';
 import { CustomersNService } from 'src/app/services/n-customers.service';
 import { BeerService } from 'src/app/services/beer.service';
 import { PlaceService } from 'src/app/services/places.service';
@@ -33,6 +34,7 @@ export class EventsComponent implements OnInit {
   public parrs;
   public lugar;
 
+
   constructor(private _authService: AuthService, private _eventService: EventService,
     private _supplierService: CustomersNService, private _beerService: BeerService,
     private _placeService: PlaceService, private _crudService: CRUDService) { }
@@ -56,6 +58,8 @@ export class EventsComponent implements OnInit {
         //console.log(response);
         this.events = response.events;
         //console.log(this.events);
+        //console.log(response.lugares);
+
 
       },
       error => {
@@ -237,32 +241,48 @@ export class EventsComponent implements OnInit {
 
     if (this.suppliersIn.length != 0 && this.beersIn.length != 0) {
 
-      let data_event = {
-        'nombre': $("#name").val(),
-        'descripcion': $('#description').val(),
-        'cantidad_entradas': $('#ticket').val(),
-        'fecha': $('#date').val(),
-        'lugar_id': this.lugar,
-        'proveedores': this.suppliersIn,
-        'cervezas': this.beersIn
-      };
+     // let data_event = {
+      //  'nombre': $("#name").val(),
+       // 'descripcion': $('#description').val(),
+       // 'cantidad_entrada_incial': $('#ticket').val(),
+      //  'cantidad_entrada_final': $('#ticket').val(),
+     //   'fecha': $('#date').val(),
+      //  'lugar_id': this.lugar,
+        //'proveedores': this.suppliersIn,
+        //'cervezas': this.beersIn
+        let nombre = $("#name").val();
+        let descripcion = $("#description").val();
+        let cantidad_entrada_incial=  $('#ticket').val();
+        let cantidad_entrada_actual= $('#ticket').val();
+        let  fecha = $('#date').val();
+        let  lugar = $('#place').val();
+        let data_event = new Event (nombre, descripcion, cantidad_entrada_incial, cantidad_entrada_actual, fecha, lugar);
+        console.log(JSON.stringify(data_event));
+        this._crudService.registerEvent(data_event, this.token).subscribe(
 
-      console.log(data_event);
-      console.log(JSON.stringify(data_event));
+        
+
+     // console.log(data_event);
+     // console.log(JSON.stringify(data_event));
+
+
 
       //backend here
-      /*this._crudService.registerEvent(data_event).subscribe(
+
         response => {
-          console.log(response);
+      
+          this.updateDatable();
+          console.log('Se agrego');
+          $("#eventModal").modal('hide');
         },
         error => {
           console.log(<any>error);
         }
-      );*/
+      );
 
-      $("#eventModal").modal('hide');
-      alert('Evento registrado');
-      $('#CreateEventForm').trigger("reset");
+     // $("#eventModal").modal('hide');
+     // alert('Evento registrado');
+    // $('#CreateEventForm').trigger("reset");
     }
     else {
       alert('Informacion suministrada incompleta');
@@ -317,5 +337,7 @@ export class EventsComponent implements OnInit {
     }
 
   }
+
+  
 
 }

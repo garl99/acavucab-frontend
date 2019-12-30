@@ -63,14 +63,14 @@ export class CRUDService {
 
     }
 
-    registerEvent(data_event): Observable<any>{
+    registerEvent(data_event, token): Observable<any>{
 
         let json = JSON.stringify(data_event);
 
         let params = 'json=' + json;
 
-        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
-                                      
+        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded')
+                                        .set('Authorization', token);
         return this._http.post(this.url + 'register-event', params, { headers: headers });
 
     }

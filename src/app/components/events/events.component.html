@@ -60,11 +60,11 @@
                             <label for="name">Nombre del evento:</label>
                             <div class="input-group">
                                 <input id="name" class="form-control" type="text"
-                                    placeholder="Ingrese el nombre de la cerveza" required>
+                                    placeholder="Ingrese el nombre del evento" required>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="name">Description:</label>
+                            <label for="description">Description:</label>
                             <textarea class="form-control" name="" id="description" cols="30" rows="5"></textarea>
 
                         </div>
@@ -85,7 +85,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="priceticket">Fecha del evento:</label>
+                            <label for="date">Fecha del evento:</label>
                             <div class="input-group">
                                 <mat-form-field>
                                     <input id="date" matInput [matDatepicker]="picker" required>
@@ -96,7 +96,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="url">Lugar del evento: </label><br>
+                            <label for="place">Lugar del evento: </label><br>
                             <select #selectList (change)="optionSelected(selectList.value)">
                                 <option value="null">Estado</option>
                                 <option *ngFor="let state of states" value="{{ state | json }}">{{state.nombre}}
@@ -109,9 +109,9 @@
                                 </option>
                             </select>
 
-                            <select #selectList3 (change)="optionSelected3(selectList3.value)">
+                            <select id="place" #selectList3 (change)="optionSelected3(selectList3.value)">
                                 <option value="null">Parroquia</option>
-                                <option *ngFor="let parr of parrs" value="{{ parr | json }}">{{parr.nombre}}
+                                <option *ngFor="let parr of parrs" value="{{ parr.id }}">{{parr.nombre}}
                                 </option>
                             </select>
                         </div>
@@ -187,9 +187,11 @@
                 <tr class="text-center">
                     <th scope="col">id</th>
                     <th scope="col">Nombre</th>
-                    <th scope="col">Cant.Entradas iniciales</th>
-                    <th scope="col">Cant.Entradas disponibles</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Cant. Entradas iniciales</th>
+                    <th scope="col">Cant. Entradas disponibles</th>
                     <th scope="col">Fecha</th>
+                    <th scope="col">Ubicacion</th>
                     <th scope="col">Proveedores</th>
                     <th scope="col">Cervezas</th>
                     <th scope="col">Opciones</th>
@@ -200,9 +202,11 @@
                 <tr *ngFor="let event of events">
                     <th class="text-center" scope="row">{{event.id}}</th>
                     <td class="text-center">{{event.nombre}}</td>
+                    <td class="text-center">{{event.descripcion}}</td>
                     <td class="text-center">{{event.cantidad_entrada_inicial}}</td>
                     <td class="text-center">{{event.cantidad_entrada_actual}}</td>
                     <td class="text-center">{{event.fecha}}</td>
+                    <td class="text-center">{{event.fk_lugar}}</td>
                     <td><button type="button" class="btn btn-info btn-circle ml-5"><i class="fas fa-info"></i></button>
                     </td>
                     <td><button type="button" class="btn btn-info btn-circle ml-4"><i class="fas fa-info"></i></button>

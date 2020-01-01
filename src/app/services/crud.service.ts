@@ -104,6 +104,14 @@ export class CRUDService {
 
     }
 
+    getdelete5(id,token): Observable<any>{
+        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded')
+                                         .set('Authorization', token);;
+
+        return this._http.delete(this.url+'delete-evento/'+id,{headers:headers});
+
+    }
+
     updateBeer(id,token,dataBeer): Observable<any>{
 
         let json = JSON.stringify(dataBeer);
@@ -116,6 +124,20 @@ export class CRUDService {
         return this._http.post(this.url + 'update-cerveza/'+id, params, { headers: headers });
 
     }
+
+    updateEvent(id,token,dataEvent): Observable<any>{
+
+        let json = JSON.stringify(dataEvent);
+
+        let params = 'json=' + json;
+
+        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded')
+                                       .set('Authorization', token);;
+
+        return this._http.post(this.url + 'update-evento/'+id, params, { headers: headers });
+
+    }
+
 
 
 } 

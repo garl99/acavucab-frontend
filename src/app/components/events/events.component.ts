@@ -245,7 +245,7 @@ export class EventsComponent implements OnInit {
       //  'nombre': $("#name").val(),
        // 'descripcion': $('#description').val(),
        // 'cantidad_entrada_incial': $('#ticket').val(),
-      //  'cantidad_entrada_final': $('#ticket').val(),
+      //  'cantidad_entrada_actual': $('#ticket').val(),
      //   'fecha': $('#date').val(),
       //  'lugar_id': this.lugar,
         //'proveedores': this.suppliersIn,
@@ -254,9 +254,13 @@ export class EventsComponent implements OnInit {
         let descripcion = $("#description").val();
         let cantidad_entrada_incial=  $('#ticket').val();
         let cantidad_entrada_actual= $('#ticket').val();
+        let precio =$('#priceticket').val();
         let  fecha = $('#date').val();
         let  lugar = $('#place').val();
-        let data_event = new Event (nombre, descripcion, cantidad_entrada_incial, cantidad_entrada_actual, fecha, lugar);
+  
+         //'proveedores': this.suppliersIn,
+        //'cervezas': this.beersIn,
+        let data_event = new Event (nombre, descripcion, cantidad_entrada_incial, cantidad_entrada_actual,precio,  fecha, lugar);
         console.log(JSON.stringify(data_event));
         this._crudService.registerEvent(data_event, this.token).subscribe(
 
@@ -287,6 +291,41 @@ export class EventsComponent implements OnInit {
     else {
       alert('Informacion suministrada incompleta');
     }
+
+  }
+
+  update(Form,event) {
+
+    let id=event.id;
+    let nameu=$("#nameu"+event.id).val();
+    let descriptionu=$("#descriptionu"+event.id).val();
+    let ticketu=$("#ticketu"+event.id).val();
+    let priceticketu=$("#priceticketu"+event.id).val();
+    let dateu=$("#dateu"+event.id).val();
+  
+  
+    let dataevent = new Event(nameu, descriptionu, ticketu, ticketu, priceticketu,dateu , event.fk_lugar);
+
+    this._crudService.updateEvent(id,this.token,dataevent).subscribe(
+      response => {
+        console.log(response);
+        //this.notificationSucess2();
+        this.updateDatable();
+
+      },
+      error  => {
+        console.log(<any>error);
+      //  this.notificationBeerError();
+      }
+    );
+
+
+
+    console.log(dataevent);
+    
+    
+    $("#editModal"+event.id).modal('hide');
+
 
   }
 
@@ -325,7 +364,6 @@ export class EventsComponent implements OnInit {
 
   }
 
-
   deleteBeerIn(id) {
     console.log(id);
     for (let i = 0; i < this.beersIn.length; i++) {
@@ -337,6 +375,45 @@ export class EventsComponent implements OnInit {
     }
 
   }
+
+  openModal(event) {
+    /*
+    this.typeSelected=[{
+       nombre:  event.tipoc
+       }
+   ];
+   */
+   $("#nameu"+event.id).val(event.nombre);
+   $("#descriptionu"+event.id).val(event.descripcion);
+   $("#ticketu"+event.id).val(event.cantidad_entrada_inicial);
+   $("#priceticketu"+event.id).val(event.precio_entrada);
+   $("#dateu"+event.id).val(event.fecha);
+   $("#editModal"+event.id).modal('show');
+
+ }
+
+
+ openModalDelete(id){
+  $("#confirmation"+id).modal('show');
+}
+ delete(id) {
+  console.log(id);
+  
+  $("#confirmation"+id).modal('hide');
+  this._crudService.getdelete5(id, this.token).subscribe(
+    response => {
+      console.log('Se elimino');
+      console.log(response);
+      this.updateDatable();
+    },
+    error => {
+      console.log(<any>error);
+      console.log('Fallo');
+    }
+
+  )
+}
+ 
 
   
 

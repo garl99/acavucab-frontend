@@ -64,7 +64,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="description">Description:</label>
+                            <label for="description">Descripcion:</label>
                             <textarea class="form-control" name="" id="description" cols="30" rows="5"></textarea>
 
                         </div>
@@ -190,6 +190,7 @@
                     <th scope="col">Descripcion</th>
                     <th scope="col">Cant. Entradas iniciales</th>
                     <th scope="col">Cant. Entradas disponibles</th>
+                    <th scope="col">Precio entrada</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Ubicacion</th>
                     <th scope="col">Proveedores</th>
@@ -205,6 +206,7 @@
                     <td class="text-center">{{event.descripcion}}</td>
                     <td class="text-center">{{event.cantidad_entrada_inicial}}</td>
                     <td class="text-center">{{event.cantidad_entrada_actual}}</td>
+                    <td class="text-center">{{event.precio_entrada}}</td>
                     <td class="text-center">{{event.fecha}}</td>
                     <td class="text-center">{{event.fk_lugar}}</td>
                     <td><button type="button" class="btn btn-info btn-circle ml-5"><i class="fas fa-info"></i></button>
@@ -215,7 +217,7 @@
                         <div class="row">
                             <div align="center" class="col-sm-4">
                                 <form action="#" method="POST">
-                                    <a class="btn btn-primary text-white" style="cursor: pointer;"><i
+                                    <a class="btn btn-primary text-white" (click)="openModal(event)" style="cursor: pointer;"><i
                                             class="fas fa-pencil-alt"></i></a>
                                 </form>
 
@@ -223,7 +225,7 @@
 
                             <div align="center" class="col-sm-4">
                                 <form action="#" method="POST">
-                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                    <button type="submit" class="btn btn-danger" (click)="openModalDelete(event.id)" ><i class="fas fa-trash"></i></button>
 
                                 </form>
                             </div>
@@ -231,18 +233,153 @@
                         </div>
                     </td>
 
+                    <div class="modal fade" id="editModal{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color:#269ECE;">
+                                <h4 class="modal-title" id="myModalLabel">Editar Evento</h4>
+                                <button type="button" class="close" data-dismiss="modal"><span
+                                        aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            </div>
+                            <div class="modal-body">
+
+                                <!--REVISAR AQUI LOS NG MODEL-->
+                                <form id="UpdateEventForm" #Form="ngForm" (ngSubmit)="update(Form,event)" method="PUT">
+                                    <p>Por favor, ingresa los datos solicitados.</p>
+                                    <div class="form-group">
+                                        <label for="nameu">Nombre del evento:</label>
+                                        <div class="input-group">
+                                            <input id="nameu{{event.id}}" class="form-control" type="text"
+                                                placeholder="Ingrese el nombre del evento" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="descriptionu">Descripcion:</label>
+                                        <textarea class="form-control" name="" id="descriptionu{{event.id}}" cols="30" rows="5"></textarea>
+            
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ticketu">Cantidad de entradas:</label>
+                                        <div class="input-group">
+                                            <input id="ticketu{{event.id}}" class="form-control" type="number"
+                                                placeholder="Ingrese la cantidad de entradas" required>
+                                        </div>
+                                    </div>
+            
+                                    <div class="form-group">
+                                        <label for="priceticketu">Precio de entrada:</label>
+                                        <div class="input-group">
+                                            <input id="priceticketu{{event.id}}" class="form-control" type="number"
+                                                placeholder="Ingrese la cantidad de entradas" required>
+                                        </div>
+                                    </div> 
+            
+                                    <div class="form-group">
+                                        <label for="dateu">Fecha del evento:</label>
+                                        <div class="input-group">
+                                            <mat-form-field>
+                                                <input id="dateu{{event.id}}" matInput [matDatepicker]="picker" required>
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                               <!--         
+                                    <div class="form-group">
+                                        <label for="place">Lugar del evento: </label><br>
+                                        <select #selectList (change)="optionSelected(selectList.value)">
+                                            <option value="null">Estado</option>
+                                            <option *ngFor="let state of states" value="{{ state | json }}">{{state.nombre}}
+                                            </option>
+                                        </select>
+            
+                                        <select #selectList2 (change)="optionSelected2(selectList2.value)">
+                                            <option value="null">Municipio</option>
+                                            <option *ngFor="let muni of munis" value="{{ muni | json }}">{{muni.nombre}}
+                                            </option>
+                                        </select>
+            
+                                        <select id="place" #selectList3 (change)="optionSelected3(selectList3.value)">
+                                            <option value="null">Parroquia</option>
+                                            <option *ngFor="let parr of parrs" value="{{ parr.id }}">{{parr.nombre}}
+                                            </option>
+                                        </select>
+                                    </div> -->
+            
+                                   <!-- <div class="form-group">
+                                        <label for="type">Proveedores:</label>
+                                        <select id="select2" class="ml-2" #selectList4
+                                            (change)="optionSelected4(selectList4.value)">
+                                            <option value="null" disabled>Seleccionar</option>
+                                            <option *ngFor="let supplier of suppliers" value="{{ supplier | json }}">
+                                                {{supplier.denomi_comercial}}
+                                            </option>
+                                        </select>
+                                        <a id="hover"class="btn btn-success ml-3 btn-circle text-white" (click)="addSupplier()">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </a>
+                                    </div> 
+            
+                                    <div class="form-group" *ngIf="suppliersIn.length!=0">
+                                        <label  style="font-weight: bold;" for="supplierIn">Proveedores añadidos:</label>
+                                        <div class="row ml-1" *ngFor="let supplierIn of suppliersIn">
+                                            <label for="type">{{supplierIn.denomi_comercial}}</label>
+                                            <a  id="hover"class="btn btn-danger ml-3 btn-circle text-white" (click)="deleteSupplierIn(supplierIn.id)">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a> 
+                                        </div>
+                                    </div> 
+            
+                                    
+                                    <div class="form-group" *ngIf="suppliersIn.length!=0">
+                                        <label for="type">Cervezas:</label>
+                                        <select id="select3" class="ml-2" #selectList5
+                                            (change)="optionSelected5(selectList5.value)">
+                                            <option value="null" disabled>Seleccionar</option>
+                                            <option *ngFor="let beer of beersAvailable" value="{{ beer | json }}">
+                                                {{beer.nombre}}
+                                            </option>
+                                        </select>
+                                        <input class="ml-2" id="qty" type="number" style="width: 50px;"
+                                                placeholder="cant" required>
+                                        <a id="hover"class="btn btn-success ml-3 btn-circle text-white" (click)="addbeer()">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </a>
+                                    </div>
+            
+                                    <div class="form-group" *ngIf="beersIn.length!=0">
+                                        <label style="font-weight: bold;" for="beersIn">Cervezas añadidas:</label>
+                                        <div class="row ml-1" *ngFor="let beerIn of beersIn">
+                                            <label for="type">{{beerIn.nombre}} Cant:{{beerIn.cantidad_cervezas}}</label>
+                                            <a  id="hover"class="btn btn-danger ml-3 btn-circle text-white" (click)="deleteBeerIn(beerIn.id)">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a> 
+                                        </div>
+                                    </div> -->
+            
+                                    <hr>
+                                    <button class="btn btn-warning btn-block text-uppercase" type="submit">
+                                        Actualizar
+                                    </button>
+            
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                     <div id="confirmation{{event.id}}" class="modal text-center" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="">
-                                    <h5 class="modal-title text-center py-3">Borrar cerveza</h5>
+                                    <h5 class="modal-title text-center py-3">Borrar evento</h5>
                                     <hr>
                                     <img src="../../../assets/img/rusure.png" alt="" style="width: 50px;">
                                 </div>
                                 <div class="modal-body">
-                                    <p>¿Estas realmente seguro de borrar esta cerveza?</p>
-                                    <p>ALERTA: perdera cualquier información relacionada con esta cerveza</p>
+                                    <p>¿Estas realmente seguro de borrar este evento?</p>
+                                    <p>ALERTA: perdera cualquier información relacionada con este evento</p>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"

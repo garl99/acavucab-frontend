@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { EventService } from 'src/app/services/events.service';
 import idiom from '../../idiom';
-import { Event } from 'src/app/models/event';
+import { EventC } from 'src/app/models/event';
+import { EventU } from 'src/app/models/event';
 import { CustomersNService } from 'src/app/services/n-customers.service';
 import { BeerService } from 'src/app/services/beer.service';
 import { PlaceService } from 'src/app/services/places.service';
 import { CRUDService } from 'src/app/services/crud.service';
 import { FormGroup } from '@angular/forms';
+import { NotificationsService} from 'angular2-notifications';
 
 declare var $;
 
@@ -15,7 +17,7 @@ declare var $;
   selector: 'app-events',
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.css'],
-  providers: [AuthService, EventService, CustomersNService, BeerService, PlaceService, CRUDService]
+  providers: [AuthService, EventService, CustomersNService, BeerService, PlaceService, CRUDService, NotificationsService]
 })
 export class EventsComponent implements OnInit {
   public identity;
@@ -33,11 +35,12 @@ export class EventsComponent implements OnInit {
   public munis;
   public parrs;
   public lugar;
+  public placeEdit;
 
 
   constructor(private _authService: AuthService, private _eventService: EventService,
     private _supplierService: CustomersNService, private _beerService: BeerService,
-    private _placeService: PlaceService, private _crudService: CRUDService) { }
+    private _placeService: PlaceService, private _crudService: CRUDService, private _service: NotificationsService) { }
 
   ngOnInit() {
     this.loadStates();
@@ -75,7 +78,10 @@ export class EventsComponent implements OnInit {
           "destroy": true,
           "pageLength": 8,
           "lengthMenu": [[8, 16, 24, -1], [8, 16, 24, "Todos"]],
-          "language": idiom
+          "language": idiom,
+          "columnDefs": [
+            { "className": "dt-center", "targets": "_all" }
+          ],
         });
       });
     }, 2000);
@@ -88,7 +94,7 @@ export class EventsComponent implements OnInit {
         location.reload();
       });
     }, 2000);
-    //this.notificationInfoUpdate();
+    this.notificationInfoUpdate();
   }
 
   optionSelected(selectedVendor) {
@@ -137,7 +143,7 @@ export class EventsComponent implements OnInit {
 
     let array = JSON.parse(selectedVendor);
     this.lugar = array.id;
-    //console.log(array);
+    console.log(this.lugar);
   }
 
 
@@ -241,52 +247,39 @@ export class EventsComponent implements OnInit {
 
     if (this.suppliersIn.length != 0 && this.beersIn.length != 0) {
 
-     // let data_event = {
-      //  'nombre': $("#name").val(),
-       // 'descripcion': $('#description').val(),
-       // 'cantidad_entrada_incial': $('#ticket').val(),
-      //  'cantidad_entrada_actual': $('#ticket').val(),
-     //   'fecha': $('#date').val(),
-      //  'lugar_id': this.lugar,
-        //'proveedores': this.suppliersIn,
-        //'cervezas': this.beersIn
-        let nombre = $("#name").val();
-        let descripcion = $("#description").val();
-        let cantidad_entrada_incial=  $('#ticket').val();
-        let cantidad_entrada_actual= $('#ticket').val();
-        let precio =$('#priceticket').val();
-        let  fecha = $('#date').val();
-        let  lugar = $('#place').val();
-  
-         //'proveedores': this.suppliersIn,
-        //'cervezas': this.beersIn,
-        let data_event = new Event (nombre, descripcion, cantidad_entrada_incial, cantidad_entrada_actual,precio,  fecha, lugar);
-        console.log(JSON.stringify(data_event));
-        this._crudService.registerEvent(data_event, this.token).subscribe(
+      let nombre = $("#name").val();
+      let descripcion = $("#description").val();
+      let cantidad_entrada_incial = $('#ticket').val();
+      let cantidad_entrada_actual = $('#ticket').val();
+      let precio = $('#priceticket').val();
+      let fecha = $('#date').val();
+      let data_event = new EventC(nombre, descripcion, cantidad_entrada_incial, cantidad_entrada_actual,
+        precio, fecha, this.lugar, this.suppliersIn, this.beersIn);
 
-        
+      console.log(JSON.stringify(data_event));
+      console.log(data_event);
 
-     // console.log(data_event);
-     // console.log(JSON.stringify(data_event));
-
-
-
-      //backend here
+      this._crudService.registerEvent(data_event, this.token).subscribe(
 
         response => {
-      
-          this.updateDatable();
           console.log('Se agrego');
           $("#eventModal").modal('hide');
+          this.suppliersIn = [];
+          this.beersIn = [];
+          $('#CreateEventForm').trigger("reset");
+          this.notificationSucess();
+          this.updateDatable();
         },
         error => {
           console.log(<any>error);
+          $("#eventModal").modal('hide');
+          this.notificationError();
         }
       );
 
-     // $("#eventModal").modal('hide');
-     // alert('Evento registrado');
-    // $('#CreateEventForm').trigger("reset");
+
+
+
     }
     else {
       alert('Informacion suministrada incompleta');
@@ -294,37 +287,43 @@ export class EventsComponent implements OnInit {
 
   }
 
-  update(Form,event) {
+  update(Form, event) {
 
-    let id=event.id;
-    let nameu=$("#nameu"+event.id).val();
-    let descriptionu=$("#descriptionu"+event.id).val();
-    let ticketu=$("#ticketu"+event.id).val();
-    let priceticketu=$("#priceticketu"+event.id).val();
-    let dateu=$("#dateu"+event.id).val();
-  
-  
-    let dataevent = new Event(nameu, descriptionu, ticketu, ticketu, priceticketu,dateu , event.fk_lugar);
+    let id = event.id;
+    let nameu = $("#nameu" + event.id).val();
+    let descriptionu = $("#descriptionu" + event.id).val();
+    let ticketu = $("#ticketu" + event.id).val();
+    let priceticketu = $("#priceticketu" + event.id).val();
+    let dateu = $("#dateu" + event.id).val();
+    let dataevent;
 
-    this._crudService.updateEvent(id,this.token,dataevent).subscribe(
+    if(this.lugar){
+      dataevent= new EventU(nameu, descriptionu, ticketu, ticketu, priceticketu, dateu, this.lugar);
+    }
+    else{
+      dataevent = new EventU(nameu, descriptionu, ticketu, ticketu, priceticketu, dateu, event.fk_lugar);
+    }
+    console.log(dataevent);
+    
+    this._crudService.updateEvent(id, this.token, dataevent).subscribe(
       response => {
         console.log(response);
-        //this.notificationSucess2();
+        this.notificationSucess2();
         this.updateDatable();
 
       },
-      error  => {
+      error => {
         console.log(<any>error);
-      //  this.notificationBeerError();
+        this.notificationError();
       }
     );
 
 
 
     console.log(dataevent);
-    
-    
-    $("#editModal"+event.id).modal('hide');
+
+
+    $("#editModal" + event.id).modal('hide');
 
 
   }
@@ -354,7 +353,7 @@ export class EventsComponent implements OnInit {
 
     for (let i = 0; i < this.suppliersIn.length; i++) {
 
-      if(this.suppliersIn[i].id==id){
+      if (this.suppliersIn[i].id == id) {
         this.suppliersIn.splice(i, 1);
       }
       console.log(this.suppliersIn);
@@ -368,7 +367,7 @@ export class EventsComponent implements OnInit {
     console.log(id);
     for (let i = 0; i < this.beersIn.length; i++) {
 
-      if(this.beersIn[i].id==id){
+      if (this.beersIn[i].id == id) {
         this.beersIn.splice(i, 1);
       }
       console.log(this.beersIn);
@@ -377,44 +376,117 @@ export class EventsComponent implements OnInit {
   }
 
   openModal(event) {
-    /*
-    this.typeSelected=[{
-       nombre:  event.tipoc
-       }
-   ];
-   */
-   $("#nameu"+event.id).val(event.nombre);
-   $("#descriptionu"+event.id).val(event.descripcion);
-   $("#ticketu"+event.id).val(event.cantidad_entrada_inicial);
-   $("#priceticketu"+event.id).val(event.precio_entrada);
-   $("#dateu"+event.id).val(event.fecha);
-   $("#editModal"+event.id).modal('show');
 
- }
+    $("#nameu" + event.id).val(event.nombre);
+    $("#descriptionu" + event.id).val(event.descripcion);
+    $("#ticketu" + event.id).val(event.cantidad_entrada_inicial);
+    $("#priceticketu" + event.id).val(event.precio_entrada);
+    $("#dateu" + event.id).val(event.fecha);
+    $("#editModal" + event.id).modal('show');
+
+  }
 
 
- openModalDelete(id){
-  $("#confirmation"+id).modal('show');
-}
- delete(id) {
-  console.log(id);
-  
-  $("#confirmation"+id).modal('hide');
-  this._crudService.getdelete5(id, this.token).subscribe(
-    response => {
-      console.log('Se elimino');
-      console.log(response);
-      this.updateDatable();
-    },
-    error => {
-      console.log(<any>error);
-      console.log('Fallo');
-    }
+  openModalDelete(id) {
+    $("#confirmation" + id).modal('show');
+  }
+  delete(id) {
+    console.log(id);
 
-  )
-}
- 
+    $("#confirmation" + id).modal('hide');
 
-  
+    this._crudService.getdelete5(id, this.token).subscribe(
+      response => {
+        console.log('Se elimino');
+        console.log(response);
+        this.notificationEventDeleted();
+        this.updateDatable();
+      },
+      error => {
+        console.log(<any>error);
+        console.log('Fallo');
+        this.notificationError();
+      }
+
+    );
+  }
+
+  available(){
+    console.log(this.placeEdit);
+    this.placeEdit=1;
+    console.log(this.placeEdit);
+  }
+
+  disabled(){
+    console.log(this.placeEdit);
+    this.placeEdit=0;
+    console.log(this.placeEdit);
+  }
+
+     
+
+  notificationSucess(){
+    this._service.success('Registro exitoso','Evento agregado correctamente',{
+      timeOut: 5000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
+  }
+
+  notificationSucess2(){
+    this._service.success('Edición exitosa','Evento editado correctamente',{
+      timeOut: 5000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
+  }
+
+  notificationInfoUpdate(){
+    this._service.info('Actualizando registros','Por favor, espere',{
+      timeOut: 3000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
+  }
+
+  notificationEventDeleted(){
+    this._service.success('Registro borrado','Evento eliminado correctamente',{
+      timeOut: 3000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
+  }
+
+  notificationInfo(){
+    this._service.info('Info','La información de este evento es requerido por otro registro',{
+      timeOut: 5000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
+  }
+
+  notificationError(){
+    this._service.info('Error','No fue posible realizar esta acción. Intente más tarde',{
+      timeOut: 5000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
+  }
+
+
+
+
 
 }

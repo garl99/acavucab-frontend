@@ -111,7 +111,7 @@
 
                             <select id="place" #selectList3 (change)="optionSelected3(selectList3.value)">
                                 <option value="null">Parroquia</option>
-                                <option *ngFor="let parr of parrs" value="{{ parr.id }}">{{parr.nombre}}
+                                <option *ngFor="let parr of parrs" value="{{ parr | json }}">{{parr.nombre}}
                                 </option>
                             </select>
                         </div>
@@ -208,10 +208,10 @@
                     <td class="text-center">{{event.cantidad_entrada_actual}}</td>
                     <td class="text-center">{{event.precio_entrada}}</td>
                     <td class="text-center">{{event.fecha}}</td>
-                    <td class="text-center">{{event.fk_lugar}}</td>
-                    <td><button type="button" class="btn btn-info btn-circle ml-5"><i class="fas fa-info"></i></button>
+                    <td class="text-center">{{event.lugar}}</td>
+                    <td><button type="button" class="btn btn-info btn-circle"><i class="fas fa-info"></i></button>
                     </td>
-                    <td><button type="button" class="btn btn-info btn-circle ml-4"><i class="fas fa-info"></i></button>
+                    <td><button type="button" class="btn btn-info btn-circle"><i class="fas fa-info"></i></button>
                     </td>
                     <td>
                         <div class="row">
@@ -245,7 +245,7 @@
                             <div class="modal-body">
 
                                 <!--REVISAR AQUI LOS NG MODEL-->
-                                <form id="UpdateEventForm" #Form="ngForm" (ngSubmit)="update(Form,event)" method="PUT">
+                                <form id="UpdateEventForm{{event.id}}" #Form="ngForm" (ngSubmit)="update(Form,event)" method="PUT">
                                     <p>Por favor, ingresa los datos solicitados.</p>
                                     <div class="form-group">
                                         <label for="nameu">Nombre del evento:</label>
@@ -285,8 +285,16 @@
                                             </mat-form-field>
                                         </div>
                                     </div>
-                               <!--         
+                                      
                                     <div class="form-group">
+                                        <label for="place" style="font-weight: bold;" >Lugar del evento:</label><br>
+                                        <label for="place2"> {{event.lugar}} </label>
+                                        <a id="hover"class="btn btn-primary ml-3 btn-circle text-white">
+                                            <i class="fas fa-pencil-alt" (click)="available()"></i>
+                                        </a>
+                                    </div>
+
+                                    <div class="form-group" *ngIf="placeEdit==1">
                                         <label for="place">Lugar del evento: </label><br>
                                         <select #selectList (change)="optionSelected(selectList.value)">
                                             <option value="null">Estado</option>
@@ -300,66 +308,18 @@
                                             </option>
                                         </select>
             
-                                        <select id="place" #selectList3 (change)="optionSelected3(selectList3.value)">
+                                        <select id="place{{event.id}}" #selectList3 (change)="optionSelected3(selectList3.value)">
                                             <option value="null">Parroquia</option>
-                                            <option *ngFor="let parr of parrs" value="{{ parr.id }}">{{parr.nombre}}
+                                            <option *ngFor="let parr of parrs" value="{{ parr | json}}">{{parr.nombre}}
                                             </option>
                                         </select>
-                                    </div> -->
-            
-                                   <!-- <div class="form-group">
-                                        <label for="type">Proveedores:</label>
-                                        <select id="select2" class="ml-2" #selectList4
-                                            (change)="optionSelected4(selectList4.value)">
-                                            <option value="null" disabled>Seleccionar</option>
-                                            <option *ngFor="let supplier of suppliers" value="{{ supplier | json }}">
-                                                {{supplier.denomi_comercial}}
-                                            </option>
-                                        </select>
-                                        <a id="hover"class="btn btn-success ml-3 btn-circle text-white" (click)="addSupplier()">
-                                            <i class="fas fa-plus-circle"></i>
+                                        <a id="hover"class="btn btn-danger ml-3 btn-circle text-white">
+                                            <i class="fas fa-trash-alt" (click)="disabled()"></i>
                                         </a>
                                     </div> 
-            
-                                    <div class="form-group" *ngIf="suppliersIn.length!=0">
-                                        <label  style="font-weight: bold;" for="supplierIn">Proveedores añadidos:</label>
-                                        <div class="row ml-1" *ngFor="let supplierIn of suppliersIn">
-                                            <label for="type">{{supplierIn.denomi_comercial}}</label>
-                                            <a  id="hover"class="btn btn-danger ml-3 btn-circle text-white" (click)="deleteSupplierIn(supplierIn.id)">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </a> 
-                                        </div>
-                                    </div> 
-            
-                                    
-                                    <div class="form-group" *ngIf="suppliersIn.length!=0">
-                                        <label for="type">Cervezas:</label>
-                                        <select id="select3" class="ml-2" #selectList5
-                                            (change)="optionSelected5(selectList5.value)">
-                                            <option value="null" disabled>Seleccionar</option>
-                                            <option *ngFor="let beer of beersAvailable" value="{{ beer | json }}">
-                                                {{beer.nombre}}
-                                            </option>
-                                        </select>
-                                        <input class="ml-2" id="qty" type="number" style="width: 50px;"
-                                                placeholder="cant" required>
-                                        <a id="hover"class="btn btn-success ml-3 btn-circle text-white" (click)="addbeer()">
-                                            <i class="fas fa-plus-circle"></i>
-                                        </a>
-                                    </div>
-            
-                                    <div class="form-group" *ngIf="beersIn.length!=0">
-                                        <label style="font-weight: bold;" for="beersIn">Cervezas añadidas:</label>
-                                        <div class="row ml-1" *ngFor="let beerIn of beersIn">
-                                            <label for="type">{{beerIn.nombre}} Cant:{{beerIn.cantidad_cervezas}}</label>
-                                            <a  id="hover"class="btn btn-danger ml-3 btn-circle text-white" (click)="deleteBeerIn(beerIn.id)">
-                                                <i class="fas fa-trash-alt"></i>
-                                            </a> 
-                                        </div>
-                                    </div> -->
-            
+
                                     <hr>
-                                    <button class="btn btn-warning btn-block text-uppercase" type="submit">
+                                    <button class="btn btn-primary btn-block text-uppercase" type="submit">
                                         Actualizar
                                     </button>
             

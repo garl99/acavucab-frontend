@@ -106,7 +106,7 @@ export class CRUDService {
 
     getdelete5(id,token): Observable<any>{
         let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded')
-                                         .set('Authorization', token);;
+                                        .set('Authorization', token);;
 
         return this._http.delete(this.url+'delete-evento/'+id,{headers:headers});
 

@@ -84,7 +84,7 @@ export class EventsComponent implements OnInit {
           ],
         });
       });
-    }, 2000);
+    }, 5000);
 
   }
 

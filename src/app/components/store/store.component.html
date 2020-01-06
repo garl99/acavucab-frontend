@@ -1,0 +1,166 @@
+<body>
+    <!-- Titulo -->
+    <div class="container mt-2" style="margin-bottom: 50px;">
+        <br><br><br>
+        <h1 class="text-center">Manejo de Ventas</h1>
+    </div>
+
+    <!-- Contenido -->
+
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-md-9">
+
+                <h4>Datos del cliente:</h4>
+
+
+                <form action="#" class="w-75 mx-auto">
+                    <div class="row">
+                        <div class="col-md 6">
+                            <div id="tipoCliente" class="form-group">
+                                <label for="description">Tipo de cliente:</label>
+                                <!-- Default checked -->
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="cn" name="cliente" (click)="typeClient()">
+                                    <label class="custom-control-label" for="cn">Cliente Natural</label>
+                                </div>
+
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="cj" name="cliente"(click)="typeClient()">
+                                    <label class="custom-control-label" for="cj">Cliente Juridico</label>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group" *ngIf="flagCn==1" >
+                                <label for="CICliente">Cedula: </label>
+                                <input type="number" min="0" class="ml-2" style="width: 150px; height: 25px;" id="ci">
+                                <a id="hover" class="btn btn-primary ml-3 btn-circle text-white" (click)="findClient()">
+                                    <i class="fas fa-search"></i>
+                                </a>
+                            </div>
+
+                            
+                            <div class="form-group" *ngIf="flagCj==1">
+                                <label for="RIFCliente">RIF: </label>
+                                <input type="number" min="0" class="ml-2" style="width: 150px; height: 25px;" id="rif">
+                                <a id="hover" class="btn btn-primary ml-3 btn-circle text-white" (click)="findClient2()">
+                                    <i class="fas fa-search"></i>
+                                </a>
+                            </div>
+
+
+                        </div>
+
+                        <div class="col-md 6">
+
+                        </div>
+                    </div>
+
+                </form>
+
+                <h4>Detalle venta:</h4>
+
+                <form action="#" class="w-75 mx-auto py-2">
+                    <div class="form-group">
+                        <label for="type">Cervezas:</label>
+                        <select id="select3" class="ml-2" #selectList5 (change)="optionSelected5(selectList5.value)">
+                            <option value="null" disabled>Seleccionar</option>
+                            <option *ngFor="let beer of beersAvailable" value="{{ beer | json }}">
+                                {{beer.nombre}}
+                            </option>
+                        </select>
+                        <input class="ml-2" id="qty" type="number" min="0" style="width: 60px;" placeholder="cant"
+                            required>
+                        <a id="hover" class="btn btn-success ml-3 btn-circle text-white" (click)="addbeer()">
+                            <i class="fas fa-plus-circle"></i>
+                        </a>
+                    </div>
+
+                    <div class="form-group" *ngIf="beersIn.length!=0">
+                        <label style="font-weight: bold;" for="beersIn">Cervezas añadidas:</label>
+                        <div class="row ml-1"
+                            *ngFor="let beerIn of beersIn | paginate: { itemsPerPage: 3, currentPage: p }">
+                            <label for="type">{{beerIn.nombre}} ; Cant:{{beerIn.cantidad_cervezas}} ; Subtotal:
+                                {{beerIn.subtotal}}</label>
+                            <a id="hover" class="btn btn-danger ml-3 btn-circle text-white"
+                                (click)="deleteBeerIn(beerIn.id)">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </div>
+                        <pagination-controls previousLabel="anterior" nextLabel="siguiente" (pageChange)="p = $event"
+                            style="position: relative;bottom: 0;left:200px; top: 15px;"></pagination-controls>
+                    </div>
+                </form>
+
+                <h4>Forma de pago:</h4>
+
+                <form action="#" class="w-75 mx-auto py-2">
+                    <div id="tipoPago" class="form-group">
+                        <label for="description">Tipo de pago:</label>
+                        <!-- Default checked -->
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="credit" name="group">
+                            <label class="custom-control-label" for="credit">Tarjeta Credito</label>
+                        </div>
+
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="debit" name="group">
+                            <label class="custom-control-label" for="debit">Tarjeta Debito</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="cash" name="group">
+                            <label class="custom-control-label" for="cash">Efectivo</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" id="cash2" name="group">
+                            <label class="custom-control-label" for="cash2">Divisa</label>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+            
+            <div class="col-md-3" id="overview" *ngIf="beersIn.length!=0">
+
+                <h5 class="text-center py-3 mt-4">Resumen de venta</h5>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <p style="font-weight: bold;" class="text-justify">Nombre</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p style="font-weight: bold;" class="text-justify">Cant</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p style="font-weight: bold;" class="text-justify">Subtotal</p>
+                    </div>
+                </div>
+                <div class="row" *ngFor="let item of beersIn">
+                    <div class="col-sm-4">
+                        <p class="text-justify"> {{item.nombre }}</p>
+                    </div>
+                    <div class="col-sm-4 pl-4">
+                        <p class="text-justify"> {{item.cantidad_cervezas}}</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p class="text-justify"> {{item.subtotal}}</p>
+                    </div>
+                </div>
+                <div class="py-5" style="position: absolute; bottom: 0;" class="w-75">
+                    <hr>
+                    <div class="row">    
+                        <div class="col-md-7">
+                            <h5>TOTAL=Bs.</h5>
+                        </div>
+                        <div class="col-md-5">
+                            <h5>{{total}}</h5>
+                        </div>
+                    </div>
+                    <button type="button" class=" ml-3 mb-3 btn btn-primary btn-sm btn-block" (click)="openModal()">Generar venta</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <simple-notifications></simple-notifications>
+</body>

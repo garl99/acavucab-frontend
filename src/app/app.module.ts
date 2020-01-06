@@ -48,6 +48,8 @@ import { PlaceService } from './services/places.service';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { CRUDService } from './services/crud.service';
 import { MatNativeDateModule } from '@angular/material/core';
+import { UsersComponent } from './components/users/users.component';
+import { StoreComponent } from './components/store/store.component';
 
 
 @NgModule({
@@ -74,6 +76,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     BeersComponent,
     CarnetComponent,
     ProfileComponent,
+    UsersComponent,
+    StoreComponent,
   ],
   imports: [
     BrowserModule,

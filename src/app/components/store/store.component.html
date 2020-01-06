@@ -21,18 +21,20 @@
                                 <label for="description">Tipo de cliente:</label>
                                 <!-- Default checked -->
                                 <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" id="cn" name="cliente" (click)="typeClient()">
+                                    <input type="radio" class="custom-control-input" id="cn" name="cliente"
+                                        (click)="typeClient()">
                                     <label class="custom-control-label" for="cn">Cliente Natural</label>
                                 </div>
 
                                 <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" id="cj" name="cliente"(click)="typeClient()">
+                                    <input type="radio" class="custom-control-input" id="cj" name="cliente"
+                                        (click)="typeClient()">
                                     <label class="custom-control-label" for="cj">Cliente Juridico</label>
                                 </div>
 
                             </div>
 
-                            <div class="form-group" *ngIf="flagCn==1" >
+                            <div class="form-group" *ngIf="flagCn==1">
                                 <label for="CICliente">Cedula: </label>
                                 <input type="number" min="0" class="ml-2" style="width: 150px; height: 25px;" id="ci">
                                 <a id="hover" class="btn btn-primary ml-3 btn-circle text-white" (click)="findClient()">
@@ -40,11 +42,12 @@
                                 </a>
                             </div>
 
-                            
+
                             <div class="form-group" *ngIf="flagCj==1">
                                 <label for="RIFCliente">RIF: </label>
                                 <input type="number" min="0" class="ml-2" style="width: 150px; height: 25px;" id="rif">
-                                <a id="hover" class="btn btn-primary ml-3 btn-circle text-white" (click)="findClient2()">
+                                <a id="hover" class="btn btn-primary ml-3 btn-circle text-white"
+                                    (click)="findClient2()">
                                     <i class="fas fa-search"></i>
                                 </a>
                             </div>
@@ -82,7 +85,7 @@
                         <div class="row ml-1"
                             *ngFor="let beerIn of beersIn | paginate: { itemsPerPage: 3, currentPage: p }">
                             <label for="type">{{beerIn.nombre}} ; Cant:{{beerIn.cantidad_cervezas}} ; Subtotal:
-                                {{beerIn.subtotal}}</label>
+                                {{beerIn.precio}}</label>
                             <a id="hover" class="btn btn-danger ml-3 btn-circle text-white"
                                 (click)="deleteBeerIn(beerIn.id)">
                                 <i class="fas fa-trash-alt"></i>
@@ -100,28 +103,94 @@
                         <label for="description">Tipo de pago:</label>
                         <!-- Default checked -->
                         <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="credit" name="group">
+                            <input type="radio" class="custom-control-input" id="credit" name="credit"
+                                (click)="typePayment()">
                             <label class="custom-control-label" for="credit">Tarjeta Credito</label>
                         </div>
 
                         <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="debit" name="group">
+                            <input type="radio" class="custom-control-input" id="debit" name="debit"
+                                (click)="typePayment()">
                             <label class="custom-control-label" for="debit">Tarjeta Debito</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="cash" name="group">
+                            <input type="radio" class="custom-control-input" id="cash" name="cash"
+                                (click)="typePayment()">
                             <label class="custom-control-label" for="cash">Efectivo</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" id="cash2" name="group">
+                            <input type="radio" class="custom-control-input" id="cash2" name="cash2"
+                                (click)="typePayment()">
                             <label class="custom-control-label" for="cash2">Divisa</label>
                         </div>
 
                     </div>
+
+
+                    <div class="form-group" *ngIf="flagCredit==1">
+
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label for="name" style="font-weight: bold;">Tarjeta de credito </label><br>
+                            </div>
+                            <div class="col-sm-4">
+                                <a id="hover" (click)="deleteOption1()">
+                                    <i class="fas fa-window-close"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <select *ngIf="credit_cards" class="w-50" id="#selectList3" #selectList3
+                            (change)="optionSelectedM(selectList3.value,item)">
+                            <option value="null" disabled>Tus tarjetas</option>
+                            <option *ngFor="let card of credit_cards" value="{{ card | json }}">
+                                {{card.num_tarjeta}}</option>
+                        </select>
+
+                        <small class="my-2" *ngIf="credit_cards" class="invalid-feedback d-block">Utilizar otra tarjeta.
+                            <a href="">Agregue una aquí</a></small>
+
+                        <small class="my-2" *ngIf="!credit_cards" class="invalid-feedback d-block">No
+                            posee tarjetas. Registre una tarjeta. <a href="">Agregue una aquí</a></small>
+                    </div>
+
+
+                    <div class="form-group" *ngIf="flagDebit==1">
+
+
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label for="name" style="font-weight: bold;">Tarjeta de debito </label><br>
+                            </div>
+                            <div class="col-sm-4">
+                                <a id="hover" (click)="deleteOption2()">
+                                    <i class="fas fa-window-close"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <select *ngIf="debit_cards" class="ml-3" id="#selectList3" #selectList3
+                            (change)="optionSelectedM(selectList3.value,item)">
+                            <option value="null">Tus tarjetas</option>
+                            <option *ngFor="let card of debit_cards" value="{{ card | json }}">
+                                {{card.num_tarjeta}}</option>
+                        </select>
+
+                        <small class="my-2" *ngIf="debit_cards" class="invalid-feedback d-block">Utilizar otra tarjeta.
+                            <a href="">Agregue una aquí</a></small>
+
+                        <small class="my-2" *ngIf="!debit_cards" class="invalid-feedback d-block">No
+                            posee tarjetas. Registre una tarjeta. <a href="">Agregue una aquí</a></small>
+
+
+                    </div>
+
                 </form>
             </div>
 
-            
+
             <div class="col-md-3" id="overview" *ngIf="beersIn.length!=0">
 
                 <h5 class="text-center py-3 mt-4">Resumen de venta</h5>
@@ -144,12 +213,12 @@
                         <p class="text-justify"> {{item.cantidad_cervezas}}</p>
                     </div>
                     <div class="col-sm-4">
-                        <p class="text-justify"> {{item.subtotal}}</p>
+                        <p class="text-justify"> {{item.precio}}</p>
                     </div>
                 </div>
                 <div class="py-5" style="position: absolute; bottom: 0;" class="w-75">
                     <hr>
-                    <div class="row">    
+                    <div class="row">
                         <div class="col-md-7">
                             <h5>TOTAL=Bs.</h5>
                         </div>
@@ -157,7 +226,8 @@
                             <h5>{{total}}</h5>
                         </div>
                     </div>
-                    <button type="button" class=" ml-3 mb-3 btn btn-primary btn-sm btn-block" (click)="openModal()">Generar venta</button>
+                    <button type="button" class=" ml-3 mb-3 btn btn-primary btn-sm btn-block"
+                        (click)="sell()">Generar venta</button>
                 </div>
             </div>
         </div>

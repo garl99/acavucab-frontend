@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { BeerService } from 'src/app/services/beer.service';
 import { StoreService } from 'src/app/services/store.service';
 import { NotificationsService } from 'angular2-notifications';
+import { MethodService } from 'src/app/services/method.service';
+import { error } from 'protractor';
+import { DataVenta2 } from 'src/app/models/data_venta';
+import { SellService } from 'src/app/services/sell.service';
 declare var $;
 
 @Component({
   selector: 'app-store',
   templateUrl: './store.component.html',
   styleUrls: ['./store.component.css'],
-  providers: [AuthService, BeerService, StoreService, NotificationsService]
+  providers: [AuthService, BeerService, StoreService, NotificationsService, MethodService, SellService]
 })
 export class StoreComponent implements OnInit {
 
@@ -22,11 +26,21 @@ export class StoreComponent implements OnInit {
   public beersInO: any[];
   public flagCn;
   public flagCj;
+  public flagCredit;
+  public flagDebit;
+  public flagCash;
+  public flagCash2;
   public total;
+  public cn;
+  public cj;
+  public credit_cards;
+  public debit_cards;
+  public methodP = [];
+  public data_venta: DataVenta2;
 
 
   constructor(private _authService: AuthService, private _beerService: BeerService, private _storeService: StoreService,
-    private _service: NotificationsService) { }
+    private _service: NotificationsService, private _methodService: MethodService, private _sellService: SellService) { }
 
   ngOnInit() {
     this.identity = this._authService.getIdentity();
@@ -48,8 +62,6 @@ export class StoreComponent implements OnInit {
     );
   }
 
-
-
   addbeer() {
 
     if (this.beerSelected && $("#qty").val()) {
@@ -70,7 +82,7 @@ export class StoreComponent implements OnInit {
       }
 
       let subtotal = +$("#qty").val() * this.beerSelected.precio_unitario;
-      this.beersIn.push({ id: this.beerSelected.id, nombre: this.beerSelected.nombre, cantidad_cervezas: $("#qty").val(), subtotal: subtotal });
+      this.beersIn.push({ id: this.beerSelected.id, nombre: this.beerSelected.nombre, cantidad_cervezas: $("#qty").val(), precio_unitario:this.beerSelected.precio_unitario ,precio: subtotal});
       //console.log(this.beersIn);
       alert('Cervezar añadida. Elija otra si desea');
       $("#select3").val($("#select3 option:first").val());
@@ -104,11 +116,11 @@ export class StoreComponent implements OnInit {
       if (this.beersIn[i].id == id) {
         local = localStorage.getItem('total');
         num = parseInt(local);
-  
-        acu = num-this.beersIn[i].subtotal;
-  
+
+        acu = num - this.beersIn[i].subtotal;
+
         localStorage.setItem('total', acu);
-  
+
         this.total = acu;
         this.beersIn.splice(i, 1);
       }
@@ -136,6 +148,12 @@ export class StoreComponent implements OnInit {
         if (response.status == 'error') {
           this.notificationInfo();
         }
+        else {
+          this.notificationInfo2();
+        }
+        this.cn = response.cliente_natural;
+        //console.log(this.cn);
+
       },
       error => {
         console.log(<any>error);
@@ -154,7 +172,14 @@ export class StoreComponent implements OnInit {
         console.log(response);
         if (response.status == 'error') {
           this.notificationInfo();
+        } else {
+          this.notificationInfo2();
         }
+        this.cj = response.cliente_juridico;
+
+
+        //console.log(this.cj);
+
       },
       error => {
         console.log(<any>error);
@@ -177,6 +202,69 @@ export class StoreComponent implements OnInit {
     }
   }
 
+  typePayment() {
+    if ($("#credit").is(':checked') == true) {
+      this.flagCredit = 1;
+
+      if (this.cn) {
+        this._methodService.getCards(this.cn.id, 'rol_clienten', 'credito').subscribe(
+          response => {
+            this.credit_cards = response;
+          },
+          error => {
+            console.log(<any>error);
+
+          }
+        );
+      } else {
+        this._methodService.getCards(this.cj.id, 'rol_clientej', 'credito').subscribe(
+          response => {
+            this.debit_cards = response;
+          },
+          error => {
+            console.log(<any>error);
+
+          }
+        );
+      }
+    }
+    if ($("#debit").is(':checked') == true) {
+      this.flagDebit = 1;
+      if (this.cn) {
+        this._methodService.getCards(this.cn.id, 'rol_clienten', 'debito').subscribe(
+          response => {
+            this.credit_cards = response;
+          },
+          error => {
+            console.log(<any>error);
+
+          }
+        );
+      } else {
+        this._methodService.getCards(this.cj.id, 'rol_clientej', 'debito').subscribe(
+          response => {
+            this.debit_cards = response;
+          },
+          error => {
+            console.log(<any>error);
+
+          }
+        );
+      }
+    }
+    if ($("#cash").is(':checked') == true) {
+      this.flagCash = 1;
+      this.methodP.push({ id: 0, tipo: 'efectivo', monto: this.total });
+    }
+
+    if ($("#cash2").is(':checked') == true) {
+      this.flagCash2 = 1;
+
+      this.flagCash = 1;
+      this.methodP.push({ id: 0, tipo: 'divisa', monto: this.total });
+    }
+  }
+
   notificationInfo() {
     this._service.info('Info', 'El cliente no se encuentra registrado. Dirigase a gestion de clientes', {
       timeOut: 5000,
@@ -187,5 +275,130 @@ export class StoreComponent implements OnInit {
     });
   }
 
+  notificationInfo2() {
+    this._service.info('Info', 'El cliente encontrado en nuestro sistema', {
+      timeOut: 5000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
+  }
+
+
+  deleteOption1() {
+    $("#credit").prop('checked', false);
+    this.flagCredit = 0;
+
+    for (let i = 0; i < this.methodP.length; i++) {
+
+      if (this.methodP[i].tipo == 'credito') {
+        this.methodP.splice(i, 1);
+      }
+      console.log(this.methodP);
+    }
+
+  }
+
+  deleteOption2() {
+    $("#debit").prop('checked', false);
+    this.flagDebit = 0;
+
+    for (let i = 0; i < this.methodP.length; i++) {
+
+      if (this.methodP[i].tipo == 'debito') {
+        this.methodP.splice(i, 1);
+      }
+      console.log(this.methodP);
+    }
+  }
+  deleteOption3() {
+    $("#cash").prop('checked', false);
+    this.flagCash = 0;
+
+
+    for (let i = 0; i < this.methodP.length; i++) {
+
+      if (this.methodP[i].tipo == 'efectivo') {
+        this.methodP.splice(i, 1);
+      }
+      console.log(this.methodP);
+    }
+  }
+  deleteOption4() {
+    $("#cash2").prop('checked', false);
+    this.flagCash2 = 0;
+
+
+    for (let i = 0; i < this.methodP.length; i++) {
+
+      if (this.methodP[i].tipo == 'divisa') {
+        this.methodP.splice(i, 1);
+      }
+      console.log(this.methodP);
+    }
+  }
+
+  optionSelectedM(methodPayment) {
+    let prueba = JSON.parse(methodPayment);
+
+    if (this.flagCredit == 1) {
+      this.methodP.push({ id: prueba.id, tipo: 'credito', monto: this.total });
+    }
+    if (this.flagDebit == 1) {
+      this.methodP.push({ id: prueba.id, tipo: 'debito', monto: this.total });
+    }
+    //Falta efectivo y divisa
+    console.log(this.methodP);
+  }
+
+  sell() {
+
+    if (this.cn) {
+      this.data_venta = new DataVenta2(this.beersIn, 'rol_clienten', this.cn.id, this.methodP, false);
+    } else {
+      this.data_venta = new DataVenta2(this.beersIn, 'rol_clientej', this.cj.id, this.methodP, false);
+    }
+
+    let json = JSON.stringify(this.data_venta);
+    console.log(json);
+    console.log(this.data_venta);
+
+
+
+    this._sellService.doSell2(this.data_venta).subscribe(
+       response => {
+         console.log(response);
+         this.notificationSucessBuy();
+       },
+       error => {
+         console.log(<any>error);
+         this.notificationActionError();
+ 
+       }
+     );
+
+
+  }
+
+  notificationSucessBuy() {
+    this._service.success('Compra realizada', 'Gracias por su comprar, retire su factura', {
+      timeOut: 5000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
+  }
+
+  notificationActionError() {
+    this._service.error('Error', 'No fue posible realizar esta operación. Intente mas tarde.', {
+      timeOut: 5000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
+  }
 
 }

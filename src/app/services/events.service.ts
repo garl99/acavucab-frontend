@@ -22,4 +22,15 @@ export class EventService {
         return this._http.get(this.url+'get-events',{headers:headers})
     }
 
+    sellTicket(data_ticket): Observable<any>{
+
+        let json = JSON.stringify(data_ticket);
+
+        let params = 'json=' + json;
+
+        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+
+        return this._http.post(this.url+'sell-ticket',params,{headers:headers})
+    }
+
 } 

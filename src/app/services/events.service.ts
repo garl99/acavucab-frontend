@@ -21,6 +21,7 @@ export class EventService {
 
         return this._http.get(this.url+'get-events',{headers:headers})
     }
+    
 
     sellTicket(data_ticket): Observable<any>{
 
@@ -31,6 +32,13 @@ export class EventService {
         let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
 
         return this._http.post(this.url+'sell-ticket',params,{headers:headers})
+    }
+
+    getAllBeersEvents(id): Observable<any>{
+
+        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+
+        return this._http.get(this.url+'get-beers-event/'+id,{headers:headers})
     }
 
 } 

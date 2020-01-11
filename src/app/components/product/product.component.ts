@@ -8,6 +8,7 @@ import { CartService } from '../../services/cart.service';
 import { SellService } from '../../services/sell.service';
 import { MethodService } from '../../services/method.service';
 import { NotificationsService } from 'angular2-notifications';
+import { error } from 'protractor';
 
 declare var $;
 
@@ -27,6 +28,9 @@ export class ProductComponent implements OnInit {
   public identity;
   public methodP = [];
   public count: number;
+  public myPoints;
+  public tas;
+  public ch;
 
   constructor(
     private _beerService: BeerService, private _router: Router, private _route: ActivatedRoute,
@@ -36,8 +40,23 @@ export class ProductComponent implements OnInit {
 
 
   ngOnInit() {
+    this.ch=0;
     this.getBeer();
     this.identity = this._authService.getIdentity();
+    console.log(this.identity.id);
+
+    this._authService.myPoints(this.identity.id, this.identity.rol).subscribe(
+      response => {
+        //console.log(response);
+        this.myPoints = response.puntos_actuales;
+        this.tas = response.tasa;
+
+      },
+      error => {
+        console.log(<any>error);
+
+      }
+    );
     console.log(this.identity);
 
 
@@ -63,8 +82,8 @@ export class ProductComponent implements OnInit {
 
               this.status = response.status;
               this.beer = response.beer;
-              console.log(this.beer);
-              console.log(this.beer.nombre);
+              //console.log(this.beer);
+              //console.log(this.beer.nombre);
 
 
 
@@ -135,6 +154,8 @@ export class ProductComponent implements OnInit {
     }
     else if (option == 'Mis puntos') {
       this.optionT = 3;
+      this.methodP.push({ id: 0, tipo: 'mis_puntos', monto: 0 });
+      
     }
 
     //console.log(this.debit_cards);
@@ -166,16 +187,21 @@ export class ProductComponent implements OnInit {
       this.count = 1;
     }
 
-    //console.log(this.methodP);
+    console.log(this.methodP);
   }
 
   sell(beer) {
     //console.log(this.methodP);
     //console.log(beer.id);
 
-    let qty = +($('#inputGroupSelect01').val());
+    let qty;
+    qty = +($('#inputGroupSelect01').val());
 
-    let data_venta = new DataVenta(beer.id, qty, this.identity.rol, this.identity.id, this.methodP);
+    if (($('#ch').val())) {
+      this.ch = +($('#ch').val());
+    }
+
+    let data_venta = new DataVenta(beer.id, qty, this.identity.rol, this.identity.id, this.ch, this.methodP);
 
     let json = JSON.stringify(data_venta);
     console.log(json);
@@ -204,11 +230,11 @@ export class ProductComponent implements OnInit {
 
     let $qty = +($('#inputGroupSelect01').val());
 
-    let data_venta = new DataVenta(beer.id, $qty, this.identity.rol, this.identity.id, null);  //data_carrito
+    let data_venta = new DataVenta(beer.id, $qty, this.identity.rol, this.identity.id, 0, null);  //data_carrito
 
 
     console.log(JSON.stringify(data_venta));
-    
+
     this._cartService.addCart(data_venta).subscribe(
       response => {
         console.log(response);
@@ -223,9 +249,10 @@ export class ProductComponent implements OnInit {
 
   }
 
-  
-  notificationSucessCart(){
-    this._service.success('Agregado al carrito','Cerveza agregada al carrito exitosamente',{
+
+
+  notificationSucessCart() {
+    this._service.success('Agregado al carrito', 'Cerveza agregada al carrito exitosamente', {
       timeOut: 5000,
       showProgressBar: true,
       pauseOnHover: true,
@@ -234,8 +261,8 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  notificationSucessBuy(){
-    this._service.success('Compra realizada','Gracias por su comprar, retire su factura',{
+  notificationSucessBuy() {
+    this._service.success('Compra realizada', 'Gracias por su comprar, retire su factura', {
       timeOut: 5000,
       showProgressBar: true,
       pauseOnHover: true,
@@ -244,8 +271,8 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  notificationActionError(){
-    this._service.error('Error','No fue posible realizar esta operación. Intente mas tarde.',{
+  notificationActionError() {
+    this._service.error('Error', 'No fue posible realizar esta operación. Intente mas tarde.', {
       timeOut: 5000,
       showProgressBar: true,
       pauseOnHover: true,
@@ -254,4 +281,5 @@ export class ProductComponent implements OnInit {
     });
   }
 
+ 
 }

@@ -39,6 +39,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { CarnetComponent } from './reports/carnet/carnet.component';
 
 
+
 import { AuthService } from './services/auth.service';
 import { IdentityGuard } from './services/identity.guard';
 import { LoginDisabled } from './services/login-disabled.guard';
@@ -50,6 +51,8 @@ import { CRUDService } from './services/crud.service';
 import { MatNativeDateModule } from '@angular/material/core';
 import { UsersComponent } from './components/users/users.component';
 import { StoreComponent } from './components/store/store.component';
+import { AsistenciaComponent } from './components/asistencia/asistencia.component';
+import { UserService } from './services/user.service';
 
 
 @NgModule({
@@ -78,6 +81,7 @@ import { StoreComponent } from './components/store/store.component';
     ProfileComponent,
     UsersComponent,
     StoreComponent,
+    AsistenciaComponent,
   ],
   imports: [
     BrowserModule,
@@ -106,7 +110,8 @@ import { StoreComponent } from './components/store/store.component';
     BeerService,
     QuoteService,
     PlaceService,
-    CRUDService
+    CRUDService,
+    UserService
 
   ],
   bootstrap: [AppComponent]

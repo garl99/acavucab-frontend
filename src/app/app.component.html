@@ -36,6 +36,11 @@
               aria-haspopup="true" aria-expanded="false">
               {{identity.denomi_comercial}}
             </a>
+
+            <a *ngIf="identity.nombre" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              {{identity.nombre}}
+            </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" [routerLink]="['dashboard']">Mi sesión</a>
               <a class="dropdown-item" [routerLink]="['dashboard/profile/1']">Mi perfil</a>

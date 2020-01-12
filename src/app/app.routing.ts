@@ -16,6 +16,8 @@ import { EmployeesComponent } from './components/employees/employees.component';
 import { JCustomersComponent } from './components/j-customers/j-customers.component';
 import { NCustomersComponent } from './components/n-customers/n-customers.component';
 import { SuppliersComponent } from './components/suppliers/suppliers.component';
+import { AsistenciaComponent } from './components/asistencia/asistencia.component';
+import { UsersComponent } from './components/users/users.component';
 
 
 
@@ -46,12 +48,15 @@ const appRoutes: Routes = [
     {path: 'dashboard/j-customers', component: JCustomersComponent},
     {path: 'dashboard/n-customers', component: NCustomersComponent},
     {path: 'dashboard/suppliers', component: SuppliersComponent},
+    {path: 'dashboard/asistence', component: AsistenciaComponent},
     {path: 'product/:id', component: ProductComponent},
     {path: 'dashboard/quote', component: QuoteComponent},
     {path: 'dashboard/carnet/:id', component: CarnetComponent},
     {path: 'dashboard/profile/:sure', component: DashboardComponent},
     {path: 'dashboard/events', component: EventsComponent},
     {path: 'dashboard/store', component: StoreComponent},
+    {path: 'dashboard/user', component: UsersComponent},
+    
 
 
 

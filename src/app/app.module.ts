@@ -39,6 +39,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { CarnetComponent } from './reports/carnet/carnet.component';
 
 
+
 import { AuthService } from './services/auth.service';
 import { IdentityGuard } from './services/identity.guard';
 import { LoginDisabled } from './services/login-disabled.guard';
@@ -51,6 +52,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { UsersComponent } from './components/users/users.component';
 import { StoreComponent } from './components/store/store.component';
 import { SellTicketComponent } from './components/sell-ticket/sell-ticket.component';
+import { AsistenciaComponent } from './components/asistencia/asistencia.component';
+import { UserService } from './services/user.service';
 
 
 @NgModule({
@@ -80,6 +83,7 @@ import { SellTicketComponent } from './components/sell-ticket/sell-ticket.compon
     UsersComponent,
     StoreComponent,
     SellTicketComponent,
+    AsistenciaComponent,
   ],
   imports: [
     BrowserModule,
@@ -108,7 +112,8 @@ import { SellTicketComponent } from './components/sell-ticket/sell-ticket.compon
     BeerService,
     QuoteService,
     PlaceService,
-    CRUDService
+    CRUDService,
+    UserService
 
   ],
   bootstrap: [AppComponent]

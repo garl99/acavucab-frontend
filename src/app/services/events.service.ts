@@ -13,7 +13,7 @@ export class EventService {
 
     constructor(public _http: HttpClient) {
         this.url = global.url;
-    }
+    } 
 
     getAllEvents(): Observable<any>{
 

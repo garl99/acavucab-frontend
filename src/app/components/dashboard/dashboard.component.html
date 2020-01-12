@@ -105,7 +105,7 @@
             <li class="nav-item">
                 <div *ngIf="(this.role == 'rol_admin')">
                     <div>
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" [routerLink]="['user']">
                             <i class="fas fa-fw fa-folder"></i>
                             <span class="ml-2">Gestion de usuario</span></a>
                     </div>
@@ -172,7 +172,7 @@
             <li class="nav-item">
                 <div *ngIf="(this.role == 'rol_admin')">
                     <div>
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" [routerLink]="['asistence']">
                             <i class="fas fa-file-word"></i>
                             <span class="ml-2">Archivo de asistencia</span></a>
                     </div>

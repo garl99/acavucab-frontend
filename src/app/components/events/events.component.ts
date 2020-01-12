@@ -390,6 +390,7 @@ export class EventsComponent implements OnInit {
   openModalDelete(id) {
     $("#confirmation" + id).modal('show');
   }
+  
   delete(id) {
     console.log(id);
 

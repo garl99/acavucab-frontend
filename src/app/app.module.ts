@@ -51,9 +51,9 @@ import { CRUDService } from './services/crud.service';
 import { MatNativeDateModule } from '@angular/material/core';
 import { UsersComponent } from './components/users/users.component';
 import { StoreComponent } from './components/store/store.component';
-import { SellTicketComponent } from './components/sell-ticket/sell-ticket.component';
 import { AsistenciaComponent } from './components/asistencia/asistencia.component';
 import { UserService } from './services/user.service';
+import { SellTicketComponent } from './components/sell-ticket/sell-ticket.component';
 
 
 @NgModule({
@@ -82,8 +82,8 @@ import { UserService } from './services/user.service';
     ProfileComponent,
     UsersComponent,
     StoreComponent,
-    SellTicketComponent,
     AsistenciaComponent,
+    SellTicketComponent,
   ],
   imports: [
     BrowserModule,

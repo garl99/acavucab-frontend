@@ -56,9 +56,15 @@ const appRoutes: Routes = [
     {path: 'dashboard/profile/:sure', component: DashboardComponent},
     {path: 'dashboard/events', component: EventsComponent},
     {path: 'dashboard/store', component: StoreComponent},
+<<<<<<< HEAD
     {path: 'dashboard/sell-ticket', component: SellTicketComponent},
     {path: 'dashboard/user', component: UsersComponent},
     
+=======
+    {path: 'dashboard/user', component: UsersComponent},
+    
+    {path: 'dashboard/sell-ticket', component: SellTicketComponent}
+>>>>>>> 543b7ff9d5d4e1e630a6a864d547bac557301605
 
 
 

@@ -23,6 +23,8 @@ export class AsistenciaComponent implements OnInit {
         //console.log(response);
         this.asistence = response.asistence;
         this.notificationSucess();
+        console.log(response);
+        
         //console.log(this.events);
         //console.log(response.lugares);
 

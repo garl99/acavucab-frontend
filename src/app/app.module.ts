@@ -91,7 +91,7 @@ import { SellTicketComponent } from './components/sell-ticket/sell-ticket.compon
     BrowserAnimationsModule, 
     SimpleNotificationsModule.forRoot(),
     MatDatepickerModule,
-    MatFormFieldModule,
+    MatFormFieldModule, 
     MatInputModule,
     MatButtonModule,
     MatCardModule,

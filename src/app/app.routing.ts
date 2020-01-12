@@ -56,7 +56,7 @@ const appRoutes: Routes = [
     {path: 'dashboard/profile/:sure', component: DashboardComponent},
     {path: 'dashboard/events', component: EventsComponent},
     {path: 'dashboard/store', component: StoreComponent},
-    {path: 'dashboard/sell-ticket', component: SellTicketComponent}
+    {path: 'dashboard/sell-ticket', component: SellTicketComponent},
     {path: 'dashboard/user', component: UsersComponent},
     
 

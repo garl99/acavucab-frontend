@@ -29,6 +29,7 @@ import { QuoteComponent } from './components/quote/quote.component';
 import { CarnetComponent } from './reports/carnet/carnet.component';
 import { EventsComponent } from './components/events/events.component';
 import { StoreComponent } from './components/store/store.component';
+import { SellTicketComponent } from './components/sell-ticket/sell-ticket.component';
 
 
 //DEFINIR RUTAS
@@ -57,6 +58,7 @@ const appRoutes: Routes = [
     {path: 'dashboard/store', component: StoreComponent},
     {path: 'dashboard/user', component: UsersComponent},
     
+    {path: 'dashboard/sell-ticket', component: SellTicketComponent}
 
 
 

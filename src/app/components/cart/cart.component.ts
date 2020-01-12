@@ -4,7 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { MethodService } from '../../services/method.service';
 import { SellService } from '../../services/sell.service';
 import { global } from '../../services/global';
-import { DataVenta2 } from 'src/app/models/data_venta';
+import { DataVenta3 } from 'src/app/models/data_venta';
 import { NotificationsService } from 'angular2-notifications';
 
 declare var $;
@@ -153,7 +153,7 @@ export class CartComponent implements OnInit, DoCheck {
 
 
   sell(){
-    let data_venta = new DataVenta2(this.items, this.identity.rol, this.identity.id, this.methodP,true);
+    let data_venta = new DataVenta3(this.items, this.identity.rol, this.identity.id, this.methodP,true,0,0,0);
 
     let json = JSON.stringify(data_venta);
     console.log(json);

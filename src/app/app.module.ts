@@ -53,6 +53,7 @@ import { UsersComponent } from './components/users/users.component';
 import { StoreComponent } from './components/store/store.component';
 import { AsistenciaComponent } from './components/asistencia/asistencia.component';
 import { UserService } from './services/user.service';
+import { SellTicketComponent } from './components/sell-ticket/sell-ticket.component';
 
 
 @NgModule({
@@ -82,6 +83,7 @@ import { UserService } from './services/user.service';
     UsersComponent,
     StoreComponent,
     AsistenciaComponent,
+    SellTicketComponent,
   ],
   imports: [
     BrowserModule,

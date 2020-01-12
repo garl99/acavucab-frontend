@@ -43,8 +43,13 @@
                                         <option *ngFor="let card of debit_cards" value="{{ card | json }}">{{card.num_tarjeta}}</option>
                                     </select>
 
+                                    <label *ngIf="optionT==3" class="ml-1" for="disp">Disponible: <p style="display: inline;">{{myPoints}}</p></label>
+
+                                    <label *ngIf="optionT==3"  for="ch" class="ml-1">Canjear: <input id="ch" min="0" max="{{myPoints}}" style="display: inline; width: 50px;" type="number" >  xTasa:{{tas}}</label>
+
                                     <small class="my-2" *ngIf="!credit_cards && (optionT==1)" class="invalid-feedback d-block">No posee tarjetas. Registre una tarjeta en su perfil</small>
                                     <small class="my-2" *ngIf="!debit_cards && (optionT==2)" class="invalid-feedback d-block">No posee tarjetas. Registre una tarjeta en su perfil</small>
+                                    <small class="my-2" *ngIf="myPoints==0 && (optionT==3)" class="invalid-feedback d-block">No posee puntos disponibles</small>
                                     <div class="row">
                                         <div class="col-sm-4 mt-2">
                                             <label for="total">Total a pagar:  Bs.</label>
@@ -60,7 +65,7 @@
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-primary" (click)="sell(beer)">Aceptar</button>
+                                <button type="button" class="btn btn-primary" (click)= "sell(beer)">Aceptar</button>
                             </div>
                         </div>
                     </div>

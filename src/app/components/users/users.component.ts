@@ -80,12 +80,19 @@ export class UsersComponent implements OnInit {
       this._crudService.registerUser(data).subscribe(
         response  =>{
           console.log('Se agrego');
+          $('#userModal').modal('hide');
+          $('#Usermodal').trigger("reset");
+          this.notificationSucess2();
+          this.updateDatable();
+          
         },
         error=>{
           console.log('Fallo');
         }
       );
-      $('#modal').modal('hide');
+
+
+  
 
   }
 
@@ -200,6 +207,16 @@ export class UsersComponent implements OnInit {
 
   notificationSucess(){
     this._service.success('Edición exitosa','usuario editado correctamente',{
+      timeOut: 5000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
+  }
+
+  notificationSucess2(){
+    this._service.success('Registro exitoso','usuario agregado correctamente',{
       timeOut: 5000,
       showProgressBar: true,
       pauseOnHover: true,

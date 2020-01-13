@@ -24,48 +24,65 @@
                             <div class="modal-body">
                                 <p>Por favor, ingresa los datos solicitados.</p>
                                 <div class="form-group">
-                                    <label for="name">Formas de pago:  </label>
+                                    <label for="name">Formas de pago: </label>
 
-                                    <select class="ml-3" id="#selectList3Type" #selectList3 (change)="optionSelectedType(selectList3.value)" *ngIf="credit_cards">
-                                        <option value="null ">Formas de pago</option>
+                                    <select class="ml-3" id="selectList3Type" #selectList3
+                                        (change)="optionSelectedType(selectList3.value)" *ngIf="credit_cards">
+                                        <option value="null">Formas de pago</option>
                                         <option value="Tarjeta de credito">Tarjeta de credito</option>
                                         <option value="Tarjeta de debito">Tarjeta de debito</option>
-                                        <option value="Mis puntos">Mis puntos</option>
+                                        <option *ngIf="rest>0" value="Mis puntos" disabled>Mis puntos</option>
+                                        <option *ngIf="!rest" value="Mis puntos">Mis puntos</option>
                                     </select>
 
-                                    <select *ngIf="credit_cards && optionT==1" class="ml-3" id="#selectList3" #selectList3 (change)="optionSelectedM(selectList3.value,beer)">
+                                    <select *ngIf="credit_cards && optionT==1" class="ml-3" id="#selectList3"
+                                        #selectList3 (change)="optionSelectedM(selectList3.value,beer)">
                                         <option value="null disabled">Tus tarjetas</option>
-                                        <option *ngFor="let card of credit_cards" value="{{ card | json }}">{{card.num_tarjeta}}</option>
-                                    </select>
-                                                            
-                                    <select *ngIf="debit_cards && optionT==2"class="ml-3" id="#selectList3" #selectList3 (change)="optionSelectedM(selectList3.value,beer)">
-                                        <option value="null" >Tus tarjetas</option>
-                                        <option *ngFor="let card of debit_cards" value="{{ card | json }}">{{card.num_tarjeta}}</option>
+                                        <option *ngFor="let card of credit_cards" value="{{ card | json }}">
+                                            {{card.num_tarjeta}}</option>
                                     </select>
 
-                                    <label *ngIf="optionT==3" class="ml-1" for="disp">Disponible: <p style="display: inline;">{{myPoints}}</p></label>
+                                    <select *ngIf="debit_cards && optionT==2" class="ml-3" id="#selectList3"
+                                        #selectList3 (change)="optionSelectedM(selectList3.value,beer)">
+                                        <option value="null">Tus tarjetas</option>
+                                        <option *ngFor="let card of debit_cards" value="{{ card | json }}">
+                                            {{card.num_tarjeta}}</option>
+                                    </select>
 
-                                    <label *ngIf="optionT==3"  for="ch" class="ml-1">Canjear: <input id="ch" min="0" max="{{myPoints}}" style="display: inline; width: 50px;" type="number" >  xTasa:{{tas}}</label>
+                                    <label *ngIf="optionT==3" class="ml-1" for="disp">Disponible: <p
+                                            style="display: inline;">{{myPoints}}</p></label>
 
-                                    <small class="my-2" *ngIf="!credit_cards && (optionT==1)" class="invalid-feedback d-block">No posee tarjetas. Registre una tarjeta en su perfil</small>
-                                    <small class="my-2" *ngIf="!debit_cards && (optionT==2)" class="invalid-feedback d-block">No posee tarjetas. Registre una tarjeta en su perfil</small>
-                                    <small class="my-2" *ngIf="myPoints==0 && (optionT==3)" class="invalid-feedback d-block">No posee puntos disponibles</small>
-                                    <div class="row">
-                                        <div class="col-sm-4 mt-2">
-                                            <label for="total">Total a pagar:  Bs.</label>
-                                        </div>
-                                        <div class="col-sm-2 mt-2">
-                                            <label id="price" for="name" style="position: absolute;margin-right: 0;"></label>
-                                        </div>
-                                        
+                                    <label *ngIf="optionT==3 && myPoints!=0" for="ch" class="ml-1">Canjear: <input
+                                            id="ch" min="0" max="{{myPoints}}" style="display: inline; width: 50px;"
+                                            type="number"> xTasa:{{tas}}</label>
+
+                                    <small class="my-2" *ngIf="!credit_cards && (optionT==1)"
+                                        class="invalid-feedback d-block">No posee tarjetas. Registre una tarjeta en su
+                                        perfil</small>
+                                    <small class="my-2" *ngIf="!debit_cards && (optionT==2)"
+                                        class="invalid-feedback d-block">No posee tarjetas. Registre una tarjeta en su
+                                        perfil</small>
+                                    <small class="my-2" *ngIf="myPoints==0 && (optionT==3)"
+                                        class="invalid-feedback d-block">No posee puntos disponibles</small>
+
+                                     <br>
+
+                                    <div class="row ml-1">
+                                        <label *ngIf="rest>0" for="rest">
+                                            <p style="font-weight: bold; display: inline;">Restante por pagar:</p>
+                                            {{rest}}
+                                        </label>
                                     </div>
-
+                                    <div class="row ml-1">
+                                        <label style="font-weight: bold;" for="total">Total a pagar: Bs. </label>
+                                        <label class="ml-2" id="price" for="name" style="display: inline;"></label>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-primary" (click)= "sell(beer)">Aceptar</button>
+                                <button type="button" class="btn btn-primary" (click)="sell(beer)">Aceptar</button>
                             </div>
                         </div>
                     </div>
@@ -127,7 +144,7 @@
                         <label for="">Disponible:</label>
                     </div>
                     <div class="col-sm-1 ml-2">
-                        <label for="">30</label>
+                        <label for="">{{available}}</label>
                     </div>
                 </div>
 
@@ -135,7 +152,8 @@
 
                 <button class="btn-primary btn-block" (click)="openModal(beer)">Comprar</button>
 
-                <button class="btn-success btn-block" (click)="cart(beer)">Agregar al carrito <i class="fas fa-cart-plus"></i></button>
+                <button class="btn-success btn-block" (click)="cart(beer)">Agregar al carrito <i
+                        class="fas fa-cart-plus"></i></button>
 
             </div>
         </div>

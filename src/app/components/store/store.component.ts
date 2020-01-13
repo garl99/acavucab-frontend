@@ -417,18 +417,18 @@ export class StoreComponent implements OnInit {
 
     if (this.cn) {
       if (this.flagEvent) {
-        this.data_venta = new DataVenta3(this.beersIn, 'rol_clienten', this.cn.id, this.methodP, false, this.flagEvent, this.event.id, this.identity.id);
+        this.data_venta = new DataVenta3(this.beersIn, 'rol_clienten', this.cn.id, this.methodP, false, this.flagEvent, this.event.id, this.identity.id,0);
       }
       else {
-        this.data_venta = new DataVenta3(this.beersIn, 'rol_clienten', this.cn.id, this.methodP, false, this.flagEvent, 0, this.identity.id);
+        this.data_venta = new DataVenta3(this.beersIn, 'rol_clienten', this.cn.id, this.methodP, false, this.flagEvent, 0, this.identity.id,0);
       }
 
     } else {
       if (this.flagEvent) {
-        this.data_venta = new DataVenta3(this.beersIn, 'rol_clientej', this.cn.id, this.methodP, false, this.flagEvent, this.event.id, this.identity.id);
+        this.data_venta = new DataVenta3(this.beersIn, 'rol_clientej', this.cn.id, this.methodP, false, this.flagEvent, this.event.id, this.identity.id,0);
       }
       else {
-        this.data_venta = new DataVenta3(this.beersIn, 'rol_clientej', this.cn.id, this.methodP, false, this.flagEvent, 0, this.identity.id);
+        this.data_venta = new DataVenta3(this.beersIn, 'rol_clientej', this.cn.id, this.methodP, false, this.flagEvent, 0, this.identity.id,0);
       }
     }
 

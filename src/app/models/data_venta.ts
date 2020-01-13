@@ -35,6 +35,7 @@ export class DataVenta3{
         public bandera_evento: number,
         public evento_id:number,
         public resp_id:number,
+        public canjeo:number,
     ){}
 
 }

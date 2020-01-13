@@ -20,27 +20,48 @@ export class CartComponent implements OnInit, DoCheck {
   public credit_cards;
   public debit_cards;
   public optionT: number;
-  public methodP = [];
+  public methodP;
+  public methodPIn = [];
   public count: number;
   public items;
   public identity;
   public url;
   public total;
+  public myPoints;
+  public tas;
+  public ch;
+  public available;
+  public rest;
+  public pointsToBs;
 
   constructor(private _cartService: CartService, private _authService: AuthService, private _methodService: MethodService,
-    private _sellService: SellService, private _service:NotificationsService) {
+    private _sellService: SellService, private _service: NotificationsService) {
     this.url = global.url;
 
   }
 
   ngOnInit() {
+    //this.ch = 0;
     this.loadItems();
+
+    this._authService.myPoints(this.identity.id, this.identity.rol).subscribe(
+      response => {
+        //console.log(response);
+        this.myPoints = response.puntos_actuales;
+        this.tas = response.tasa;
+
+      },
+      error => {
+        console.log(<any>error);
+
+      }
+    );
     localStorage.removeItem('total');
     localStorage.setItem('total', '0');
   }
 
-  ngDoCheck(){
-    this.total=parseInt(localStorage.getItem('total'));
+  ngDoCheck() {
+    this.total = parseInt(localStorage.getItem('total'));
   }
 
 
@@ -69,9 +90,9 @@ export class CartComponent implements OnInit, DoCheck {
 
     );
 
-    this.total= +localStorage.getItem('total');
+    this.total = +localStorage.getItem('total');
     console.log(this.total);
-    
+
   }
 
   openModal() {
@@ -117,6 +138,7 @@ export class CartComponent implements OnInit, DoCheck {
     }
     else if (option == 'Mis puntos') {
       this.optionT = 3;
+
     }
 
     //console.log(this.debit_cards);
@@ -128,12 +150,23 @@ export class CartComponent implements OnInit, DoCheck {
     let prueba = JSON.parse(methodPayment);
     let qty = +($('#inputGroupSelect01').val());
     let price = qty * beer.precio_unitario;
+    let price2 = this.rest;
 
     if (this.count == 0) {
       if (this.optionT == 1) {
-        this.methodP.push({ id: prueba.id, tipo: 'credito', monto: this.total });
+        if (this.rest > 0) {
+          this.methodP = { id: prueba.id, tipo: 'credito', monto: price2 };
+        }
+        else {
+          this.methodP = { id: prueba.id, tipo: 'credito', monto: this.total };
+        }
       } else if (this.optionT == 2) {
-        this.methodP.push({ id: prueba.id, tipo: 'debito', monto: this.total });
+        if (this.rest > 0) {
+          this.methodP = { id: prueba.id, tipo: 'debito', monto: price2 };
+        }
+        else {
+          this.methodP = { id: prueba.id, tipo: 'debito', monto: this.total };
+        }
       }
       this.count = 1;
     }
@@ -141,9 +174,9 @@ export class CartComponent implements OnInit, DoCheck {
       this.count = 0;
       this.methodP = [];
       if (this.optionT == 1) {
-        this.methodP.push({ id: prueba.id, tipo: 'credito', monto: this.total });
+        this.methodP = { id: prueba.id, tipo: 'credito', monto: this.total };
       } else if (this.optionT == 2) {
-        this.methodP.push({ id: prueba.id, tipo: 'debito', monto: this.total });
+        this.methodP = { id: prueba.id, tipo: 'debito', monto: this.total };
       }
       this.count = 1;
     }
@@ -152,19 +185,56 @@ export class CartComponent implements OnInit, DoCheck {
   }
 
 
-  sell(){
-    let data_venta = new DataVenta3(this.items, this.identity.rol, this.identity.id, this.methodP,true,0,0,0);
+  sell() {
+
+    let chi = +$('#ch').val();
+
+
+    if (this.optionT != 3) {
+      this.methodPIn.push(this.methodP);
+    }
+
+    if (this.optionT == 3 && chi <= this.myPoints) {
+      this.ch = +($('#ch').val());
+      this.pointsToBs = this.ch * this.tas;
+      console.log(this.pointsToBs);
+
+      this.rest = this.total - this.pointsToBs;
+      if (this.rest > 0) {
+        this.optionT = 0;
+        $('#selectList3Type').val('null');
+
+        let dataPoint = {
+          'id': 0, 'tipo': 'mis_puntos', 'monto': this.pointsToBs
+        };
+
+        $('#price').text(this.rest);
+
+        this.methodPIn.push(dataPoint);
+        console.log(this.methodPIn);
+        console.log(JSON.stringify(this.methodPIn));
+
+        alert('Por favor indique otro metodo de pago');
+        return null;
+      }
+      console.log(this.ch);
+    } else if (this.optionT == 3 && chi > this.myPoints) {
+      alert('No posee esa cantidad de puntos');
+      return null;
+    }
+
+    let data_venta = new DataVenta3(this.items, this.identity.rol, this.identity.id, this.methodPIn, true, 0, 0, 0, this.ch);
 
     let json = JSON.stringify(data_venta);
-    console.log(json);
+    console.log(data_venta);
 
 
     this._sellService.doSell2(data_venta).subscribe(
-      response  =>  {
+      response => {
         console.log(response);
         this.notificationSucessBuy();
       },
-      error =>  {
+      error => {
         console.log(<any>error);
         this.notificationActionError();
 
@@ -176,8 +246,8 @@ export class CartComponent implements OnInit, DoCheck {
   }
 
 
-  notificationSucessBuy(){
-    this._service.success('Compra realizada','Gracias por su comprar, retire su factura',{
+  notificationSucessBuy() {
+    this._service.success('Compra realizada', 'Gracias por su comprar, retire su factura', {
       timeOut: 5000,
       showProgressBar: true,
       pauseOnHover: true,
@@ -186,8 +256,8 @@ export class CartComponent implements OnInit, DoCheck {
     });
   }
 
-  notificationActionError(){
-    this._service.error('Error','No fue posible realizar esta operación. Intente mas tarde.',{
+  notificationActionError() {
+    this._service.error('Error', 'No fue posible realizar esta operación. Intente mas tarde.', {
       timeOut: 5000,
       showProgressBar: true,
       pauseOnHover: true,

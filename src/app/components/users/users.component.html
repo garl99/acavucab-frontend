@@ -56,14 +56,15 @@
                             <div class="form-group">
                                 <label for="correo">Correo electronico</label>
                                 <div class="input-group">
-                                    <input id="correo" class="form-control" type="text" placeholder="Ingrese el Correo electronico">
+                                    <input id="correo" name= "email" class="form-control" type="email" placeholder="Ingrese el Correo electronico"
+                                    required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="contraseña">Contraseña</label>
                                 <div class="input-group">
-                                    <input id="contraseña" class="form-control" type="text"
+                                    <input id="contraseña" type="password" class="form-control" type="text"
                                         placeholder="Ingrese la contraseña">
                                 </div>
                             </div>
@@ -146,17 +147,6 @@
                                                         placeholder="Ingrese el correo" required>
                                                 </div>
                                             </div>
-
-                                            <!-- <div class="form-group">
-                                                <div class="form-group">
-                                                    <label for="rol">Rol: </label><br>
-                                                    <select id = "rol{{user.id}}">
-                                                        <option>{{user.rol}}</option>
-                                                        <option *ngFor="let rol of roles" value="{{ rol.nombre }}">{{rol.nombre}}
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                            </div> -->
 
                                             <hr>
                                             <button class="btn btn-primary btn-block text-uppercase" type="submit">

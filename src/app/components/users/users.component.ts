@@ -88,6 +88,8 @@ export class UsersComponent implements OnInit {
         },
         error=>{
           console.log('Fallo');
+          $("#userModal").modal('hide');
+          this.notificationError();
         }
       );
 
@@ -151,7 +153,7 @@ export class UsersComponent implements OnInit {
   }
 
   notificationError(){
-    this._service.info('Error','No fue posible realizar esta acción. Intente más tarde',{
+    this._service.info('Error','No fue posible realizar esta acción. Es posible que el correo no este registrado',{
       timeOut: 5000,
       showProgressBar: true,
       pauseOnHover: true,

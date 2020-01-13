@@ -22,7 +22,8 @@ export class AsistenciaComponent implements OnInit {
       response => {
         //console.log(response);
         this.asistence = response.asistence;
-        this.notificationSucess();
+        alert('Asistencia procesada y guardada en el sistema');
+       // this.notificationSucess();
         console.log(response);
         
         //console.log(this.events);

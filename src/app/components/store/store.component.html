@@ -82,7 +82,7 @@
                             <select id="select3" class="ml-2" #selectList5 (change)="optionSelected5(selectList5.value)">
                                 <option value="null" disabled>Seleccionar</option>
                                 <option *ngFor="let beer of beersEvents" value="{{ beer | json }}">
-                                    {{beer.nombre}}
+                                    {{beer.nombre}}. Disp:{{beer.cantidad_cervezas}}
                                 </option>
                             </select>
                             <input class="ml-2" id="qty" type="number" min="0" style="width: 60px;" placeholder="cant"
@@ -116,7 +116,7 @@
                         <select id="select3" class="ml-2" #selectList5 (change)="optionSelected5(selectList5.value)">
                             <option value="null" disabled>Seleccionar</option>
                             <option *ngFor="let beer of beersAvailable" value="{{ beer | json }}">
-                                {{beer.nombre}}
+                                {{beer.nombre}}. Disp:{{beer.disponible}}
                             </option>
                         </select>
                         <input class="ml-2" id="qty" type="number" min="0" style="width: 60px;" placeholder="cant"

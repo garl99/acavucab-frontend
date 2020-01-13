@@ -38,7 +38,7 @@ export class StoreComponent implements OnInit {
   public debit_cards;
   public methodP = [];
   public data_venta: DataVenta3;
-  public flagEvent=0;
+  public flagEvent = 0;
   public events;
   public event; public beersEvents;
 
@@ -104,44 +104,60 @@ export class StoreComponent implements OnInit {
   addbeer() {
 
     if (this.beerSelected && $("#qty").val()) {
-      var local;
-      var num;
-      var acu;
-      this.beersInO = Object.assign([{}], this.beersIn);
-      //console.log(JSON.stringify(this.beersInO));
-
-
-
-      for (let beer of this.beersInO) {
-        //console.log(beer.nombre);
-        if (beer.nombre == this.beerSelected.nombre) {
-          alert('Ya eligio esa cerveza. Elija otra');
-          return null;
-        }
-      }
-
-      let subtotal = +$("#qty").val() * this.beerSelected.precio_unitario;
-      if(this.flagEvent){
-        this.beersIn.push({ id: this.beerSelected.cerveza_id, nombre: this.beerSelected.nombre, cantidad_cervezas: $("#qty").val(), precio_unitario: this.beerSelected.precio_unitario, precio: subtotal });
+      let sub 
+      if(this.flagEvent==1){
+        sub = this.beerSelected.cantidad_cervezas - $("#qty").val();
+        console.log(sub);
       }
       else{
-        this.beersIn.push({ id: this.beerSelected.id, nombre: this.beerSelected.nombre, cantidad_cervezas: $("#qty").val(), precio_unitario: this.beerSelected.precio_unitario, precio: subtotal });
+        sub = this.beerSelected.disponible - $("#qty").val();
+        console.log(sub);
       }
-      
-      //console.log(this.beersIn);
-      alert('Cervezar añadida. Elija otra si desea');
-      $("#select3").val($("#select3 option:first").val());
-      $("#qty").val('');
-      this.beerSelected = 0;
 
-      local = localStorage.getItem('total');
-      num = parseInt(local);
+      if (sub >= 0) {
+        var local;
+        var num;
+        var acu;
+        this.beersInO = Object.assign([{}], this.beersIn);
+        //console.log(JSON.stringify(this.beersInO));
 
-      acu = subtotal + num;
 
-      localStorage.setItem('total', acu);
 
-      this.total = acu;
+        for (let beer of this.beersInO) {
+          //console.log(beer.nombre);
+          if (beer.nombre == this.beerSelected.nombre) {
+            alert('Ya eligio esa cerveza. Elija otra');
+            return null;
+          }
+        }
+
+        let subtotal = +$("#qty").val() * this.beerSelected.precio_unitario;
+        if (this.flagEvent) {
+          this.beersIn.push({ id: this.beerSelected.cerveza_id, nombre: this.beerSelected.nombre, cantidad_cervezas: $("#qty").val(), precio_unitario: this.beerSelected.precio_unitario, precio: subtotal });
+        }
+        else {
+          this.beersIn.push({ id: this.beerSelected.id, nombre: this.beerSelected.nombre, cantidad_cervezas: $("#qty").val(), precio_unitario: this.beerSelected.precio_unitario, precio: subtotal });
+        }
+
+        //console.log(this.beersIn);
+        alert('Cervezar añadida. Elija otra si desea');
+        $("#select3").val($("#select3 option:first").val());
+        $("#qty").val('');
+        this.beerSelected = 0;
+
+        local = localStorage.getItem('total');
+        num = parseInt(local);
+
+        acu = subtotal + num;
+
+        localStorage.setItem('total', acu);
+
+        this.total = acu;
+      }
+      else{
+        alert('Cantidad no disponible');
+        return null;
+      }
 
     }
     else {
@@ -400,19 +416,19 @@ export class StoreComponent implements OnInit {
   sell() {
 
     if (this.cn) {
-      if(this.flagEvent){
-        this.data_venta = new DataVenta3(this.beersIn, 'rol_clienten', this.cn.id, this.methodP, false, this.flagEvent,this.event.id,this.identity.id);
+      if (this.flagEvent) {
+        this.data_venta = new DataVenta3(this.beersIn, 'rol_clienten', this.cn.id, this.methodP, false, this.flagEvent, this.event.id, this.identity.id);
       }
-      else{
-        this.data_venta = new DataVenta3(this.beersIn, 'rol_clienten', this.cn.id, this.methodP, false, this.flagEvent,0,this.identity.id);
+      else {
+        this.data_venta = new DataVenta3(this.beersIn, 'rol_clienten', this.cn.id, this.methodP, false, this.flagEvent, 0, this.identity.id);
       }
-     
+
     } else {
-      if(this.flagEvent){
-        this.data_venta = new DataVenta3(this.beersIn, 'rol_clientej', this.cn.id, this.methodP, false, this.flagEvent,this.event.id,this.identity.id);
+      if (this.flagEvent) {
+        this.data_venta = new DataVenta3(this.beersIn, 'rol_clientej', this.cn.id, this.methodP, false, this.flagEvent, this.event.id, this.identity.id);
       }
-      else{
-        this.data_venta = new DataVenta3(this.beersIn, 'rol_clientej', this.cn.id, this.methodP, false, this.flagEvent,0,this.identity.id);
+      else {
+        this.data_venta = new DataVenta3(this.beersIn, 'rol_clientej', this.cn.id, this.methodP, false, this.flagEvent, 0, this.identity.id);
       }
     }
 
@@ -426,6 +442,7 @@ export class StoreComponent implements OnInit {
       response => {
         console.log(response);
         this.notificationSucessBuy();
+        this.update();
       },
       error => {
         console.log(<any>error);
@@ -472,6 +489,25 @@ export class StoreComponent implements OnInit {
       clickToClose: true,
       position: ["top", "right"]
     });
+  }
+
+  notificationInfoUpdate() {
+    this._service.info('Actualizando...', 'Por favor, espere', {
+      timeOut: 3000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
+  }
+
+  update() {
+    setTimeout(function () {
+      $(function () {
+        location.reload();
+      });
+    }, 2000);
+    this.notificationInfoUpdate();
   }
 
 }

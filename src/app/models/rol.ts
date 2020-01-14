@@ -5,3 +5,14 @@ export class Rol{
     ){}
 
 }
+
+export class RolP{
+    
+    constructor(
+       
+        public nombre:string,
+        public permisos: any[]
+
+    ){}
+
+}

@@ -54,6 +54,8 @@ import { StoreComponent } from './components/store/store.component';
 import { AsistenciaComponent } from './components/asistencia/asistencia.component';
 import { UserService } from './services/user.service';
 import { SellTicketComponent } from './components/sell-ticket/sell-ticket.component';
+import { RolComponent } from './components/rol/rol.component';
+
 
 
 @NgModule({
@@ -84,6 +86,7 @@ import { SellTicketComponent } from './components/sell-ticket/sell-ticket.compon
     StoreComponent,
     AsistenciaComponent,
     SellTicketComponent,
+    RolComponent,
   ],
   imports: [
     BrowserModule,
@@ -113,7 +116,7 @@ import { SellTicketComponent } from './components/sell-ticket/sell-ticket.compon
     QuoteService,
     PlaceService,
     CRUDService,
-    UserService
+    UserService,
 
   ],
   bootstrap: [AppComponent]

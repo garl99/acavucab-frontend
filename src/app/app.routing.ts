@@ -18,6 +18,7 @@ import { NCustomersComponent } from './components/n-customers/n-customers.compon
 import { SuppliersComponent } from './components/suppliers/suppliers.component';
 import { AsistenciaComponent } from './components/asistencia/asistencia.component';
 import { UsersComponent } from './components/users/users.component';
+import { RolComponent } from './components/rol/rol.component';
 
 
 
@@ -58,7 +59,7 @@ const appRoutes: Routes = [
     {path: 'dashboard/store', component: StoreComponent},
     {path: 'dashboard/sell-ticket', component: SellTicketComponent},
     {path: 'dashboard/user', component: UsersComponent},
-    
+    {path: 'dashboard/rol', component: RolComponent},
     {path: 'dashboard/user', component: UsersComponent},
     
     {path: 'dashboard/sell-ticket', component: SellTicketComponent}

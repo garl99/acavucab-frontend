@@ -1,0 +1,192 @@
+<br><br><br>
+
+
+<div class="container">
+
+    <div>
+        <div class="row text-left mt-5">
+            <div class="col-5">
+                <h2 id="Encabezado">Roles</h2>
+                <a href="#" class="btn btn-primary ml-2" data-toggle="modal" data-target="#rolModal">Agregar <i
+                        class="fas fa-plus-circle"></i></a>
+            </div>
+            <div class="col-7 ">
+                <div class="float-right ">
+                    <ul class="nav justify-content-center styles">
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['/dashboard/j-customers']">Clientes Juridicos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['/dashboard/n-customers']">Clientes naturales</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" [routerLink]="['/dashboard/suppliers']">Proveedores</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['/dashboard/beers']">Cervezas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['/dashboard/employees']">Empleados</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['/dashboard/user']">Usuarios</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <hr id="HR">
+
+        <!-- Bookmark form -->
+        <div class="modal fade" id="rolModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">Nuevo rol</h4>
+                        <button type="button" class="close" data-dismiss="modal"><span
+                                aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+                    </div>
+                    <div class="modal-body">
+
+                        <!--REVISAR AQUI LOS NG MODEL-->
+                        <form id="CreateRolForm" #Form="ngForm" (ngSubmit)="onSubmit(Form)" method="POST">
+                            <p>Por favor, ingresa los datos solicitados.</p>
+                            <div class="form-group">
+                                <label for="name">Nombre del rol</label>
+                                <div class="input-group">
+                                    <input id="name" class="form-control" type="text" placeholder="Ingrese el rol">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="type">Permisos:</label>
+                                <select id="select2" class="ml-2" #selectList4
+                                    (change)="optionSelected4(selectList4.value)">
+                                    <option value="null" disabled>Seleccionar</option>
+                                    <option *ngFor="let permission of permissions" value="{{ permission | json }}">
+                                        {{permission.nombre}}
+                                    </option>
+                                </select>
+                                <a id="hover"class="btn btn-success ml-3 btn-circle text-white" (click)="addPermission()">
+                                    <i class="fas fa-plus-circle"></i>
+                                </a>
+                            </div>
+
+                            <div class="form-group" *ngIf="permissionIn.length!=0">
+                                <label  style="font-weight: bold;" for="permissionIn">Permisos añadidos:</label>
+                                <div class="row ml-1" *ngFor="let permissioIn of permissionIn">
+                                    <label for="type">{{permissioIn.nombre}}</label>
+                                    <a  id="hover"class="btn btn-danger ml-3 btn-circle text-white" (click)="deletePermissionIn(permissioIn.id)">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a> 
+                                </div>
+                            </div>
+
+                            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
+                                Registrar
+                            </button>
+                        </form>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                         </div> </div> </div> </div> <table id="dataTable" #dataTable
+                            class="table table-bordered table-hover"
+                            style="margin-bottom: 30px;background-color: #FDF4E3;">
+                            <thead class="thead" style="background-color: rgb(42, 41, 40); color: #FFFF;">
+                                <tr class="text-center">
+                                    <th scope="col">id</th>
+                                    <th scope="col">Rol</th>
+                                    <!--<th scope="col">Permisos</th>-->
+                                    <th scope="col">Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbody" *ngIf="roles">
+                                <tr class="text-center" *ngFor="let rol of roles">
+                                    <th scope="row">{{rol.id}}</th>
+                                    <td>{{rol.nombre}}</td> 
+                                    <td>
+                                        <div class="row">
+                                            <div align="center" class="col-sm-4">
+                                                <form action="#" method="POST">
+                                                    <button type="submit" class="btn btn-primary"><i
+                                                            class="fas fa-pencil-alt" (click)="openModal(rol)"></i></button>
+
+                                                </form>
+
+                                            </div>
+
+                                            <div align="center" class="col-sm-4 ml-2">
+                                                <form action="#" method="POST">
+                                                    <button type="submit" class="btn btn-danger"><i
+                                                            class="fas fa-trash" (click)="openModalDelete(rol.id)"></i></button>
+
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                    <div class="modal fade" id="editModal{{rol.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header" style="background-color:#269ECE;">
+                                        <h4 class="modal-title" id="myModalLabel">Editar Usuario</h4>
+                                        <button type="button" class="close" data-dismiss="modal"><span
+                                                aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <!--REVISAR AQUI LOS NG MODEL-->
+                                        <form id="UpdateEventForm{{rol.id}}" #Form="ngForm" (ngSubmit)="update(Form,rol)" method="PUT">
+                                            <p>Por favor, ingresa los datos solicitados.</p>
+                                            <div class="form-group">
+                                                <label for="correo">Correo electronico:</label>
+                                                <div class="input-group">
+                                                    <input id="correo{{rol.id}}" class="form-control" type="text"
+                                                        placeholder="Ingrese el correo" required>
+                                                </div>
+                                            </div>
+
+                                            <hr>
+                                            <button class="btn btn-primary btn-block text-uppercase" type="submit">
+                                                Actualizar
+                                            </button>
+                    
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+
+                                    <div id="confirmation{{rol.id}}" class="modal text-center" tabindex="-1" role="dialog">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="">
+                                                    <h5 class="modal-title text-center py-3">Borrar evento</h5>
+                                                    <hr>
+                                                    <img src="../../../assets/img/rusure.png" alt="" style="width: 50px;">
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>¿Estas realmente seguro de borrar este usuario?</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Cancelar</button>
+                                                    <button type="button" class="btn btn-danger"
+                                                        (click)="delete(rol.id)">Borrar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </tr>
+
+                            </tbody>
+                            </table>
+
+                    </div>
+                    <simple-notifications></simple-notifications>

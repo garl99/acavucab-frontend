@@ -8,7 +8,7 @@ import { AuthService } from '../../services/auth.service';
 import { NotificationsService} from 'angular2-notifications';
 
 declare var $;
-
+ 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit {
   public roles;
   
     
-  constructor(private _userService: UserService, private _customersNService: CustomersNService,
+  constructor( private _customersNService: CustomersNService,
             private _crudService: CRUDService,  private _service: NotificationsService){}
 
   ngOnInit() {

@@ -136,6 +136,74 @@ export class RolComponent implements OnInit {
 
   }
 
+  openModalDelete(id) {
+    $("#confirmation" + id).modal('show');
+  }
+
+  delete(id) {
+    console.log(id);
+
+    $("#confirmation" + id).modal('hide');
+
+    this._crudService.getdeleteRol(id).subscribe(
+      response => {
+        console.log('Se elimino');
+        console.log(response);
+        this.notificationEventDeleted();
+        this.updateDatable();
+      },
+      error => {
+        console.log(<any>error);
+        console.log('Fallo');
+        this.notificationError();
+      }
+
+    );
+  }
+
+  update(Form, rol) {
+
+    let id = rol.id;
+    let nombre = $("#nombre" + rol.id).val();
+    //let rol = $("#rol" + user.id).val();
+
+    let data;
+    
+    data = {nombre};
+    
+    console.log(data);
+    
+    this._crudService.updateRol(id, data).subscribe(
+      response => {
+        console.log(response);
+        this.notificationSucess();
+        this.updateDatable();
+
+      },
+      error => {
+        console.log(<any>error);
+        this.notificationError();
+      }
+    );
+
+    console.log(data);
+
+    $("#editModal" + rol.id).modal('hide');
+
+
+  }
+
+
+  notificationEventDeleted() {
+    this._service.success('Registro borrado', 'Rol eliminado correctamente', {
+      timeOut: 3000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
+  }
+
   onSubmit(Form){
 
     if (this.permissionIn.length != 0) {
@@ -210,5 +278,14 @@ export class RolComponent implements OnInit {
     });
   }
 
+  openModal(rol) {
+
+    $("#nombre" + rol.id).val(rol.nombre);
+    $("#editModal" + rol.id).modal('show');
+
+  }
 
 }
+
+
+

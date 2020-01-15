@@ -117,6 +117,8 @@ export class UsersComponent implements OnInit {
     );
   }
 
+  
+
   openModalDelete(id) {
     $("#confirmation" + id).modal('show');
   }
@@ -172,11 +174,11 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  update(Form, user) {
+  update(user) {
 
     let id = user.id;
     let correo = $("#correo" + user.id).val();
-    //let rol = $("#rol" + user.id).val();
+    let rol = $("#rol" + user.id).val();
 
     let data;
     

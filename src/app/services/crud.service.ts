@@ -168,6 +168,24 @@ export class CRUDService {
 
     }
 
+    getdeleteRol(id){
+        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+
+        return this._http.delete(this.url+'delete-rol/'+id,{headers:headers});
+    }
+
+    updateRol(id, data){
+
+        let json = JSON.stringify(data);
+
+        let params = 'json=' + json;
+
+        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+
+        return this._http.post(this.url + 'update-rol/'+id, params, { headers: headers });
+
+    }
+
     updateUser(id,data): Observable<any>{
 
         let json = JSON.stringify(data);

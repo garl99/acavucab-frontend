@@ -135,7 +135,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header" style="background-color:#269ECE;">
-                                        <h4 class="modal-title" id="myModalLabel">Editar Usuario</h4>
+                                        <h4 class="modal-title" id="myModalLabel">Editar Rol</h4>
                                         <button type="button" class="close" data-dismiss="modal"><span
                                                 aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                     </div>
@@ -145,10 +145,10 @@
                                         <form id="UpdateEventForm{{rol.id}}" #Form="ngForm" (ngSubmit)="update(Form,rol)" method="PUT">
                                             <p>Por favor, ingresa los datos solicitados.</p>
                                             <div class="form-group">
-                                                <label for="correo">Correo electronico:</label>
+                                                <label for="nombre">Rol:</label>
                                                 <div class="input-group">
-                                                    <input id="correo{{rol.id}}" class="form-control" type="text"
-                                                        placeholder="Ingrese el correo" required>
+                                                    <input id="nombre{{rol.id}}" class="form-control" type="text"
+                                                        placeholder="Ingrese el rol" required>
                                                 </div>
                                             </div>
 
@@ -172,7 +172,7 @@
                                                     <img src="../../../assets/img/rusure.png" alt="" style="width: 50px;">
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>¿Estas realmente seguro de borrar este usuario?</p>
+                                                    <p>¿Estas realmente seguro de borrar este rol?</p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"

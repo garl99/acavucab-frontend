@@ -56,6 +56,7 @@ import { UserService } from './services/user.service';
 import { SellTicketComponent } from './components/sell-ticket/sell-ticket.component';
 import { RolComponent } from './components/rol/rol.component';
 
+import { SPaymentsComponent } from './components/s-payments/s-payments.component';
 
 
 @NgModule({
@@ -87,6 +88,7 @@ import { RolComponent } from './components/rol/rol.component';
     AsistenciaComponent,
     SellTicketComponent,
     RolComponent,
+    SPaymentsComponent,
   ],
   imports: [
     BrowserModule,

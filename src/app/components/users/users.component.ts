@@ -174,11 +174,11 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  update(user) {
+  update(Form,user) {
 
     let id = user.id;
     let correo = $("#correo" + user.id).val();
-    let rol = $("#rol" + user.id).val();
+   // let rol = $("#rol" + user.id).val();
 
     let data;
     

@@ -20,6 +20,7 @@ import { SPaymentsComponent } from './components/s-payments/s-payments.component
 import { AsistenciaComponent } from './components/asistencia/asistencia.component';
 import { UsersComponent } from './components/users/users.component';
 import { OffersComponent } from './components/offers/offers.component';
+import { RolComponent } from './components/rol/rol.component';
 
 
 
@@ -62,7 +63,7 @@ const appRoutes: Routes = [
     {path: 'dashboard/s-payments', component: SPaymentsComponent},
     {path: 'dashboard/sell-ticket', component: SellTicketComponent},
     {path: 'dashboard/user', component: UsersComponent},
-    
+    {path: 'dashboard/rol', component: RolComponent},
     {path: 'dashboard/user', component: UsersComponent},
     
     {path: 'dashboard/sell-ticket', component: SellTicketComponent},

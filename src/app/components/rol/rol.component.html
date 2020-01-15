@@ -6,8 +6,8 @@
     <div>
         <div class="row text-left mt-5">
             <div class="col-5">
-                <h2 id="Encabezado">Usuarios</h2>
-                <a href="#" class="btn btn-primary ml-2" data-toggle="modal" data-target="#userModal">Agregar <i
+                <h2 id="Encabezado">Roles</h2>
+                <a href="#" class="btn btn-primary ml-2" data-toggle="modal" data-target="#rolModal">Agregar <i
                         class="fas fa-plus-circle"></i></a>
             </div>
             <div class="col-7 ">
@@ -38,12 +38,12 @@
         <hr id="HR">
 
         <!-- Bookmark form -->
-        <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        <div class="modal fade" id="rolModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel">Nuevo Usuario</h4>
+                        <h4 class="modal-title" id="myModalLabel">Nuevo rol</h4>
                         <button type="button" class="close" data-dismiss="modal"><span
                                 aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 
@@ -51,33 +51,38 @@
                     <div class="modal-body">
 
                         <!--REVISAR AQUI LOS NG MODEL-->
-                        <form id="Usermodal" #Form="ngForm" (ngSubmit)="onSubmit(Form)" method="POST">
+                        <form id="CreateRolForm" #Form="ngForm" (ngSubmit)="onSubmit(Form)" method="POST">
                             <p>Por favor, ingresa los datos solicitados.</p>
                             <div class="form-group">
-                                <label for="correo">Correo electronico</label>
+                                <label for="name">Nombre del rol</label>
                                 <div class="input-group">
-                                    <input id="correo" name= "email" class="form-control" type="email" placeholder="Ingrese el Correo electronico"
-                                    required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                                    <input id="name" class="form-control" type="text" placeholder="Ingrese el rol">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="contraseña">Contraseña</label>
-                                <div class="input-group">
-                                    <input id="contraseña" type="password" class="form-control" type="text"
-                                        placeholder="Ingrese la contraseña">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="rol">Rol: </label><br>
-                                <select id = "rol">
-                                    <option value="null">Rol</option>
-                                    <option *ngFor="let rol of roles" value="{{ rol.id | json }}">{{rol.nombre}}
+                                <label for="type">Permisos:</label>
+                                <select id="select2" class="ml-2" #selectList4
+                                    (change)="optionSelected4(selectList4.value)">
+                                    <option value="null" disabled>Seleccionar</option>
+                                    <option *ngFor="let permission of permissions" value="{{ permission | json }}">
+                                        {{permission.nombre}}
                                     </option>
                                 </select>
+                                <a id="hover"class="btn btn-success ml-3 btn-circle text-white" (click)="addPermission()">
+                                    <i class="fas fa-plus-circle"></i>
+                                </a>
                             </div>
 
+                            <div class="form-group" *ngIf="permissionIn.length!=0">
+                                <label  style="font-weight: bold;" for="permissionIn">Permisos añadidos:</label>
+                                <div class="row ml-1" *ngFor="let permissioIn of permissionIn">
+                                    <label for="type">{{permissioIn.nombre}}</label>
+                                    <a  id="hover"class="btn btn-danger ml-3 btn-circle text-white" (click)="deletePermissionIn(permissioIn.id)">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a> 
+                                </div>
+                            </div>
 
                             <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
                                 Registrar
@@ -94,22 +99,21 @@
                             <thead class="thead" style="background-color: rgb(42, 41, 40); color: #FFFF;">
                                 <tr class="text-center">
                                     <th scope="col">id</th>
-                                    <th scope="col">Correo electronico</th>
                                     <th scope="col">Rol</th>
+                                    <!--<th scope="col">Permisos</th>-->
                                     <th scope="col">Opciones</th>
                                 </tr>
                             </thead>
-                            <tbody class="tbody" *ngIf="users">
-                                <tr class="text-center" *ngFor="let user of users">
-                                    <th scope="row">{{user.id}}</th>
-                                    <td>{{user.correo}}</td>
-                                    <td>{{user.rol}}</td>
+                            <tbody class="tbody" *ngIf="roles">
+                                <tr class="text-center" *ngFor="let rol of roles">
+                                    <th scope="row">{{rol.id}}</th>
+                                    <td>{{rol.nombre}}</td> 
                                     <td>
                                         <div class="row">
                                             <div align="center" class="col-sm-4">
                                                 <form action="#" method="POST">
                                                     <button type="submit" class="btn btn-primary"><i
-                                                            class="fas fa-pencil-alt" (click)="openModal(user)"></i></button>
+                                                            class="fas fa-pencil-alt" (click)="openModal(rol)"></i></button>
 
                                                 </form>
 
@@ -118,7 +122,7 @@
                                             <div align="center" class="col-sm-4 ml-2">
                                                 <form action="#" method="POST">
                                                     <button type="submit" class="btn btn-danger"><i
-                                                            class="fas fa-trash" (click)="openModalDelete(user.id)"></i></button>
+                                                            class="fas fa-trash" (click)="openModalDelete(rol.id)"></i></button>
 
                                                 </form>
                                             </div>
@@ -126,35 +130,26 @@
                                         </div>
                                     </td>
 
-                                    <div class="modal fade" id="editModal{{user.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+                                    <div class="modal fade" id="editModal{{rol.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
                             aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header" style="background-color:#269ECE;">
-                                        <h4 class="modal-title" id="myModalLabel">Editar Usuario</h4>
+                                        <h4 class="modal-title" id="myModalLabel">Editar Rol</h4>
                                         <button type="button" class="close" data-dismiss="modal"><span
                                                 aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                     </div>
                                     <div class="modal-body">
 
                                         <!--REVISAR AQUI LOS NG MODEL-->
-                                        <form id="UpdateEventForm{{user.id}}" #Form="ngForm" (ngSubmit)="update(Form,user)" method="PUT">
+                                        <form id="UpdateEventForm{{rol.id}}" #Form="ngForm" (ngSubmit)="update(Form,rol)" method="PUT">
                                             <p>Por favor, ingresa los datos solicitados.</p>
                                             <div class="form-group">
-                                                <label for="correo">Correo electronico:</label>
+                                                <label for="nombre">Rol:</label>
                                                 <div class="input-group">
-                                                    <input id="correo{{user.id}}" class="form-control" type="text"
-                                                        placeholder="Ingrese el correo" required>
+                                                    <input id="nombre{{rol.id}}" class="form-control" type="text"
+                                                        placeholder="Ingrese el rol" required>
                                                 </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label for="rol">Rol: </label><br>
-                                                <select id = "rol"> 
-                                                    <option value="null">{{user.rol}}</option>
-                                                    <option *ngFor="let rol of roles" value="{{ rol.id | json }}">{{rol.nombre}}
-                                                    </option>
-                                                </select>
                                             </div>
 
                                             <hr>
@@ -168,7 +163,7 @@
                             </div>
                     </div>
 
-                                    <div id="confirmation{{user.id}}" class="modal text-center" tabindex="-1" role="dialog">
+                                    <div id="confirmation{{rol.id}}" class="modal text-center" tabindex="-1" role="dialog">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                                 <div class="">
@@ -177,13 +172,13 @@
                                                     <img src="../../../assets/img/rusure.png" alt="" style="width: 50px;">
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>¿Estas realmente seguro de borrar este usuario?</p>
+                                                    <p>¿Estas realmente seguro de borrar este rol?</p>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                         data-dismiss="modal">Cancelar</button>
                                                     <button type="button" class="btn btn-danger"
-                                                        (click)="delete(user.id)">Borrar</button>
+                                                        (click)="delete(rol.id)">Borrar</button>
                                                 </div>
                                             </div>
                                         </div>

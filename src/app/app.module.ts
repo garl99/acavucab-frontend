@@ -56,6 +56,7 @@ import { AsistenciaComponent } from './components/asistencia/asistencia.componen
 import { UserService } from './services/user.service';
 import { SellTicketComponent } from './components/sell-ticket/sell-ticket.component';
 import { OffersComponent } from './components/offers/offers.component';
+import { RolComponent } from './components/rol/rol.component';
 
 
 
@@ -89,6 +90,7 @@ import { OffersComponent } from './components/offers/offers.component';
     AsistenciaComponent,
     SellTicketComponent,
     OffersComponent,
+    RolComponent,
   ],
   imports: [
     BrowserModule,
@@ -118,7 +120,7 @@ import { OffersComponent } from './components/offers/offers.component';
     QuoteService,
     PlaceService,
     CRUDService,
-    UserService
+    UserService,
 
   ],
   bootstrap: [AppComponent]

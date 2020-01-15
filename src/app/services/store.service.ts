@@ -30,4 +30,16 @@ export class StoreService {
 
     }
 
+    findPayment(id): Observable<any> {             //Busca si ya pago el proveedor su cuota
+
+        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+
+        return this._http.get(this.url + 'get-pago_cuota/'+id, { headers: headers });
+
+
+    }
+
+
+
+
 }

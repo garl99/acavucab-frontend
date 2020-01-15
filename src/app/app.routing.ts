@@ -16,6 +16,7 @@ import { EmployeesComponent } from './components/employees/employees.component';
 import { JCustomersComponent } from './components/j-customers/j-customers.component';
 import { NCustomersComponent } from './components/n-customers/n-customers.component';
 import { SuppliersComponent } from './components/suppliers/suppliers.component';
+import { SPaymentsComponent } from './components/s-payments/s-payments.component';
 
 
 
@@ -52,6 +53,7 @@ const appRoutes: Routes = [
     {path: 'dashboard/profile/:sure', component: DashboardComponent},
     {path: 'dashboard/events', component: EventsComponent},
     {path: 'dashboard/store', component: StoreComponent},
+    {path: 'dashboard/s-payments', component: SPaymentsComponent},
 
 
 

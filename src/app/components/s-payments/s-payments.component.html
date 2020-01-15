@@ -1,0 +1,68 @@
+<body>
+    <!-- Titulo -->
+    <div class="container mt-2" style="margin-bottom: 50px;">
+        <br><br><br>
+        <h1 class="text-center">Pago de cuota</h1>
+    </div>
+
+    <!-- Contenido -->
+
+    <div class="container mb-5">
+        <div class="d-flex flex-colum">
+            <div class="d-flex flex-row mx-auto">
+                <div class="card">
+                    <h4 class="card-header">Forma de pago</h4>
+
+                    <form action="#" class="w-75 mx-auto py-2">
+                        <div id="tipoPago" class="form-group row">
+                            <div class="column">
+                                <label>Tipo de pago:</label>
+                                <!-- Default checked -->
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="credit" name="radioTarjeta">
+                                    <label class="custom-control-label" for="credit">Tarjeta Credito</label>
+                                </div>
+
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="debit" name="radioTarjeta">
+                                    <label class="custom-control-label" for="debit">Tarjeta Debito</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="datosTarjeta" class="form-group row">
+                            <label for="NumTarjeta">Numero de tarjeta</label>
+                            <input type="number" class="form-control" id="NumTarjeta" placeholder="Introduzca número de tarjeta">
+                            <label for="nombreTarjeta" class="mt-4"> Nombre de titular</label>
+                            <input type="text" class="form-control" id="nombreTarjeta" placeholder="Nombre de titular">
+                        </div>
+            
+                        <div id="datosTarjetaFechaCvv" class="form-group row mt-4">
+                            <label for="datosTarjetaFechaCvv">Fecha de vencimiento de la tarjeta </label>
+                            <div class="d-flex flex-row w-100">
+                                <div class="d-flex flex-row">
+                                    <input type="number" class="form-control" style="width: 80px;" id="mes" placeholder="Mes" min="01" max="12" required>
+                                    <h3 class="mx-2">/</h3>
+                                    <input type="number" class="form-control" style="width: 100px;" id="año" placeholder="Año" min="2019" required>
+                                    <h3 class="mx-3 ">-</h3>
+                                    <input type="password" class="form-control" style="width: 90px;" id="cvv" placeholder="CVV" maxlength="3" required>
+                                </div>
+            
+            
+                                <div class="d-flex flex-row w-100 justify-content-around" style="max-width: 250px; margin-left: 8%;">
+                                    <img src="../assets/img/maestro.png" class="" style="width: 50px; " />
+                                    <img src="../assets/img/visa.png" class="" style="width: 50px;" />
+                                    <img src="../assets/img/credito.png" class="" />
+                                </div>
+                            </div>
+                        </div>
+            
+                        <button type="submit" class=" ml-3 mb-3 btn btn-primary btn-sm btn-block mx-auto" (click)="payFee()">Pagar cuota</button>
+                    </form>
+                </div>                
+
+            </div>
+            
+        </div>
+            </div>
+        </body>

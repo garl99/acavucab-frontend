@@ -50,6 +50,7 @@ import { CRUDService } from './services/crud.service';
 import { MatNativeDateModule } from '@angular/material/core';
 import { UsersComponent } from './components/users/users.component';
 import { StoreComponent } from './components/store/store.component';
+import { SPaymentsComponent } from './components/s-payments/s-payments.component';
 
 
 @NgModule({
@@ -78,6 +79,7 @@ import { StoreComponent } from './components/store/store.component';
     ProfileComponent,
     UsersComponent,
     StoreComponent,
+    SPaymentsComponent,
   ],
   imports: [
     BrowserModule,

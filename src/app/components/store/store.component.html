@@ -64,13 +64,59 @@
 
                 <h4>Detalle venta:</h4>
 
-                <form action="#" class="w-75 mx-auto py-2">
+                <Label>Evento: <input id="inputL" type="checkbox" style="display: inline;" (click)="allEvent()"></Label>
+                
+                <form action="#" class="w-75 mx-auto py-2" *ngIf="flagEvent==1">
+                    <div class="form-group">
+                        <label for="type">Eventos:</label>
+                        
+                        <select id="event" class="ml-2" #selectList6 (change)="optionSelected6(selectList6.value)">
+                            <option value="null" disabled>Seleccionar</option>
+                            <option *ngFor="let event of events" value="{{ event| json }}">
+                                {{event.nombre}}
+                            </option>
+                        </select>
+
+                        <div class="form-group">
+                            <label for="type">Cervezas:</label>
+                            <select id="select3" class="ml-2" #selectList5 (change)="optionSelected5(selectList5.value)">
+                                <option value="null" disabled>Seleccionar</option>
+                                <option *ngFor="let beer of beersEvents" value="{{ beer | json }}">
+                                    {{beer.nombre}}. Disp:{{beer.cantidad_cervezas}}
+                                </option>
+                            </select>
+                            <input class="ml-2" id="qty" type="number" min="0" style="width: 60px;" placeholder="cant"
+                                required>
+                            <a id="hover" class="btn btn-success ml-3 btn-circle text-white" (click)="addbeer()">
+                                <i class="fas fa-plus-circle"></i>
+                            </a>
+                        </div>
+    
+                        <div class="form-group" *ngIf="beersIn.length!=0">
+                            <label style="font-weight: bold;" for="beersIn">Cervezas añadidas:</label>
+                            <div class="row ml-1"
+                                *ngFor="let beerIn of beersIn | paginate: { itemsPerPage: 3, currentPage: p }">
+                                <label for="type">{{beerIn.nombre}} ; Cant:{{beerIn.cantidad_cervezas}} ; Subtotal:
+                                    {{beerIn.precio}}</label>
+                                <a id="hover" class="btn btn-danger ml-3 btn-circle text-white"
+                                    (click)="deleteBeerIn(beerIn.id)">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                            <pagination-controls previousLabel="anterior" nextLabel="siguiente" (pageChange)="p = $event"
+                                style="position: relative;bottom: 0;left:200px; top: 15px;"></pagination-controls>
+                        </div>
+    
+                    </div>
+                </form>
+                
+                <form action="#" class="w-75 mx-auto py-2" *ngIf="flagEvent==0">
                     <div class="form-group">
                         <label for="type">Cervezas:</label>
                         <select id="select3" class="ml-2" #selectList5 (change)="optionSelected5(selectList5.value)">
                             <option value="null" disabled>Seleccionar</option>
                             <option *ngFor="let beer of beersAvailable" value="{{ beer | json }}">
-                                {{beer.nombre}}
+                                {{beer.nombre}}. Disp:{{beer.disponible}}
                             </option>
                         </select>
                         <input class="ml-2" id="qty" type="number" min="0" style="width: 60px;" placeholder="cant"

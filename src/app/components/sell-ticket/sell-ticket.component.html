@@ -1,0 +1,138 @@
+<br><br><br>
+
+
+<body>
+
+    <!-- Titulo -->
+    <div class="container mt-3 py-3">
+        <br><br><br>
+        <h1 class="text-center">Eventos</h1>
+    </div>
+
+    <!-- Contenido -->
+
+    <div class="container">
+        <div class="row" *ngFor="let event of events | paginate: { itemsPerPage: 3, currentPage: p }">
+
+            <div class="modal fade" id="ticket{{event.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color:#269ECE;">
+                            <h4 class="modal-title" id="myModalLabel">Comprar entrada</h4>
+                            <button type="button" class="close" data-dismiss="modal"><span
+                                    aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <form id="sellTicket{{event.id}}" #Form="ngForm" (ngSubmit)="sellTicket(Form,event)"
+                                method="PUT">
+                                <p>Por favor, ingresa los datos solicitados.</p>
+                                <div class="form-group">
+                                    <label for="name">
+                                        <p style="font-weight: bold; display:inline;">Entradas disponibles: </p>
+                                        {{event.cantidad_entrada_actual}}
+                                    </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="price">
+                                        <p style="font-weight: bold; display:inline;"> Precio: </p>Bs.
+                                        {{event.precio_entrada}}
+                                    </label>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="qty">
+                                        <p style="font-weight: bold; display:inline;"> Cantidad: </p><input
+                                            id="qty{{event.id}}" type="number" style="width: 50px;" min=0
+                                            max="{{event.cantidad_entrada_actual}}">
+                                    </label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label style="font-weight: bold;" for="name">Formas de pago: </label>
+
+                                    <select class="ml-3" id="selectList3Type{{event.id}}" #selectList3
+                                        (change)="optionSelectedType(selectList3.value)" *ngIf="credit_cards">
+                                        <option value="null" disabled>Formas de pago</option>
+                                        <option value="Tarjeta de credito">Tarjeta de credito</option>
+                                        <option value="Tarjeta de debito">Tarjeta de debito</option>
+                                    </select>
+
+                                    <select id="selectList3{{event.id}}" *ngIf="credit_cards && optionT==1" class="ml-1"
+                                        #selectList3 (change)="optionSelectedM(selectList3.value,event)">
+                                        <option value="null" disabled>Tus tarjetas</option>
+                                        <option *ngFor="let card of credit_cards" value="{{ card | json }}">
+                                            {{card.num_tarjeta}}</option>
+                                    </select>
+
+                                    <select id="selectList3{{event.id}}" *ngIf="debit_cards && optionT==2" class="ml-1"
+                                        #selectList3 (change)="optionSelectedM(selectList3.value,event)">
+                                        <option value="null" disabled>Tus tarjetas</option>
+                                        <option *ngFor="let card of debit_cards" value="{{ card | json }}">
+                                            {{card.num_tarjeta}}</option>
+                                    </select>
+
+                                    <small class="my-2" *ngIf="!credit_cards && (optionT==1)"
+                                        class="invalid-feedback d-block">No posee tarjetas. Registre una tarjeta en su
+                                        perfil</small>
+                                    <small class="my-2" *ngIf="!debit_cards && (optionT==2)"
+                                        class="invalid-feedback d-block">No posee tarjetas. Registre una tarjeta en su
+                                        perfil</small>
+                                    <div class="row">
+                                        <div class="col-sm-4 mt-2">
+                                            <label for="total">Total a pagar: <p style="display:inline;">{{total}}</p>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <button class="btn btn-primary btn-block text-uppercase" type="submit">
+                                    Comprar
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row py-5">
+                    <div class="col-md-4">
+                        <a href="#"><img class="card-img-top" src="http://placehold.it/200x200" alt=""></a>
+                    </div>
+                    <div class="col-md-8">
+                        <h3>{{event.nombre}}</h3>
+                        <p>{{event.descripcion}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row py-5">
+                    <div class="col-md-3 text-center">
+                        <h5>Fecha</h5>
+                        <h5>{{event.fecha}}</h5>
+
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <h5>Entradas disponibles:</h5>
+                        <h5>{{event.cantidad_entrada_actual}}</h5>
+                    </div>
+                    <div class="col-md-5 text-center">
+                        <button type="button" class="btn btn-success btn-block" (click)="openModal(event)">Comprar
+                            entrada</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <pagination-controls previousLabel="anterior" nextLabel="siguiente" (pageChange)="p = $event"
+        ></pagination-controls>
+    </div>
+    <simple-notifications></simple-notifications>
+</body>

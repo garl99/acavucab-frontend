@@ -17,6 +17,7 @@ export class AppComponent implements OnInit, DoCheck {
 
   ngOnInit() {
     console.log('ok');
+    console.log(this.identity);
   }
 
   ngDoCheck() {

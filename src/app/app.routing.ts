@@ -17,6 +17,9 @@ import { JCustomersComponent } from './components/j-customers/j-customers.compon
 import { NCustomersComponent } from './components/n-customers/n-customers.component';
 import { SuppliersComponent } from './components/suppliers/suppliers.component';
 import { SPaymentsComponent } from './components/s-payments/s-payments.component';
+import { AsistenciaComponent } from './components/asistencia/asistencia.component';
+import { UsersComponent } from './components/users/users.component';
+import { OffersComponent } from './components/offers/offers.component';
 
 
 
@@ -28,6 +31,7 @@ import { QuoteComponent } from './components/quote/quote.component';
 import { CarnetComponent } from './reports/carnet/carnet.component';
 import { EventsComponent } from './components/events/events.component';
 import { StoreComponent } from './components/store/store.component';
+import { SellTicketComponent } from './components/sell-ticket/sell-ticket.component';
 
 
 //DEFINIR RUTAS
@@ -47,13 +51,23 @@ const appRoutes: Routes = [
     {path: 'dashboard/j-customers', component: JCustomersComponent},
     {path: 'dashboard/n-customers', component: NCustomersComponent},
     {path: 'dashboard/suppliers', component: SuppliersComponent},
+    {path: 'dashboard/asistence', component: AsistenciaComponent},
     {path: 'product/:id', component: ProductComponent},
     {path: 'dashboard/quote', component: QuoteComponent},
     {path: 'dashboard/carnet/:id', component: CarnetComponent},
     {path: 'dashboard/profile/:sure', component: DashboardComponent},
     {path: 'dashboard/events', component: EventsComponent},
     {path: 'dashboard/store', component: StoreComponent},
+
     {path: 'dashboard/s-payments', component: SPaymentsComponent},
+    {path: 'dashboard/sell-ticket', component: SellTicketComponent},
+    {path: 'dashboard/user', component: UsersComponent},
+    
+    {path: 'dashboard/user', component: UsersComponent},
+    
+    {path: 'dashboard/sell-ticket', component: SellTicketComponent},
+
+    {path: 'offers', component: OffersComponent}
 
 
 

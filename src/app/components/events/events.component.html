@@ -147,7 +147,7 @@
                                 (change)="optionSelected5(selectList5.value)">
                                 <option value="null" disabled>Seleccionar</option>
                                 <option *ngFor="let beer of beersAvailable" value="{{ beer | json }}">
-                                    {{beer.nombre}}
+                                    {{beer.nombre}}. Disp:{{beer.disponible}}
                                 </option>
                             </select>
                             <input class="ml-2" id="qty" type="number" style="width: 50px;"
@@ -327,7 +327,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                    </div>
 
                     <div id="confirmation{{event.id}}" class="modal text-center" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">

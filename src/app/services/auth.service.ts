@@ -79,4 +79,12 @@ export class AuthService {
 
   }
 
+  myPoints(id,rol): Observable<any> {
+
+    let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+
+    return this._http.get(this.url + 'my-points/'+id+'/'+rol, { headers: headers });
+
+  }
+
 }

@@ -3,7 +3,55 @@
     <br>
     <div id="wrapper">
 
+        <!-- Bookmark form -->
+        <div class="modal fade" id="ReporteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header color">
+                        <h4 class="modal-title" id="myModalLabel">Periodo de tiempo</h4>
+                        <button type="button" class="close" data-dismiss="modal"><span
+                                aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    </div>
+                    <div class="modal-body">
 
+                        <!--REVISAR AQUI LOS NG MODEL-->
+                        <form id="TimeForm" #Form="ngForm" (ngSubmit)="onSubmit(Form)" method="POST">
+                            <p>Por favor, ingresa los datos solicitados.</p>
+
+                            <div class="form-group">
+                                <label for="datei">Fecha inicio:</label>
+                                <div class="input-group">
+                                    <mat-form-field>
+                                        <input id="datei" matInput [matDatepicker]="picker" required>
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="datef">Fecha final:</label>
+                                <div class="input-group">
+                                    <mat-form-field>
+                                        <input id="datef" matInput [matDatepicker]="picker2" required>
+                                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker2></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <hr>
+                            <button class="btn btn-warning btn-block text-uppercase" type="submit">
+                                Generar Reporte
+                            </button>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
         <ul class="sidebar navbar-nav">
             <button (click)="action()" class="btn btn-link btn-sm text-white text-right py-2" id="sidebarToggle">
                 <i class="fas fa-bars"></i>
@@ -105,7 +153,7 @@
             <li class="nav-item">
                 <div *ngIf="(this.role == 'rol_admin')">
                     <div>
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" [routerLink]="['user']">
                             <i class="fas fa-fw fa-folder"></i>
                             <span class="ml-2">Gestion de usuario</span></a>
                     </div>
@@ -145,7 +193,7 @@
                         <span>Reportes</span>
                     </a>
                     <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                        <a class="dropdown-item" href="#"> Reporte A</a>
+                        <a class="dropdown-item" (click)="openModal(reporteA)"> Reporte A</a>
                         <a class="dropdown-item" href="#"> Reporte B</a>
                         <a class="dropdown-item" href="#"> Reporte C</a>
                         <a class="dropdown-item" href="#"> Reporte D</a>
@@ -162,7 +210,7 @@
             <li class="nav-item">
                 <div *ngIf="(this.role == 'rol_clientej') || (this.role == 'rol_clienten')">
                     <div>
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" [routerLink]="['sell-ticket']">
                             <i class="fab fa-fly"></i>
                             <span class="ml-2">Eventos</span></a>
                     </div>
@@ -172,7 +220,7 @@
             <li class="nav-item">
                 <div *ngIf="(this.role == 'rol_admin')">
                     <div>
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" [routerLink]="['asistence']">
                             <i class="fas fa-file-word"></i>
                             <span class="ml-2">Archivo de asistencia</span></a>
                     </div>
@@ -253,9 +301,6 @@
 
     </div>
 
-
-
-
-
-
 </body>
+
+<simple-notifications></simple-notifications>

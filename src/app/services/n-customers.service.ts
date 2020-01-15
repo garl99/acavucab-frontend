@@ -43,4 +43,18 @@ export class CustomersNService {
 
         return this._http.get(this.url+'places/'+place,{headers:headers})
     }
+    
+    getUsers(): Observable<any>{
+
+        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+
+        return this._http.get(this.url+'get-users',{headers:headers})
+    }
+
+    getRoles(): Observable<any>{
+
+        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+
+        return this._http.get(this.url+'get-roles',{headers:headers})
+    }
 } 

@@ -9,7 +9,7 @@ import { BeerService } from 'src/app/services/beer.service';
 import { PlaceService } from 'src/app/services/places.service';
 import { CRUDService } from 'src/app/services/crud.service';
 import { FormGroup } from '@angular/forms';
-import { NotificationsService} from 'angular2-notifications';
+import { NotificationsService } from 'angular2-notifications';
 
 declare var $;
 
@@ -186,7 +186,7 @@ export class EventsComponent implements OnInit {
       }
 
       this.suppliersIn.push({ id: this.supplierSelected.id, denomi_comercial: this.supplierSelected.denomi_comercial });
-      //console.log(this.suppliersIn);
+      console.log(JSON.stringify(this.suppliersIn));
       alert('Proveedor añadido. Elija otro');
       $("#select2").val($("#select2 option:first").val());
       this.supplierSelected = 0;
@@ -215,25 +215,37 @@ export class EventsComponent implements OnInit {
 
     if (this.beerSelected && $("#qty").val()) {
 
-      this.beersInO = Object.assign([{}], this.beersIn);
-      //console.log(JSON.stringify(this.beersInO));
+      //console.log(this.beerSelected.disponible);
+      //console.log($("#qty").val());
+      let sub=this.beerSelected.disponible-$("#qty").val();
+      //console.log(sub);
+      if (sub>=0) {
+
+        this.beersInO = Object.assign([{}], this.beersIn);
+        //console.log(JSON.stringify(this.beersInO));
 
 
 
-      for (let beer of this.beersInO) {
-        //console.log(beer.nombre);
-        if (beer.nombre == this.beerSelected.nombre) {
-          alert('Ya eligio esa cerveza. Elija otra');
-          return null;
+        for (let beer of this.beersInO) {
+          //console.log(beer.nombre);
+          if (beer.nombre == this.beerSelected.nombre) {
+            alert('Ya eligio esa cerveza. Elija otra');
+            return null;
+          }
         }
-      }
 
-      this.beersIn.push({ id: this.beerSelected.id, nombre: this.beerSelected.nombre, cantidad_cervezas: $("#qty").val() });
-      //console.log(this.beersIn);
-      alert('Cervezar añadida. Elija otra si desea');
-      $("#select3").val($("#select3 option:first").val());
-      $("#qty").val('');
-      this.beerSelected = 0;
+        this.beersIn.push({ id: this.beerSelected.id, nombre: this.beerSelected.nombre, cantidad_cervezas: $("#qty").val() });
+        //console.log(this.beersIn);
+        alert('Cervezar añadida. Elija otra si desea');
+        $("#select3").val($("#select3 option:first").val());
+        $("#qty").val('');
+        this.beerSelected = 0;
+
+      }
+      else{
+        alert('Cantidad no disponible');
+        return null;
+      }
 
     }
     else {
@@ -258,6 +270,7 @@ export class EventsComponent implements OnInit {
 
       console.log(JSON.stringify(data_event));
       console.log(data_event);
+      console.log(this.beersIn);
 
       this._crudService.registerEvent(data_event, this.token).subscribe(
 
@@ -297,14 +310,14 @@ export class EventsComponent implements OnInit {
     let dateu = $("#dateu" + event.id).val();
     let dataevent;
 
-    if(this.lugar){
-      dataevent= new EventU(nameu, descriptionu, ticketu, ticketu, priceticketu, dateu, this.lugar);
+    if (this.lugar) {
+      dataevent = new EventU(nameu, descriptionu, ticketu, ticketu, priceticketu, dateu, this.lugar);
     }
-    else{
+    else {
       dataevent = new EventU(nameu, descriptionu, ticketu, ticketu, priceticketu, dateu, event.fk_lugar);
     }
     console.log(dataevent);
-    
+
     this._crudService.updateEvent(id, this.token, dataevent).subscribe(
       response => {
         console.log(response);
@@ -390,6 +403,7 @@ export class EventsComponent implements OnInit {
   openModalDelete(id) {
     $("#confirmation" + id).modal('show');
   }
+
   delete(id) {
     console.log(id);
 
@@ -411,22 +425,22 @@ export class EventsComponent implements OnInit {
     );
   }
 
-  available(){
+  available() {
     console.log(this.placeEdit);
-    this.placeEdit=1;
-    console.log(this.placeEdit);
-  }
-
-  disabled(){
-    console.log(this.placeEdit);
-    this.placeEdit=0;
+    this.placeEdit = 1;
     console.log(this.placeEdit);
   }
 
-     
+  disabled() {
+    console.log(this.placeEdit);
+    this.placeEdit = 0;
+    console.log(this.placeEdit);
+  }
 
-  notificationSucess(){
-    this._service.success('Registro exitoso','Evento agregado correctamente',{
+
+
+  notificationSucess() {
+    this._service.success('Registro exitoso', 'Evento agregado correctamente', {
       timeOut: 5000,
       showProgressBar: true,
       pauseOnHover: true,
@@ -435,8 +449,8 @@ export class EventsComponent implements OnInit {
     });
   }
 
-  notificationSucess2(){
-    this._service.success('Edición exitosa','Evento editado correctamente',{
+  notificationSucess2() {
+    this._service.success('Edición exitosa', 'Evento editado correctamente', {
       timeOut: 5000,
       showProgressBar: true,
       pauseOnHover: true,
@@ -445,8 +459,8 @@ export class EventsComponent implements OnInit {
     });
   }
 
-  notificationInfoUpdate(){
-    this._service.info('Actualizando registros','Por favor, espere',{
+  notificationInfoUpdate() {
+    this._service.info('Actualizando registros', 'Por favor, espere', {
       timeOut: 3000,
       showProgressBar: true,
       pauseOnHover: true,
@@ -455,8 +469,8 @@ export class EventsComponent implements OnInit {
     });
   }
 
-  notificationEventDeleted(){
-    this._service.success('Registro borrado','Evento eliminado correctamente',{
+  notificationEventDeleted() {
+    this._service.success('Registro borrado', 'Evento eliminado correctamente', {
       timeOut: 3000,
       showProgressBar: true,
       pauseOnHover: true,
@@ -465,8 +479,8 @@ export class EventsComponent implements OnInit {
     });
   }
 
-  notificationInfo(){
-    this._service.info('Info','La información de este evento es requerido por otro registro',{
+  notificationInfo() {
+    this._service.info('Info', 'La información de este evento es requerido por otro registro', {
       timeOut: 5000,
       showProgressBar: true,
       pauseOnHover: true,
@@ -475,8 +489,8 @@ export class EventsComponent implements OnInit {
     });
   }
 
-  notificationError(){
-    this._service.info('Error','No fue posible realizar esta acción. Intente más tarde',{
+  notificationError() {
+    this._service.info('Error', 'No fue posible realizar esta acción. Intente más tarde', {
       timeOut: 5000,
       showProgressBar: true,
       pauseOnHover: true,

@@ -56,6 +56,12 @@ export class BeerService {
 
   }
 
+  getAvailable(id): Observable<any> {
+    let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+
+    return this._http.get(this.url + 'get-cervezas-disponibles/'+id, { headers: headers })
+
+  }
 
 
 

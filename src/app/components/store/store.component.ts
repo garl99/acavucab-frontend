@@ -5,15 +5,16 @@ import { StoreService } from 'src/app/services/store.service';
 import { NotificationsService } from 'angular2-notifications';
 import { MethodService } from 'src/app/services/method.service';
 import { error } from 'protractor';
-import { DataVenta2 } from 'src/app/models/data_venta';
+import { DataVenta3 } from 'src/app/models/data_venta';
 import { SellService } from 'src/app/services/sell.service';
+import { EventService } from 'src/app/services/events.service';
 declare var $;
 
 @Component({
   selector: 'app-store',
   templateUrl: './store.component.html',
   styleUrls: ['./store.component.css'],
-  providers: [AuthService, BeerService, StoreService, NotificationsService, MethodService, SellService]
+  providers: [AuthService, BeerService, StoreService, NotificationsService, MethodService, SellService, EventService]
 })
 export class StoreComponent implements OnInit {
 
@@ -36,11 +37,14 @@ export class StoreComponent implements OnInit {
   public credit_cards;
   public debit_cards;
   public methodP = [];
-  public data_venta: DataVenta2;
+  public data_venta: DataVenta3;
+  public flagEvent = 0;
+  public events;
+  public event; public beersEvents;
 
 
   constructor(private _authService: AuthService, private _beerService: BeerService, private _storeService: StoreService,
-    private _service: NotificationsService, private _methodService: MethodService, private _sellService: SellService) { }
+    private _service: NotificationsService, private _methodService: MethodService, private _sellService: SellService, private _eventService: EventService) { }
 
   ngOnInit() {
     this.identity = this._authService.getIdentity();
@@ -60,43 +64,100 @@ export class StoreComponent implements OnInit {
 
       }
     );
+
+    this._eventService.getAllEvents().subscribe(
+      response => {
+        this.events = response.events;
+
+      },
+      error => {
+        console.log(<any>error);
+        console.log('Algo fallo');
+
+      }
+    );
+
+
+
   }
+
+  optionSelected6(selectList6) {
+    let array = JSON.parse(selectList6);
+    this.event = array;
+    console.log(this.event.id);
+
+    this._eventService.getAllBeersEvents(this.event.id).subscribe(
+      response => {
+        //console.log(response);
+        this.beersEvents = response;
+        console.log(this.beersEvents);
+
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
+
+  }
+
 
   addbeer() {
 
     if (this.beerSelected && $("#qty").val()) {
-      var local;
-      var num;
-      var acu;
-      this.beersInO = Object.assign([{}], this.beersIn);
-      //console.log(JSON.stringify(this.beersInO));
-
-
-
-      for (let beer of this.beersInO) {
-        //console.log(beer.nombre);
-        if (beer.nombre == this.beerSelected.nombre) {
-          alert('Ya eligio esa cerveza. Elija otra');
-          return null;
-        }
+      let sub 
+      if(this.flagEvent==1){
+        sub = this.beerSelected.cantidad_cervezas - $("#qty").val();
+        console.log(sub);
+      }
+      else{
+        sub = this.beerSelected.disponible - $("#qty").val();
+        console.log(sub);
       }
 
-      let subtotal = +$("#qty").val() * this.beerSelected.precio_unitario;
-      this.beersIn.push({ id: this.beerSelected.id, nombre: this.beerSelected.nombre, cantidad_cervezas: $("#qty").val(), precio_unitario:this.beerSelected.precio_unitario ,precio: subtotal});
-      //console.log(this.beersIn);
-      alert('Cervezar añadida. Elija otra si desea');
-      $("#select3").val($("#select3 option:first").val());
-      $("#qty").val('');
-      this.beerSelected = 0;
+      if (sub >= 0) {
+        var local;
+        var num;
+        var acu;
+        this.beersInO = Object.assign([{}], this.beersIn);
+        //console.log(JSON.stringify(this.beersInO));
 
-      local = localStorage.getItem('total');
-      num = parseInt(local);
 
-      acu = subtotal + num;
 
-      localStorage.setItem('total', acu);
+        for (let beer of this.beersInO) {
+          //console.log(beer.nombre);
+          if (beer.nombre == this.beerSelected.nombre) {
+            alert('Ya eligio esa cerveza. Elija otra');
+            return null;
+          }
+        }
 
-      this.total = acu;
+        let subtotal = +$("#qty").val() * this.beerSelected.precio_unitario;
+        if (this.flagEvent) {
+          this.beersIn.push({ id: this.beerSelected.cerveza_id, nombre: this.beerSelected.nombre, cantidad_cervezas: $("#qty").val(), precio_unitario: this.beerSelected.precio_unitario, precio: subtotal });
+        }
+        else {
+          this.beersIn.push({ id: this.beerSelected.id, nombre: this.beerSelected.nombre, cantidad_cervezas: $("#qty").val(), precio_unitario: this.beerSelected.precio_unitario, precio: subtotal });
+        }
+
+        //console.log(this.beersIn);
+        alert('Cervezar añadida. Elija otra si desea');
+        $("#select3").val($("#select3 option:first").val());
+        $("#qty").val('');
+        this.beerSelected = 0;
+
+        local = localStorage.getItem('total');
+        num = parseInt(local);
+
+        acu = subtotal + num;
+
+        localStorage.setItem('total', acu);
+
+        this.total = acu;
+      }
+      else{
+        alert('Cantidad no disponible');
+        return null;
+      }
 
     }
     else {
@@ -117,7 +178,7 @@ export class StoreComponent implements OnInit {
         local = localStorage.getItem('total');
         num = parseInt(local);
 
-        acu = num - this.beersIn[i].subtotal;
+        acu = num - this.beersIn[i].precio;
 
         localStorage.setItem('total', acu);
 
@@ -355,9 +416,20 @@ export class StoreComponent implements OnInit {
   sell() {
 
     if (this.cn) {
-      this.data_venta = new DataVenta2(this.beersIn, 'rol_clienten', this.cn.id, this.methodP, false);
+      if (this.flagEvent) {
+        this.data_venta = new DataVenta3(this.beersIn, 'rol_clienten', this.cn.id, this.methodP, false, this.flagEvent, this.event.id, this.identity.id,0);
+      }
+      else {
+        this.data_venta = new DataVenta3(this.beersIn, 'rol_clienten', this.cn.id, this.methodP, false, this.flagEvent, 0, this.identity.id,0);
+      }
+
     } else {
-      this.data_venta = new DataVenta2(this.beersIn, 'rol_clientej', this.cj.id, this.methodP, false);
+      if (this.flagEvent) {
+        this.data_venta = new DataVenta3(this.beersIn, 'rol_clientej', this.cn.id, this.methodP, false, this.flagEvent, this.event.id, this.identity.id,0);
+      }
+      else {
+        this.data_venta = new DataVenta3(this.beersIn, 'rol_clientej', this.cn.id, this.methodP, false, this.flagEvent, 0, this.identity.id,0);
+      }
     }
 
     let json = JSON.stringify(this.data_venta);
@@ -367,18 +439,36 @@ export class StoreComponent implements OnInit {
 
 
     this._sellService.doSell2(this.data_venta).subscribe(
-       response => {
-         console.log(response);
-         this.notificationSucessBuy();
-       },
-       error => {
-         console.log(<any>error);
-         this.notificationActionError();
- 
-       }
-     );
+      response => {
+        console.log(response);
+        this.notificationSucessBuy();
+        this.update();
+      },
+      error => {
+        console.log(<any>error);
+        this.notificationActionError();
+
+      }
+    );
 
 
+  }
+
+  allEvent() {
+    if ($('#inputL').prop('checked')) {
+      $("#myModal").modal('show');
+      this.flagEvent = 1;
+      console.log(this.flagEvent);
+
+
+    }
+    else {
+      console.log("Salio");
+      this.flagEvent = 0;
+      console.log(this.flagEvent);
+
+
+    }
   }
 
   notificationSucessBuy() {
@@ -399,6 +489,25 @@ export class StoreComponent implements OnInit {
       clickToClose: true,
       position: ["top", "right"]
     });
+  }
+
+  notificationInfoUpdate() {
+    this._service.info('Actualizando...', 'Por favor, espere', {
+      timeOut: 3000,
+      showProgressBar: true,
+      pauseOnHover: true,
+      clickToClose: true,
+      position: ["top", "right"]
+    });
+  }
+
+  update() {
+    setTimeout(function () {
+      $(function () {
+        location.reload();
+      });
+    }, 2000);
+    this.notificationInfoUpdate();
   }
 
 }

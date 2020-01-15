@@ -39,6 +39,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { CarnetComponent } from './reports/carnet/carnet.component';
 
 
+
 import { AuthService } from './services/auth.service';
 import { IdentityGuard } from './services/identity.guard';
 import { LoginDisabled } from './services/login-disabled.guard';
@@ -51,6 +52,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { UsersComponent } from './components/users/users.component';
 import { StoreComponent } from './components/store/store.component';
 import { SPaymentsComponent } from './components/s-payments/s-payments.component';
+import { AsistenciaComponent } from './components/asistencia/asistencia.component';
+import { UserService } from './services/user.service';
+import { SellTicketComponent } from './components/sell-ticket/sell-ticket.component';
+import { OffersComponent } from './components/offers/offers.component';
+
 
 
 @NgModule({
@@ -80,6 +86,9 @@ import { SPaymentsComponent } from './components/s-payments/s-payments.component
     UsersComponent,
     StoreComponent,
     SPaymentsComponent,
+    AsistenciaComponent,
+    SellTicketComponent,
+    OffersComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,7 +100,7 @@ import { SPaymentsComponent } from './components/s-payments/s-payments.component
     BrowserAnimationsModule, 
     SimpleNotificationsModule.forRoot(),
     MatDatepickerModule,
-    MatFormFieldModule,
+    MatFormFieldModule, 
     MatInputModule,
     MatButtonModule,
     MatCardModule,
@@ -108,7 +117,8 @@ import { SPaymentsComponent } from './components/s-payments/s-payments.component
     BeerService,
     QuoteService,
     PlaceService,
-    CRUDService
+    CRUDService,
+    UserService
 
   ],
   bootstrap: [AppComponent]

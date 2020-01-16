@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit, DoCheck {
   public role;
   public reporteA = "A";
   public reportToGenerate;
+  public permiso;
 
 
   constructor(private _authService: AuthService, private _router: Router,
@@ -34,9 +35,13 @@ export class DashboardComponent implements OnInit, DoCheck {
 
   ngOnInit() {
     this.identity = this._authService.getIdentity();
+  //  this.permiso = this._authService.getPermiso(this.identity.rol);
     this.role = this.identity.rol;
+    this.permiso = this.identity.permisos;
+    //this.permiso = this.identity.permisos
     this.view_profile = 0;
     console.log(this.identity.rol);
+    console.log(this.identity.permisos);
 
   }
 

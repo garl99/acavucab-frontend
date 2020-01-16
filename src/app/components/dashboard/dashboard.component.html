@@ -113,65 +113,129 @@
 
 
             <li class="nav-item">
-                <div *ngIf="(this.role == 'rol_cajera')">
+
+                <div *ngIf="(!this.permiso) && (this.role == 'rol_cajera')">
                     <a class="nav-link" [routerLink]="['store']">
                         <i class="fas fa-cash-register"></i>
                         <span class="ml-2">Manejo de ventas</span></a>
                 </div>
-            </li>
 
-            <li class="nav-item">
-                <div *ngIf="(this.role == 'rol_admin')">
-                    <div>
-                        <a class="nav-link" [routerLink]="['suppliers']">
-                            <i class="fas fa-fw fa-folder"></i>
-                            <span class="ml-2">Gestion de proveedores</span></a>
+                <div *ngFor= "let permiso of this.permiso">
+                    <div *ngIf="(permiso.fk_permiso == 29)">
+                        <a class="nav-link" [routerLink]="['store']">
+                            <i class="fas fa-cash-register"></i>
+                            <span class="ml-2">Manejo de ventas</span></a>
                     </div>
                 </div>
             </li>
 
             <li class="nav-item">
-                <div *ngIf="(this.role == 'rol_proveedor') || (this.role == 'rol_admin')">
-                    <div>
-                        <a class="nav-link" [routerLink]="['beers']">
-                            <i class="fas fa-fw fa-folder"></i>
-                            <span class="ml-2">Gestion de cervezas</span></a>
+
+                <div *ngIf="(!this.permiso) && (this.role == 'rol_admin')">
+                        <div>
+                            <a class="nav-link" [routerLink]="['suppliers']">
+                                <i class="fas fa-fw fa-folder"></i>
+                                <span class="ml-2">Gestion de proveedores</span></a>
+                        </div>
+                    </div>
+
+                <div *ngFor= "let permiso of this.permiso">
+                    <div *ngIf="(permiso.fk_permiso == 13)">
+                        <div>
+                            <a class="nav-link" [routerLink]="['suppliers']">
+                                <i class="fas fa-fw fa-folder"></i>
+                                <span class="ml-2">Gestion de proveedores</span></a>
+                        </div>
                     </div>
                 </div>
             </li>
 
             <li class="nav-item">
-                <div *ngIf="(this.role == 'rol_admin')">
+
+                <div *ngIf="(!this.permiso) && (this.role == 'rol_admin' || (this.role == 'rol_proveedor'))">
+                        <div>
+                            <a class="nav-link" [routerLink]="['beers']">
+                                <i class="fas fa-fw fa-folder"></i>
+                                <span class="ml-2">Gestion de cervezas</span></a>
+                        </div>
+                    </div>
+
+                <div *ngFor= "let permiso of this.permiso">
+                    <div *ngIf=" (permiso.fk_permiso == 25)">
+                        <div>
+                            <a class="nav-link" [routerLink]="['beers']">
+                                <i class="fas fa-fw fa-folder"></i>
+                                <span class="ml-2">Gestion de cervezas</span></a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+
+                <div *ngIf="(!this.permiso) && (this.role == 'rol_admin')">
                     <div>
                         <a class="nav-link" [routerLink]="['events']">
                             <i class="fas fa-fw fa-folder"></i>
                             <span class="ml-2">Gestion de eventos</span></a>
                     </div>
                 </div>
+
+                <div *ngFor= "let permiso of this.permiso">
+                    <div *ngIf="(permiso.fk_permiso == 1)">
+                        <div>
+                            <a class="nav-link" [routerLink]="['events']">
+                                <i class="fas fa-fw fa-folder"></i>
+                                <span class="ml-2">Gestion de eventos</span></a>
+                        </div>
+                    </div>
+                </div>
             </li>
 
             <li class="nav-item">
-                <div *ngIf="(this.role == 'rol_admin')">
+
+                <div *ngIf="(!this.permiso) && (this.role == 'rol_admin')">
                     <div>
                         <a class="nav-link" [routerLink]="['user']">
                             <i class="fas fa-fw fa-folder"></i>
                             <span class="ml-2">Gestion de usuario</span></a>
                     </div>
                 </div>
+
+                <div *ngFor= "let permiso of this.permiso">
+                    <div *ngIf="(permiso.fk_permiso == 5)">
+                        <div>
+                            <a class="nav-link" [routerLink]="['user']">
+                                <i class="fas fa-fw fa-folder"></i>
+                                <span class="ml-2">Gestion de usuario</span></a>
+                        </div>
+                    </div>
+                </div>
             </li>
 
             <li class="nav-item">
-                <div *ngIf="(this.role == 'rol_admin')">
-                    <div>
-                        <a class="nav-link" [routerLink]="['rol']">
-                            <i class="fas fa-fw fa-folder"></i>
-                            <span class="ml-2">Gestion de roles</span></a>
+                
+                    <div *ngIf="(!this.permiso) && (this.role == 'rol_admin')">
+                        <div>
+                            <a class="nav-link" [routerLink]="['rol']">
+                                <i class="fas fa-fw fa-folder"></i>
+                                <span class="ml-2">Gestion de roles</span></a>
+                        </div>
+                    </div>
+
+                <div *ngFor= "let permiso of this.permiso">
+                    <div *ngIf="(permiso.fk_permiso == 9)">
+                        <div>
+                            <a class="nav-link" [routerLink]="['rol']">
+                                <i class="fas fa-fw fa-folder"></i>
+                                <span class="ml-2">Gestion de roles</span></a>
+                        </div>
                     </div>
                 </div>
             </li>
 
             <li class="nav-item dropdown">
-                <div *ngIf="(this.role == 'rol_admin') || (this.role == 'rol_cajera')">
+                <div *ngIf="(!this.permiso) && ((this.role == 'rol_admin') ||(this.role == 'rol_cajera' ) )">
                     <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-fw fa-folder"></i>
@@ -182,11 +246,25 @@
                         <a class="dropdown-item" [routerLink]="['j-customers']">clientes juridico</a>
                     </div>
                 </div>
+
+                <div *ngFor = "let permiso of this.permiso"> 
+                    <div *ngIf="(permiso.fk_permiso == '17') || (permiso.fk_permiso == '21')">
+                        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-fw fa-folder"></i>
+                            <span>Gestion de clientes</span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                            <a class="dropdown-item" [routerLink]="['n-customers']">clientes natural</a>
+                            <a class="dropdown-item" [routerLink]="['j-customers']">clientes juridico</a>
+                        </div>
+                    </div>
+                </div>
             </li>
 
 
             <li class="nav-item dropdown">
-                <div *ngIf="(this.role == 'rol_admin')">
+                <div *ngIf="(!this.permiso) && (this.role == 'rol_admin')">
                     <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-fw fa-folder"></i>
@@ -203,6 +281,58 @@
                         <a class="dropdown-item" href="#"> Reporte H</a>
                         <a class="dropdown-item" href="#"> Reporte I</a>
                         <a class="dropdown-item" href="#"> Reporte J</a>
+                    </div>
+                </div>
+
+                <div *ngFor = "let permiso of this.permiso" >
+                    <div *ngIf="(permiso.fk_permiso == 41)">
+                        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-fw fa-folder"></i>
+                            <span>Reportes</span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                            <div *ngIf="(permiso.fk_permiso == 31)">
+                                <a class="dropdown-item" (click)="openModal(reporteA)"> Reporte A</a >
+                            </div>
+                            
+                            <div *ngIf="(permiso.fk_permiso == 32)">
+                                <a class="dropdown-item" href="#"> Reporte B</a>
+                            </div>
+
+                            <div *ngIf="(permiso.fk_permiso == 33)">
+                                <a class="dropdown-item" href="#"> Reporte C</a>
+                            </div>
+
+                            <div *ngIf="(permiso.fk_permiso == 34)">
+                                <a class="dropdown-item" href="#"> Reporte D</a>
+                            </div>
+                          
+                            <div *ngIf="(permiso.fk_permiso == 35)">
+                                <a class="dropdown-item" href="#"> Reporte E</a>
+                            </div>
+                            
+                            <div *ngIf="(permiso.fk_permiso == 36)">
+                                <a class="dropdown-item" href="#"> Reporte F</a>
+                            </div>
+
+                            <div *ngIf="(permiso.fk_permiso == 37)">
+                                <a class="dropdown-item" href="#"> Reporte G</a>
+                            </div>
+                            
+                            <div *ngIf="(permiso.fk_permiso == 38)">
+                                <a class="dropdown-item" href="#"> Reporte H</a>
+                            </div>
+
+                            <div *ngIf="(permiso.fk_permiso == 39)">
+                                <a class="dropdown-item" href="#"> Reporte I</a>
+                            </div>
+                            
+                            <div *ngIf="(permiso.fk_permiso == 40)">
+                                <a class="dropdown-item" href="#"> Reporte J</a>
+                            </div>
+                            
+                        </div>
                     </div>
                 </div>
             </li>

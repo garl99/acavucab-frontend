@@ -35,8 +35,6 @@ export class StoreService {
         let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
 
         return this._http.get(this.url + 'get-pago_cuota/'+id, { headers: headers });
-
-
     }
 
 

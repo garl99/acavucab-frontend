@@ -51,12 +51,13 @@ import { CRUDService } from './services/crud.service';
 import { MatNativeDateModule } from '@angular/material/core';
 import { UsersComponent } from './components/users/users.component';
 import { StoreComponent } from './components/store/store.component';
+import { SPaymentsComponent } from './components/s-payments/s-payments.component';
 import { AsistenciaComponent } from './components/asistencia/asistencia.component';
 import { UserService } from './services/user.service';
 import { SellTicketComponent } from './components/sell-ticket/sell-ticket.component';
+import { OffersComponent } from './components/offers/offers.component';
 import { RolComponent } from './components/rol/rol.component';
 
-import { SPaymentsComponent } from './components/s-payments/s-payments.component';
 
 
 @NgModule({
@@ -85,8 +86,10 @@ import { SPaymentsComponent } from './components/s-payments/s-payments.component
     ProfileComponent,
     UsersComponent,
     StoreComponent,
+    SPaymentsComponent,
     AsistenciaComponent,
     SellTicketComponent,
+    OffersComponent,
     RolComponent,
     SPaymentsComponent,
   ],

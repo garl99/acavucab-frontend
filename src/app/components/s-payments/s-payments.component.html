@@ -10,7 +10,10 @@
     <div class="container mb-5">
         <div class="d-flex flex-colum">
             <div class="d-flex flex-row mx-auto">
-                <div class="card">
+                <div *ngIf="pagado" style="margin-top: 30%; margin-bottom: 30%;">
+                    <h2>Usted ya pagó la cuota referente a este mes.</h2>
+                </div>
+                <div class="card" *ngIf="!pagado">
                     <h4 class="card-header">Forma de pago</h4>
 
                     <form action="#" class="w-75 mx-auto py-2">
@@ -65,4 +68,7 @@
             
         </div>
             </div>
+            
         </body>
+        
+<simple-notifications></simple-notifications>

@@ -8,6 +8,7 @@ import { error } from 'protractor';
 import { Payment } from 'src/app/models/Payment';
 import { SellService } from 'src/app/services/sell.service';
 import { CRUDService } from 'src/app/services/crud.service';
+import { Router } from "@angular/router"
 
 declare var $;
 
@@ -38,12 +39,13 @@ export class SPaymentsComponent implements OnInit {
   public cj;
   public credit_cards;
   public debit_cards;
+  public pagado;
   public methodP = [];
   public data_payment: Payment;
 
 
   constructor(private _authService: AuthService, private _beerService: BeerService, private _storeService: StoreService,
-    private _service: NotificationsService, private _methodService: MethodService, private _sellService: SellService, private _crudService: CRUDService) { }
+    private _service: NotificationsService, private _methodService: MethodService, private _sellService: SellService, private _crudService: CRUDService, private router: Router) { }
 
   ngOnInit() {
     this.identity = this._authService.getIdentity();
@@ -51,16 +53,18 @@ export class SPaymentsComponent implements OnInit {
 
     this._storeService.findPayment(this.identity.id).subscribe(
       response => {
-        console.log(response);
+        //console.log(response);
         if (response.status == 'error') {
          // this.notificationInfo();
         }
         else {
-          
-          console.log(response.data)
+          //console.log(response);
+          this.pagado = response;
+
+          console.log('¿Está pagado este mes? '+this.pagado);
          // this.notificationInfo2();
         }
-        this.p = response.proveedorId;
+        //this.p = response.proveedorId;
         //console.log(this.cn);
 
       },
@@ -89,7 +93,7 @@ export class SPaymentsComponent implements OnInit {
     if(tipo && NumTarjeta && nombreTarjeta && mes && año && cvv && proveedorId){
       let data_payment = [new Payment(tipo, NumTarjeta, nombreTarjeta, mes, año, cvv), proveedorId];
 
-      console.log(data_payment);
+      //console.log(data_payment);
 
       this._crudService.payFee(data_payment, this.token).subscribe(
         
@@ -103,6 +107,9 @@ export class SPaymentsComponent implements OnInit {
           */
           this.notificationSucess();
           //this.updateDatable();
+          
+          this.redirect();
+          
         },
         error => {
           console.log('No se pagó', <any>error);
@@ -120,6 +127,17 @@ export class SPaymentsComponent implements OnInit {
     
   }
 
+  /*Función para esperar una cierta cantidad de tiempo*/
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  /*Esta función redirecciona a cierta página luego de esperar de forma asíncrona una cantidad de tiempo*/
+  async redirect() {
+    //Espera por el timeOut
+    await this.sleep(5000);
+    //Redirecciona
+    this.router.navigate(['/dashboard']);
+  }
 
   notificationSucess() {
     this._service.success('Pago realizado', 'Gracias por su tiempo, retire su factura', {

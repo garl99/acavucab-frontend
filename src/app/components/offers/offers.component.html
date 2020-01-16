@@ -65,8 +65,11 @@
                     <!-- /.row -->
 
                 </div>
+                <div style="margin-left: 17%;">
                     <pagination-controls previousLabel="anterior" nextLabel="siguiente" (pageChange)="p = $event">
                     </pagination-controls>
+                </div>
+                    
                 
             </div>
         </div>
@@ -84,6 +87,6 @@
         </div> -->
     </div>
     <div class="pt-0 pb-4 w-50 mx-auto">
-        <button type="button" class="btn btn-warning btn-lg btn-block">Generar Diario</button>
+        <button type="button" class="btn btn-warning btn-lg btn-block" (click)="sendOffers()">Generar Diario</button>
     </div>
 </body>

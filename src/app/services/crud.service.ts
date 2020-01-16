@@ -85,6 +85,16 @@ export class CRUDService {
         return this._http.post(this.url + 'pay-fee', params, { headers: headers });
     }
 
+    postOffers(data_payment, token): Observable<any>{
+        let json = JSON.stringify(data_payment);
+
+        let params = 'json=' + json;
+
+        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded')
+                                        .set('Authorization', token);
+        return this._http.post(this.url + 'post-offers', params, { headers: headers });
+    }
+
     getdelete1(id): Observable<any>{
         let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
 

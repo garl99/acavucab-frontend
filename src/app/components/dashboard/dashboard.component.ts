@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit, DoCheck {
 
 
   constructor(private _authService: AuthService, private _router: Router,
-    private _route: ActivatedRoute, private _service: NotificationsService, private _reportService:ReportService) {
+    private _route: ActivatedRoute, private _service: NotificationsService, private _reportService: ReportService) {
 
   }
 
@@ -73,32 +73,39 @@ export class DashboardComponent implements OnInit, DoCheck {
   onSubmit(form) {
     console.log(this.reportToGenerate);
     let dataS = $('#datei').val();
+    let fechai = dataS.split('/');
+    let fechaI = fechai[2] + '/' + fechai[0] + '/' + fechai[1];
+
+    let dataE = $('#datef').val();
+    let fechaf = dataE.split('/');
+    let fechaF = fechaf[2] + '/' + fechaf[0] + '/' + fechaf[1];
+
     let dateE = $('#datef').val();
-    console.log(dataS);
-    console.log(dateE);
+    //console.log(dataS);
+    //console.log(dateE);
 
     let data = {
-      'fecha_inicio': dataS,
-      'fecha_fin': dateE
+      'fecha_inicio': fechaI,
+      'fecha_fin': fechaF
     };
 
-    console.log(JSON.stringify(data));
+    console.log(data);
 
 
     if (this.reportToGenerate == 'A') {
       console.log("entre");
-      
+
       this._reportService.reportA(data).subscribe(
         response => {
           if (response.status == 'success') {
             this.notificationSucess();
             alert('Reporte generado');
-            $("#ReporteModal").modal('show');
+            $("#ReporteModal").modal('hide');
           }
           else {
             this.notificationError();
             alert('Error en generar reporte');
-            $("#ReporteModal").modal('show');
+            $("#ReporteModal").modal('hide');
           }
         },
         error => {

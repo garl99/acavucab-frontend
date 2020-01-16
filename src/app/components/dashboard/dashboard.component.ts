@@ -18,6 +18,8 @@ export class DashboardComponent implements OnInit, DoCheck {
   public view_profile;
   public role;
   public reporteA = "A";
+  public reporteB = "B";
+
   public reportToGenerate;
 
 
@@ -67,7 +69,6 @@ export class DashboardComponent implements OnInit, DoCheck {
     $("#ReporteModal").modal('show');
     this.reportToGenerate = report;
     console.log(this.reportToGenerate);
-
   }
 
   onSubmit(form) {
@@ -96,6 +97,30 @@ export class DashboardComponent implements OnInit, DoCheck {
       console.log("entre");
 
       this._reportService.reportA(data).subscribe(
+        response => {
+          if (response.status == 'success') {
+            this.notificationSucess();
+            alert('Reporte generado');
+            $("#ReporteModal").modal('hide');
+          }
+          else {
+            this.notificationError();
+            alert('Error en generar reporte');
+            $("#ReporteModal").modal('hide');
+          }
+        },
+        error => {
+          console.log(<any>error);
+          alert('Error en generar reporte');
+
+        }
+      );
+    }
+
+    if (this.reportToGenerate == 'B') {
+      console.log("entre");
+
+      this._reportService.reportB(data).subscribe(
         response => {
           if (response.status == 'success') {
             this.notificationSucess();

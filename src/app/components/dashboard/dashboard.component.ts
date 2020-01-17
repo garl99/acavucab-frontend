@@ -19,6 +19,7 @@ export class DashboardComponent implements OnInit, DoCheck {
   public role;
   public reporteA = "A";
   public reporteB = "B";
+  public reporteC = "C";
 
   public reportToGenerate;
 
@@ -121,6 +122,30 @@ export class DashboardComponent implements OnInit, DoCheck {
       console.log("entre");
 
       this._reportService.reportB(data).subscribe(
+        response => {
+          if (response.status == 'success') {
+            this.notificationSucess();
+            alert('Reporte generado');
+            $("#ReporteModal").modal('hide');
+          }
+          else {
+            this.notificationError();
+            alert('Error en generar reporte');
+            $("#ReporteModal").modal('hide');
+          }
+        },
+        error => {
+          console.log(<any>error);
+          alert('Error en generar reporte');
+
+        }
+      );
+    }
+
+    if (this.reportToGenerate == 'C') {
+      console.log("entre");
+
+      this._reportService.reportC(data).subscribe(
         response => {
           if (response.status == 'success') {
             this.notificationSucess();

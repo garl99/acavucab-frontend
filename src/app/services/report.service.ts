@@ -39,6 +39,20 @@ export class ReportService {
 
     }
 
+    reportC(data): Observable<any> {             //Comprar ahora solo una cerveza
+
+        let json = JSON.stringify(data);
+
+        let params = 'json=' + json;
+
+        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+
+        return this._http.post(this.url + 'reporteC-report', params, { headers: headers });
+
+
+    }
+
+
 
 
 }

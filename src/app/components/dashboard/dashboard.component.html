@@ -282,8 +282,7 @@
                         <a class="dropdown-item" href="#"> Reporte I</a>
                         <a class="dropdown-item" href="#"> Reporte J</a>
                     </div>
-                </div>
-
+               </div>
                 <div *ngFor = "let permiso of this.permiso" >
                     <div *ngIf="(permiso.fk_permiso == 41)">
                         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
@@ -292,46 +291,16 @@
                             <span>Reportes</span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                            <div *ngIf="(permiso.fk_permiso == 31)">
-                                <a class="dropdown-item" (click)="openModal(reporteA)"> Reporte A</a >
-                            </div>
-                            
-                            <div *ngIf="(permiso.fk_permiso == 32)">
-                                <a class="dropdown-item" href="#"> Reporte B</a>
-                            </div>
-
-                            <div *ngIf="(permiso.fk_permiso == 33)">
-                                <a class="dropdown-item" href="#"> Reporte C</a>
-                            </div>
-
-                            <div *ngIf="(permiso.fk_permiso == 34)">
-                                <a class="dropdown-item" href="#"> Reporte D</a>
-                            </div>
-                          
-                            <div *ngIf="(permiso.fk_permiso == 35)">
-                                <a class="dropdown-item" href="#"> Reporte E</a>
-                            </div>
-                            
-                            <div *ngIf="(permiso.fk_permiso == 36)">
-                                <a class="dropdown-item" href="#"> Reporte F</a>
-                            </div>
-
-                            <div *ngIf="(permiso.fk_permiso == 37)">
-                                <a class="dropdown-item" href="#"> Reporte G</a>
-                            </div>
-                            
-                            <div *ngIf="(permiso.fk_permiso == 38)">
-                                <a class="dropdown-item" href="#"> Reporte H</a>
-                            </div>
-
-                            <div *ngIf="(permiso.fk_permiso == 39)">
-                                <a class="dropdown-item" href="#"> Reporte I</a>
-                            </div>
-                            
-                            <div *ngIf="(permiso.fk_permiso == 40)">
-                                <a class="dropdown-item" href="#"> Reporte J</a>
-                            </div>
-                            
+                            <a class="dropdown-item" (click)="openModal(reporteA)"> Reporte A</a>
+                            <a class="dropdown-item" (click)="openModal(reporteB)"> Reporte B</a>
+                            <a class="dropdown-item" href="#"> Reporte C</a>
+                            <a class="dropdown-item" href="#"> Reporte D</a>
+                            <a class="dropdown-item" href="#"> Reporte E</a>
+                            <a class="dropdown-item" href="#"> Reporte F</a>
+                            <a class="dropdown-item" href="#"> Reporte G</a>
+                            <a class="dropdown-item" href="#"> Reporte H</a>
+                            <a class="dropdown-item" href="#"> Reporte I</a>
+                            <a class="dropdown-item" href="#"> Reporte J</a>
                         </div>
                     </div>
                 </div>
@@ -348,7 +317,7 @@
             </li>
 
             <li class="nav-item">
-                <div *ngIf="(this.role == 'rol_admin')">
+                <div *ngIf="(!this.permiso) && (this.role == 'rol_admin')">
                     <div>
                         <a class="nav-link" [routerLink]="['asistence']">
                             <i class="fas fa-file-word"></i>
@@ -358,6 +327,16 @@
             </li>
 
             <li class="nav-item">
+                <div *ngFor = "let permiso of this.permiso" >
+                    <div *ngIf="(this.permiso == 30 )">
+                        <div>
+                            <a class="nav-link" [routerLink]="['asistence']">
+                                <i class="fas fa-file-word"></i>
+                                <span class="ml-2">Archivo de asistencia</span></a>
+                        </div>
+                    </div>
+                </div>
+
                 <div *ngIf="(this.role == 'rol_proveedor')">
                     <div>
                         <a class="nav-link" href="#">

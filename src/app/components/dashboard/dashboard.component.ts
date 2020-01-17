@@ -125,7 +125,7 @@ export class DashboardComponent implements OnInit, DoCheck {
     if (this.reportToGenerate == 'B') {
       console.log("entre");
 
-      this._reportService.reportB(data).subscribe(
+      this._reportService.reporteB(data).subscribe(
         response => {
           if (response.status == 'success') {
             this.notificationSucess();

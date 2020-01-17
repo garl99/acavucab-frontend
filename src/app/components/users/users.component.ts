@@ -21,14 +21,20 @@ export class UsersComponent implements OnInit {
   public users;
   public service;
   public roles;
-  
+  public identity;
+  public role;
+  public permiso;
     
   constructor( private _customersNService: CustomersNService,
-            private _crudService: CRUDService,  private _service: NotificationsService){}
+            private _crudService: CRUDService,  private _service: NotificationsService, private _authService: AuthService){}
 
   ngOnInit() {
 
     this.loadRoles();
+    this.identity = this._authService.getIdentity();
+    this.role = this.identity.rol;
+    this.permiso = this.identity.permisos;
+    
     this._customersNService.getUsers().subscribe(
       response => {
         console.log(response);

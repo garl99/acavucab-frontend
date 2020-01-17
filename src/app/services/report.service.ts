@@ -26,7 +26,7 @@ export class ReportService {
 
     }
 
-    reportB(data): Observable<any> {             //Comprar ahora solo una cerveza
+    reporteB(data): Observable<any> {             //Comprar ahora solo una cerveza
 
         let json = JSON.stringify(data);
 

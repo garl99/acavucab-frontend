@@ -21,12 +21,16 @@ export class SuppliersComponent implements OnInit {
   public parrs;
   public identity;
   public lugar;
+  public role;
+  public permiso;
 
   constructor(private _customersNService: CustomersNService, private _placeService: PlaceService,
     private _authService: AuthService,private _crudService: CRUDService) { }
 
   ngOnInit() {
     this.identity = this._authService.getIdentity();
+    this.role = this.identity.rol;
+    this.permiso = this.identity.permisos;
     this.loadStates();
     this._customersNService.getSuppliers().subscribe(
       response => {

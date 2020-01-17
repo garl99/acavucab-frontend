@@ -23,6 +23,8 @@ export class BeersComponent implements OnInit {
   public typeBeerData;
   public token;
   public identity;
+  public role;
+  public permiso;
   public typeSelected=[{
       nombre: ''
    }
@@ -36,6 +38,9 @@ export class BeersComponent implements OnInit {
         
     this.token = this._authService.getToken();
     this.identity = this._authService.getIdentity();
+    this.role = this.identity.rol;
+    this.permiso = this.identity.permisos;
+    console.log(this.permiso);
 
     this._beerService.getTypes().subscribe(
       response => {

@@ -17,7 +17,7 @@ export class StoreService {
 
         let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
 
-        return this._http.get(this.url + 'get-clienten/'+ci, { headers: headers });
+        return this._http.get(this.url + 'get-clienten/' + ci, { headers: headers });
 
 
     }
@@ -25,9 +25,19 @@ export class StoreService {
 
         let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
 
-        return this._http.get(this.url + 'get-clientej/'+rif, { headers: headers });
+        return this._http.get(this.url + 'get-clientej/' + rif, { headers: headers });
 
 
     }
+
+    CheckStock(id): Observable<any> {             //Cervezas a regenrar
+
+        let headers = new HttpHeaders().set('content-Type', 'application/x-www-form-urlencoded');
+
+        return this._http.get(this.url + 'check-inventario2/' + id, { headers: headers });
+
+
+    }
+
 
 }

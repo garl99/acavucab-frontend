@@ -230,7 +230,7 @@
             <li class="nav-item">
                 <div *ngIf="(this.role == 'rol_proveedor')">
                     <div>
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" [routerLink]="['orders']">
                             <i class="fas fa-folder-open"></i>
                             <span class="ml-2">Ordenes</span></a>
                     </div>

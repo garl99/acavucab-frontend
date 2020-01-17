@@ -54,6 +54,7 @@ import { StoreComponent } from './components/store/store.component';
 import { AsistenciaComponent } from './components/asistencia/asistencia.component';
 import { UserService } from './services/user.service';
 import { SellTicketComponent } from './components/sell-ticket/sell-ticket.component';
+import { OrdersSuppliersComponent } from './components/orders-suppliers/orders-suppliers.component';
 
 
 @NgModule({
@@ -84,6 +85,7 @@ import { SellTicketComponent } from './components/sell-ticket/sell-ticket.compon
     StoreComponent,
     AsistenciaComponent,
     SellTicketComponent,
+    OrdersSuppliersComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,38 @@
-<p>o-suppliers works!</p>
+<br><br><br>
+
+
+<!-- Titulo -->
+<div class="container pt-5">
+    <h1 class="text-center">Ordenes de cervezas</h1>
+    <h3 class="text-center" style="display: inline;">Ver orden <i id="hand" class="fas fa-file-word" (click)="Generar()"></i></h3>
+</div>
+
+<!-- Contenido -->
+
+<div class="container" *ngIf="bandera==1">
+    <div class="row" *ngFor="let beer of beersToBuy">
+        <div class="col-md-6">
+            <div class="row py-5">
+                <div class="col-md-4">
+                    <a href="#"><img class="card-img-top" src="http://placehold.it/200x200" alt=""></a>
+                </div>
+                <div class="col-md-8">
+                    <h3>{{beer.nombre}}</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit odit voluptates corporis esse
+                        voluptate eos voluptatibus, in, illum nam repudiandae porro impedit tenetur ut dolor fuga,
+                        at explicabo totam repellat?</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row py-5">
+                <div class="col-md-6 text-center">
+                    <h3>Cantidad</h3>
+                    <h4>10000</h4>
+                </div>
+                <div class="col-md-6 text-center">
+                    <button type="button" class="btn btn-danger btn-block">Pendiente</button>
+                </div>
+            </div>
+        </div>
+    </div>

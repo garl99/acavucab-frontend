@@ -1,6 +1,6 @@
 //IMPORTS NECESARIOS
 import { ModuleWithProviders } from '@angular/core';
-import { Routes, RouterModule} from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
 //IMPORTAR COMPONENTES
 import { HomeComponent } from './components/home/home.component';
@@ -30,38 +30,40 @@ import { CarnetComponent } from './reports/carnet/carnet.component';
 import { EventsComponent } from './components/events/events.component';
 import { StoreComponent } from './components/store/store.component';
 import { SellTicketComponent } from './components/sell-ticket/sell-ticket.component';
+import { OSuppliersComponent } from './components/o-suppliers/o-suppliers.component';
+import { OrdersSuppliersComponent } from './components/orders-suppliers/orders-suppliers.component';
 
 
 //DEFINIR RUTAS
 const appRoutes: Routes = [
-    {path: '', component: HomeComponent},
-    {path: 'home', component: HomeComponent},
-    {path: 'login', component: LoginComponent, canActivate:[LoginDisabled]},
-    {path: 'logout/:sure', component: LoginComponent},
-    {path: 'dashboard', component: DashboardComponent, canActivate:[IdentityGuard]},
-    {path: 'cart', component: CartComponent},
-    {path: 'dashboard/all-products', component: ProductsComponent},
-    {path: 'd-orders', component: DOrdersComponent},
-    {path: 'r-orders', component: ROrdersComponent},
-    {path: 'i-orders', component: IOrdersComponent},
-    {path: 'dashboard/beers', component: BeersComponent},
-    {path: 'dashboard/employees', component: EmployeesComponent},
-    {path: 'dashboard/j-customers', component: JCustomersComponent},
-    {path: 'dashboard/n-customers', component: NCustomersComponent},
-    {path: 'dashboard/suppliers', component: SuppliersComponent},
-    {path: 'dashboard/asistence', component: AsistenciaComponent},
-    {path: 'product/:id', component: ProductComponent},
-    {path: 'dashboard/quote', component: QuoteComponent},
-    {path: 'dashboard/carnet/:id', component: CarnetComponent},
-    {path: 'dashboard/profile/:sure', component: DashboardComponent},
-    {path: 'dashboard/events', component: EventsComponent},
-    {path: 'dashboard/store', component: StoreComponent},
-    {path: 'dashboard/sell-ticket', component: SellTicketComponent},
-    {path: 'dashboard/user', component: UsersComponent},
-    
-    {path: 'dashboard/user', component: UsersComponent},
-    
-    {path: 'dashboard/sell-ticket', component: SellTicketComponent}
+    { path: '', component: HomeComponent },
+    { path: 'home', component: HomeComponent },
+    { path: 'login', component: LoginComponent, canActivate: [LoginDisabled] },
+    { path: 'logout/:sure', component: LoginComponent },
+    { path: 'dashboard', component: DashboardComponent, canActivate: [IdentityGuard] },
+    { path: 'cart', component: CartComponent },
+    { path: 'dashboard/all-products', component: ProductsComponent },
+    { path: 'd-orders', component: DOrdersComponent },
+    { path: 'r-orders', component: ROrdersComponent },
+    { path: 'i-orders', component: IOrdersComponent },
+    { path: 'dashboard/beers', component: BeersComponent },
+    { path: 'dashboard/employees', component: EmployeesComponent },
+    { path: 'dashboard/j-customers', component: JCustomersComponent },
+    { path: 'dashboard/n-customers', component: NCustomersComponent },
+    { path: 'dashboard/suppliers', component: SuppliersComponent },
+    { path: 'dashboard/asistence', component: AsistenciaComponent },
+    { path: 'product/:id', component: ProductComponent },
+    { path: 'dashboard/quote', component: QuoteComponent },
+    { path: 'dashboard/carnet/:id', component: CarnetComponent },
+    { path: 'dashboard/profile/:sure', component: DashboardComponent },
+    { path: 'dashboard/events', component: EventsComponent },
+    { path: 'dashboard/store', component: StoreComponent },
+    { path: 'dashboard/sell-ticket', component: SellTicketComponent },
+    { path: 'dashboard/user', component: UsersComponent },
+    { path: 'dashboard/user', component: UsersComponent },
+    { path: 'dashboard/sell-ticket', component: SellTicketComponent },
+    { path: 'dashboard/orders', component: OSuppliersComponent },
+    { path: 'dashboard/orders-s-t', component:OrdersSuppliersComponent }
 
 
 

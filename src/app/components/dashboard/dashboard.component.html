@@ -119,14 +119,6 @@
                         <i class="fas fa-cash-register"></i>
                         <span class="ml-2">Manejo de ventas</span></a>
                 </div>
-
-                <div *ngFor= "let permiso of this.permiso">
-                    <div *ngIf="(permiso.fk_permiso == 29)">
-                        <a class="nav-link" [routerLink]="['store']">
-                            <i class="fas fa-cash-register"></i>
-                            <span class="ml-2">Manejo de ventas</span></a>
-                    </div>
-                </div>
             </li>
 
             <li class="nav-item">
@@ -284,7 +276,7 @@
                     </div>
                </div>
                 <div *ngFor = "let permiso of this.permiso" >
-                    <div *ngIf="(permiso.fk_permiso == 41)">
+                    <div *ngIf="(permiso.fk_permiso == 31)">
                         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-fw fa-folder"></i>
@@ -339,9 +331,17 @@
 
                 <div *ngIf="(this.role == 'rol_proveedor')">
                     <div>
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" [routerLink]="['orders']">
                             <i class="fas fa-folder-open"></i>
                             <span class="ml-2">Ordenes</span></a>
+                    </div>
+                </div>
+
+                <div *ngIf="(this.role == 'rol_proveedor') || (this.role == 'rol_admin')">
+                    <div>
+                        <a class="nav-link" [routerLink]="['orders-s-te']">
+                            <i class="fas fa-folder-open"></i>
+                            <span class="ml-2">Ordenes de compra</span></a>
                     </div>
                 </div>
             </li>

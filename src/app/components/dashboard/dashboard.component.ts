@@ -3,6 +3,8 @@ import { AuthService } from '../../services/auth.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications';
 import { ReportService } from 'src/app/services/report.service';
+import { StoreService } from 'src/app/services/store.service';
+import { StoreComponent } from '../store/store.component';
 
 
 declare var $;
@@ -11,7 +13,7 @@ declare var $;
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  providers: [AuthService, NotificationsService, ReportService]
+  providers: [AuthService, NotificationsService, ReportService,StoreService]
 })
 export class DashboardComponent implements OnInit, DoCheck {
   public identity;
@@ -25,7 +27,8 @@ export class DashboardComponent implements OnInit, DoCheck {
 
 
   constructor(private _authService: AuthService, private _router: Router,
-    private _route: ActivatedRoute, private _service: NotificationsService, private _reportService: ReportService) {
+    private _route: ActivatedRoute, private _service: NotificationsService, private _reportService: ReportService,
+    private _storeService: StoreService) {
 
   }
 
@@ -44,6 +47,21 @@ export class DashboardComponent implements OnInit, DoCheck {
     this.view_profile = 0;
     console.log(this.identity.rol);
     console.log(this.identity.permisos);
+
+    if (this.role == 'rol_proveedor') {
+      this._storeService.CheckStock(this.identity.id).subscribe(
+        response => {
+          if (response.bandera == 1) {
+            alert("Tienes ordenes de cervezas pendientes. Dirigase a la seccion de ordenes");
+            console.log("Tiene cervezas por reponer");
+          }
+        },
+        error => {
+          console.log(<any>error);
+        }
+      );
+
+    }
 
   }
 

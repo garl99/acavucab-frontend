@@ -58,6 +58,7 @@ import { SellTicketComponent } from './components/sell-ticket/sell-ticket.compon
 import { OffersComponent } from './components/offers/offers.component';
 import { RolComponent } from './components/rol/rol.component';
 
+import { OrdersSuppliersComponent } from './components/orders-suppliers/orders-suppliers.component';
 
 
 @NgModule({
@@ -92,6 +93,7 @@ import { RolComponent } from './components/rol/rol.component';
     OffersComponent,
     RolComponent,
     SPaymentsComponent,
+    OrdersSuppliersComponent,
   ],
   imports: [
     BrowserModule,
